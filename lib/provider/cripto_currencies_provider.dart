@@ -1,6 +1,6 @@
 import 'package:the_exchange_app/constants/cripto_currencies.dart';
 import 'package:the_exchange_app/models/currencies.dart';
-import 'package:the_exchange_app/models/selected_currencies_box.dart';
+import 'package:the_exchange_app/models/currencies_box.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 

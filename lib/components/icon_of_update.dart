@@ -1,3 +1,5 @@
+import 'package:provider/provider.dart';
+import 'package:the_exchange_app/provider/currencies_rates_provider.dart';
 import 'package:the_exchange_app/style/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +16,10 @@ class UpdateIcon extends StatelessWidget {
         size: kIconsSizes,
         color: darkWhite,
       ),
-      onPressed: () {},
+      onPressed: () {
+        Provider.of<CurrenciesRatesProvider>(context, listen: false)
+            .getCurrenciesRates();
+      },
     );
   }
 }

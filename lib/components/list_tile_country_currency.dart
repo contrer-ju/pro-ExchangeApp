@@ -1,6 +1,5 @@
 import 'package:the_exchange_app/provider/countries_currencies_provider.dart';
 import 'package:the_exchange_app/provider/selected_currencies_provider.dart';
-import 'package:the_exchange_app/provider/selected_currencies_rates_provider.dart';
 import 'package:the_exchange_app/style/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,15 +22,6 @@ class CountryCurrencyListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int currencyRateIndex =
-        Provider.of<SelectedCurrenciesRatesProvider>(context, listen: false)
-            .selectedCurrenciesRatesList
-            .indexWhere((item) => item.currencyISOCode == currencyISOCode);
-    final double currencyRate =
-        Provider.of<SelectedCurrenciesRatesProvider>(context, listen: false)
-            .selectedCurrenciesRatesList[currencyRateIndex]
-            .currencyRate;
-
     return Card(
       elevation: kElevationCurrencyCard,
       color: Theme.of(context).scaffoldBackgroundColor,
@@ -65,8 +55,8 @@ class CountryCurrencyListTile extends StatelessWidget {
                   .deletedCurrencyFromList(currencyISOCode);
             } else {
               Provider.of<SelectedCurrenciesProvider>(context, listen: false)
-                  .addCurrencyToList(countryISOCode, currencyName,
-                      currencyISOCode, currencyRate);
+                  .addCurrencyToList(
+                      countryISOCode, currencyName, currencyISOCode);
             }
           },
         ),

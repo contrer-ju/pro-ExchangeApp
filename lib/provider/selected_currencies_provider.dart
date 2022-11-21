@@ -1,5 +1,5 @@
 import 'package:the_exchange_app/models/currencies.dart';
-import 'package:the_exchange_app/models/selected_currencies_box.dart';
+import 'package:the_exchange_app/models/currencies_box.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 
@@ -7,12 +7,13 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
   bool isWaiting = true;
   final boxSelectedCurrenciesList =
       Hive.box<SelectedCurrenciesBox>('selectedCurrenciesBox');
+  final boxCurrenciesRateList =
+      Hive.box<CurrenciesRatesBox>('currenciesRatesBox');
   double baseSelectedCurrencyAmount = 0;
   SelectedCurrencies baseSelectedCurrency = SelectedCurrencies(
     imageID: '',
     currencyName: '',
     currencyISOCode: '',
-    currencyRate: 0,
   );
   List<SelectedCurrencies> selectedCurrenciesList = [];
   List<SelectedCurrencies> selectedToDeleteCurrenciesList = [];
@@ -27,7 +28,6 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
     String selectedImageID,
     String selectedCurrencyName,
     String selectedCurrencyISOCode,
-    double selectedCurrencyRate,
   ) {
     late String imageID;
     switch (selectedCurrencyISOCode) {
@@ -77,7 +77,6 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
       imageID: imageID,
       currencyName: selectedCurrencyName,
       currencyISOCode: selectedCurrencyISOCode,
-      currencyRate: selectedCurrencyRate,
     );
     if (selectedCurrenciesList.isEmpty &&
         baseSelectedCurrency.currencyName == '') {
@@ -99,7 +98,6 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
       baseSelectedCurrency.imageID = "";
       baseSelectedCurrency.currencyName = "";
       baseSelectedCurrency.currencyISOCode = "";
-      baseSelectedCurrency.currencyRate = 0;
       selectedToDeleteCurrenciesList = [];
       searchedToDeleteCurrenciesList = [];
       flag = false;
@@ -112,8 +110,6 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
           selectedCurrenciesList[0].currencyName;
       baseSelectedCurrency.currencyISOCode =
           selectedCurrenciesList[0].currencyISOCode;
-      baseSelectedCurrency.currencyRate =
-          selectedCurrenciesList[0].currencyRate;
       selectedCurrenciesList.removeAt(0);
       selectedToDeleteCurrenciesList.removeAt(0);
       searchedToDeleteCurrenciesList.removeAt(0);
@@ -136,7 +132,6 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
     baseSelectedCurrency.imageID = "";
     baseSelectedCurrency.currencyName = "";
     baseSelectedCurrency.currencyISOCode = "";
-    baseSelectedCurrency.currencyRate = 0;
     selectedCurrenciesList = [];
     selectedToDeleteCurrenciesList = [];
     searchedToDeleteCurrenciesList = [];
@@ -149,7 +144,6 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
       imageID: baseSelectedCurrency.imageID,
       currencyName: baseSelectedCurrency.currencyName,
       currencyISOCode: baseSelectedCurrency.currencyISOCode,
-      currencyRate: baseSelectedCurrency.currencyRate,
     );
     selectedCurrenciesList.add(baseSelectedCurrencyToMove);
     selectedToDeleteCurrenciesList.removeAt(0);
@@ -166,8 +160,6 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
         selectedCurrenciesList[currencyIndex].currencyName;
     baseSelectedCurrency.currencyISOCode =
         selectedCurrenciesList[currencyIndex].currencyISOCode;
-    baseSelectedCurrency.currencyRate =
-        selectedCurrenciesList[currencyIndex].currencyRate;
 
     selectedCurrenciesList.removeAt(currencyIndex);
     selectedToDeleteCurrenciesList
@@ -210,20 +202,28 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void loadCurrenciesList(currenciesRateList) {
+  void loadCurrenciesList() {
     isWaiting = true;
-    final boxLength = boxSelectedCurrenciesList.length;
-    if (boxLength > 0) {
-      for (int i = 0; i < boxLength; i++) {
+    List<CurrenciesRates> currenciesRateList = [];
+    final boxSelectedCurrenciesListLength = boxSelectedCurrenciesList.length;
+    final boxCurrenciesRateListLength = boxCurrenciesRateList.length;
+
+    if (boxSelectedCurrenciesListLength > 0 &&
+        boxCurrenciesRateListLength > 0) {
+      for (int i = 0; i < boxCurrenciesRateListLength; i++) {
+        final storedCurrencyRate = boxCurrenciesRateList.getAt(i);
+        CurrenciesRates currencyRateToAdd = CurrenciesRates(
+            currencyISOCode: storedCurrencyRate!.currencyISOCode,
+            currencyRate: storedCurrencyRate.currencyRate);
+        currenciesRateList.add(currencyRateToAdd);
+      }
+
+      for (int i = 0; i < boxSelectedCurrenciesListLength; i++) {
         final storedCurrency = boxSelectedCurrenciesList.getAt(i);
         SelectedCurrencies currencyToAdd = SelectedCurrencies(
           imageID: storedCurrency!.imageID,
           currencyName: storedCurrency.currencyName,
           currencyISOCode: storedCurrency.currencyISOCode,
-          currencyRate: currenciesRateList[currenciesRateList.indexWhere(
-                  (item) =>
-                      item.currencyISOCode == storedCurrency.currencyISOCode)]
-              .currencyRate,
         );
         if (selectedCurrenciesList.isEmpty &&
             baseSelectedCurrency.currencyName == '') {

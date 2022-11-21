@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-part 'selected_currencies_box.g.dart';
+part 'currencies_box.g.dart';
 
 @HiveType(typeId: 0)
 class SelectedCurrenciesBox extends HiveObject {
@@ -14,5 +14,18 @@ class SelectedCurrenciesBox extends HiveObject {
     required this.imageID,
     required this.currencyName,
     required this.currencyISOCode,
+  });
+}
+
+@HiveType(typeId: 1)
+class CurrenciesRatesBox extends HiveObject {
+  @HiveField(0)
+  final String currencyISOCode;
+  @HiveField(1)
+  final double currencyRate;
+
+  CurrenciesRatesBox({
+    required this.currencyISOCode,
+    required this.currencyRate,
   });
 }
