@@ -15,7 +15,7 @@ const String kErrorOnStorage = 'Error reading storage, please reset App.';
 const String kResetButton = 'Reset';
 
 //Selected Currency Tile Component
-const String kUpdateRates = 'Update the rates first.';
+const String kUpdateRates = 'Rate not updated';
 
 //Amount Dialog Component
 const String kTitleDialog = 'Enter the amount:';
@@ -37,3 +37,9 @@ const String kDialogStay = 'Stay';
 const String kDrawerTitle = 'Exchange App';
 const String kLightThemeOption = 'Light Theme';
 const String kDarkThemeOption = 'Dark Theme';
+
+//Toast Component
+const String kMessageUpdateTrue = "Rates update successful";
+const String kMessageStorageTrue = "Rates load from storage";
+const String kMessageUpdateFail = "Rates could not be updated. Try later";
+const String kMessagePleaseUpdate = "Rates must be updated first.";

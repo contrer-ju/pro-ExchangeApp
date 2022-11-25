@@ -43,6 +43,8 @@ dependencies:
   hive_flutter: ^1.1.0
   currency_text_input_formatter: ^2.1.8
   cloud_firestore: ^4.1.0
+  fluttertoast: ^8.1.1
+  dart_ping: ^7.0.2
 
 dev_dependencies:
   flutter_test:

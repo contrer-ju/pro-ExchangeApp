@@ -70,6 +70,9 @@ const double kSizedBoxHeight = 15.0;
 //Drawer Component
 const double kDrawerWidth = 0.6;
 
+//Toast Component
+const double kToastText = 17;
+
 //******************* Text Styles *********************************/
 
 const TextStyle appBarTitleTextStyle = TextStyle(

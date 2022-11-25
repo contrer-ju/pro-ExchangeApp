@@ -152,4 +152,10 @@ List<CurrenciesRates> kCurrenciesRatesList = [
   CurrenciesRates(currencyISOCode: "bch", currencyRate: 1),
   CurrenciesRates(currencyISOCode: "xlm", currencyRate: 1),
   CurrenciesRates(currencyISOCode: "xmr", currencyRate: 1),
+  CurrenciesRates(currencyISOCode: "vdt", currencyRate: 1),
+  CurrenciesRates(currencyISOCode: "vmo", currencyRate: 1),
+  CurrenciesRates(currencyISOCode: "abl", currencyRate: 1),
+  CurrenciesRates(currencyISOCode: "atu", currencyRate: 1),
+  CurrenciesRates(currencyISOCode: "abo", currencyRate: 1),
+  CurrenciesRates(currencyISOCode: "acc", currencyRate: 1),
 ];

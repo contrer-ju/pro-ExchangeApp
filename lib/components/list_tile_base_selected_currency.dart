@@ -1,5 +1,8 @@
 import 'package:the_exchange_app/components/dialog_amount.dart';
+import 'package:the_exchange_app/constants/strings.dart';
+import 'package:the_exchange_app/provider/currencies_rates_provider.dart';
 import 'package:the_exchange_app/provider/selected_currencies_provider.dart';
+import 'package:the_exchange_app/provider/theme_provider.dart';
 import 'package:the_exchange_app/style/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -43,7 +46,18 @@ class BaseSelectedCurrencyListTile extends StatelessWidget {
         ),
         trailing: GestureDetector(
           onTap: () {
-            showDialog(context: context, builder: (_) => const DialogAmount());
+            Provider.of<CurrenciesRatesProvider>(context, listen: false)
+                    .ratesUpdated
+                ? showDialog(
+                    context: context, builder: (_) => const DialogAmount())
+                : Provider.of<CurrenciesRatesProvider>(context, listen: false)
+                    .showToastAlert(
+                        kMessagePleaseUpdate,
+                        Provider.of<ThemeProvider>(context, listen: false)
+                                .darkThemeSelected
+                            ? darkYellow
+                            : darkGreen,
+                        Theme.of(context).scaffoldBackgroundColor);
           },
           child: Row(
             mainAxisSize: MainAxisSize.min,

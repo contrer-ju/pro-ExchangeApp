@@ -7,8 +7,6 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
   bool isWaiting = true;
   final boxSelectedCurrenciesList =
       Hive.box<SelectedCurrenciesBox>('selectedCurrenciesBox');
-  final boxCurrenciesRateList =
-      Hive.box<CurrenciesRatesBox>('currenciesRatesBox');
   double baseSelectedCurrencyAmount = 0;
   SelectedCurrencies baseSelectedCurrency = SelectedCurrencies(
     imageID: '',
@@ -204,20 +202,9 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
 
   void loadCurrenciesList() {
     isWaiting = true;
-    List<CurrenciesRates> currenciesRateList = [];
     final boxSelectedCurrenciesListLength = boxSelectedCurrenciesList.length;
-    final boxCurrenciesRateListLength = boxCurrenciesRateList.length;
 
-    if (boxSelectedCurrenciesListLength > 0 &&
-        boxCurrenciesRateListLength > 0) {
-      for (int i = 0; i < boxCurrenciesRateListLength; i++) {
-        final storedCurrencyRate = boxCurrenciesRateList.getAt(i);
-        CurrenciesRates currencyRateToAdd = CurrenciesRates(
-            currencyISOCode: storedCurrencyRate!.currencyISOCode,
-            currencyRate: storedCurrencyRate.currencyRate);
-        currenciesRateList.add(currencyRateToAdd);
-      }
-
+    if (boxSelectedCurrenciesListLength > 0) {
       for (int i = 0; i < boxSelectedCurrenciesListLength; i++) {
         final storedCurrency = boxSelectedCurrenciesList.getAt(i);
         SelectedCurrencies currencyToAdd = SelectedCurrencies(
