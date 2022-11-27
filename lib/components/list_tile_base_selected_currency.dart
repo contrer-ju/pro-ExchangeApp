@@ -1,6 +1,5 @@
 import 'package:the_exchange_app/components/dialog_amount.dart';
 import 'package:the_exchange_app/constants/strings.dart';
-import 'package:the_exchange_app/provider/currencies_rates_provider.dart';
 import 'package:the_exchange_app/provider/selected_currencies_provider.dart';
 import 'package:the_exchange_app/provider/theme_provider.dart';
 import 'package:the_exchange_app/style/theme.dart';
@@ -46,24 +45,49 @@ class BaseSelectedCurrencyListTile extends StatelessWidget {
         ),
         trailing: GestureDetector(
           onTap: () {
-            Provider.of<CurrenciesRatesProvider>(context, listen: false)
-                    .ratesUpdated
-                ? showDialog(
-                    context: context, builder: (_) => const DialogAmount())
-                : Provider.of<CurrenciesRatesProvider>(context, listen: false)
+            (!Provider.of<SelectedCurrenciesProvider>(context, listen: false)
+                            .baseSelectedCurrency
+                            .wasRead &&
+                        !Provider.of<SelectedCurrenciesProvider>(context,
+                                listen: false)
+                            .baseSelectedCurrency
+                            .wasUpdated) ||
+                    Provider.of<SelectedCurrenciesProvider>(context,
+                                listen: false)
+                            .baseSelectedCurrency
+                            .currencyRate ==
+                        0
+                ? Provider.of<SelectedCurrenciesProvider>(context,
+                        listen: false)
                     .showToastAlert(
                         kMessagePleaseUpdate,
                         Provider.of<ThemeProvider>(context, listen: false)
                                 .darkThemeSelected
                             ? darkYellow
                             : darkGreen,
-                        Theme.of(context).scaffoldBackgroundColor);
+                        Theme.of(context).scaffoldBackgroundColor)
+                : showDialog(
+                    context: context, builder: (_) => const DialogAmount());
           },
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                '${Provider.of<SelectedCurrenciesProvider>(context).baseSelectedCurrency.currencyISOCode.toUpperCase()} ${currencyAmountFormat.format((Provider.of<SelectedCurrenciesProvider>(context).baseSelectedCurrencyAmount))}',
+                (!Provider.of<SelectedCurrenciesProvider>(context,
+                                    listen: false)
+                                .baseSelectedCurrency
+                                .wasRead &&
+                            !Provider.of<SelectedCurrenciesProvider>(context,
+                                    listen: false)
+                                .baseSelectedCurrency
+                                .wasUpdated) ||
+                        Provider.of<SelectedCurrenciesProvider>(context,
+                                    listen: false)
+                                .baseSelectedCurrency
+                                .currencyRate ==
+                            0
+                    ? '${Provider.of<SelectedCurrenciesProvider>(context).baseSelectedCurrency.currencyISOCode.toUpperCase()} 0.00'
+                    : '${Provider.of<SelectedCurrenciesProvider>(context).baseSelectedCurrency.currencyISOCode.toUpperCase()} ${currencyAmountFormat.format((Provider.of<SelectedCurrenciesProvider>(context).baseSelectedCurrencyAmount))}',
                 style: Theme.of(context).textTheme.headline5,
               ),
               Container(

@@ -46,11 +46,17 @@ class SelectedCurrencies {
   late String imageID;
   late String currencyName;
   late String currencyISOCode;
+  late double currencyRate;
+  late bool wasUpdated;
+  late bool wasRead;
 
   SelectedCurrencies({
     required this.imageID,
     required this.currencyName,
     required this.currencyISOCode,
+    required this.currencyRate,
+    required this.wasUpdated,
+    required this.wasRead,
   });
 }
 

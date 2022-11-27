@@ -7,7 +7,7 @@ import 'package:hive/hive.dart';
 class CriptoCurrenciesProvider extends ChangeNotifier {
   bool isWaiting = true;
   final boxSelectedCurrenciesList =
-      Hive.box<SelectedCurrenciesBox>('selectedCurrenciesBox');
+      Hive.box<SelectedCurrenciesBox>('selectedCurrenciesListBox');
   late List<String> storageImageIDList;
   List<CriptoCurrency> criptoCurrenciesList = kCriptoCurrenciesList;
   List<CriptoCurrency> criptoCurrenciesSearchList = kCriptoCurrenciesList;

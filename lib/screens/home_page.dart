@@ -10,7 +10,6 @@ import 'package:the_exchange_app/constants/strings.dart';
 import 'package:the_exchange_app/models/currencies.dart';
 import 'package:the_exchange_app/provider/countries_currencies_provider.dart';
 import 'package:the_exchange_app/provider/cripto_currencies_provider.dart';
-import 'package:the_exchange_app/provider/currencies_rates_provider.dart';
 import 'package:the_exchange_app/provider/selected_currencies_provider.dart';
 import 'package:the_exchange_app/provider/theme_provider.dart';
 import 'package:the_exchange_app/style/theme.dart';
@@ -42,13 +41,6 @@ class _HomePageState extends State<HomePage> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Color backgroundColor =
-          Provider.of<ThemeProvider>(context, listen: false).darkThemeSelected
-              ? darkYellow
-              : darkGreen;
-      Color textColor = Theme.of(context).scaffoldBackgroundColor;
-      Provider.of<CurrenciesRatesProvider>(context, listen: false)
-          .getCurrenciesRates(backgroundColor, textColor);
       Provider.of<SelectedCurrenciesProvider>(context, listen: false)
           .loadCurrenciesList();
       Provider.of<CountriesCurrenciesProvider>(context, listen: false)
@@ -125,28 +117,40 @@ class _HomePageState extends State<HomePage> {
                                   child: ListTile(
                                     leading: GestureDetector(
                                       onTap: () {
-                                        Provider.of<SelectedCurrenciesProvider>(context, listen: false).setBaseSelectedCurrency(
+                                        if ((!selectedCurrenciesList[index]
+                                                    .wasUpdated &&
+                                                !selectedCurrenciesList[index]
+                                                    .wasRead) ||
                                             selectedCurrenciesList[index]
-                                                .imageID,
-                                            baseSelectedAmount *
-                                                Provider.of<CurrenciesRatesProvider>(context, listen: false)
-                                                    .currenciesRatesList[Provider.of<CurrenciesRatesProvider>(context, listen: false)
-                                                        .currenciesRatesList
-                                                        .indexWhere((item) =>
-                                                            item.currencyISOCode ==
-                                                            selectedCurrenciesList[index]
-                                                                .currencyISOCode)]
-                                                    .currencyRate /
-                                                Provider.of<CurrenciesRatesProvider>(
-                                                        context,
-                                                        listen: false)
-                                                    .currenciesRatesList[
-                                                        Provider.of<CurrenciesRatesProvider>(
-                                                                context,
-                                                                listen: false)
-                                                            .currenciesRatesList
-                                                            .indexWhere((item) => item.currencyISOCode == baseSelectedCurrency.currencyISOCode)]
-                                                    .currencyRate);
+                                                    .currencyRate ==
+                                                0) {
+                                          Provider.of<SelectedCurrenciesProvider>(
+                                                  context,
+                                                  listen: false)
+                                              .showToastAlert(
+                                                  kMessagePleaseUpdate,
+                                                  Provider.of<ThemeProvider>(
+                                                              context,
+                                                              listen: false)
+                                                          .darkThemeSelected
+                                                      ? darkYellow
+                                                      : darkGreen,
+                                                  Theme.of(context)
+                                                      .scaffoldBackgroundColor);
+                                        } else {
+                                          Provider.of<SelectedCurrenciesProvider>(
+                                                  context,
+                                                  listen: false)
+                                              .setBaseSelectedCurrency(
+                                                  selectedCurrenciesList[index]
+                                                      .imageID,
+                                                  baseSelectedAmount *
+                                                      selectedCurrenciesList[
+                                                              index]
+                                                          .currencyRate /
+                                                      baseSelectedCurrency
+                                                          .currencyRate);
+                                        }
                                       },
                                       child: Image(
                                         width: kFlagImageWidth,
@@ -162,14 +166,15 @@ class _HomePageState extends State<HomePage> {
                                           Theme.of(context).textTheme.headline3,
                                     ),
                                     subtitle: Text(
-                                      Provider.of<CurrenciesRatesProvider>(
-                                                      context)
-                                                  .ratesUpdated ||
-                                              Provider.of<CurrenciesRatesProvider>(
-                                                      context)
-                                                  .ratesRead
-                                          ? '1 ${baseSelectedCurrency.currencyISOCode.toUpperCase()} = ${currencyRateFormat.format(Provider.of<CurrenciesRatesProvider>(context).currenciesRatesList[Provider.of<CurrenciesRatesProvider>(context).currenciesRatesList.indexWhere((item) => item.currencyISOCode == selectedCurrenciesList[index].currencyISOCode)].currencyRate / Provider.of<CurrenciesRatesProvider>(context).currenciesRatesList[Provider.of<CurrenciesRatesProvider>(context).currenciesRatesList.indexWhere((item) => item.currencyISOCode == baseSelectedCurrency.currencyISOCode)].currencyRate)} ${selectedCurrenciesList[index].currencyISOCode.toUpperCase()}'
-                                          : kUpdateRates,
+                                      (!selectedCurrenciesList[index]
+                                                      .wasUpdated &&
+                                                  !selectedCurrenciesList[index]
+                                                      .wasRead) ||
+                                              selectedCurrenciesList[index]
+                                                      .currencyRate ==
+                                                  0
+                                          ? kUpdateRates
+                                          : '1 ${baseSelectedCurrency.currencyISOCode.toUpperCase()} = ${currencyRateFormat.format(selectedCurrenciesList[index].currencyRate / baseSelectedCurrency.currencyRate)} ${selectedCurrenciesList[index].currencyISOCode.toUpperCase()}',
                                       style:
                                           Theme.of(context).textTheme.headline4,
                                     ),
@@ -178,40 +183,15 @@ class _HomePageState extends State<HomePage> {
                                       children: [
                                         GestureDetector(
                                           onTap: () {
-                                            if (Provider.of<CurrenciesRatesProvider>(
-                                                        context,
-                                                        listen: false)
-                                                    .ratesUpdated ||
-                                                Provider.of<CurrenciesRatesProvider>(
-                                                        context,
-                                                        listen: false)
-                                                    .ratesRead) {
-                                              Provider.of<SelectedCurrenciesProvider>(context, listen: false).setBaseSelectedCurrency(
-                                                  selectedCurrenciesList[index]
-                                                      .imageID,
-                                                  baseSelectedAmount *
-                                                      Provider.of<CurrenciesRatesProvider>(context, listen: false)
-                                                          .currenciesRatesList[Provider.of<CurrenciesRatesProvider>(context,
-                                                                  listen: false)
-                                                              .currenciesRatesList
-                                                              .indexWhere((item) =>
-                                                                  item.currencyISOCode ==
-                                                                  selectedCurrenciesList[index]
-                                                                      .currencyISOCode)]
-                                                          .currencyRate /
-                                                      Provider.of<CurrenciesRatesProvider>(context,
-                                                              listen: false)
-                                                          .currenciesRatesList[
-                                                              Provider.of<CurrenciesRatesProvider>(context, listen: false)
-                                                                  .currenciesRatesList
-                                                                  .indexWhere((item) => item.currencyISOCode == baseSelectedCurrency.currencyISOCode)]
-                                                          .currencyRate);
-                                              showDialog(
-                                                  context: context,
-                                                  builder: (_) =>
-                                                      const DialogAmount());
-                                            } else {
-                                              Provider.of<CurrenciesRatesProvider>(
+                                            if ((!selectedCurrenciesList[index]
+                                                        .wasUpdated &&
+                                                    !selectedCurrenciesList[
+                                                            index]
+                                                        .wasRead) ||
+                                                selectedCurrenciesList[index]
+                                                        .currencyRate ==
+                                                    0) {
+                                              Provider.of<SelectedCurrenciesProvider>(
                                                       context,
                                                       listen: false)
                                                   .showToastAlert(
@@ -224,10 +204,38 @@ class _HomePageState extends State<HomePage> {
                                                           : darkGreen,
                                                       Theme.of(context)
                                                           .scaffoldBackgroundColor);
+                                            } else {
+                                              Provider.of<SelectedCurrenciesProvider>(
+                                                      context,
+                                                      listen: false)
+                                                  .setBaseSelectedCurrency(
+                                                      selectedCurrenciesList[
+                                                              index]
+                                                          .imageID,
+                                                      baseSelectedAmount *
+                                                          selectedCurrenciesList[
+                                                                  index]
+                                                              .currencyRate /
+                                                          baseSelectedCurrency
+                                                              .currencyRate);
+                                              showDialog(
+                                                  context: context,
+                                                  builder: (_) =>
+                                                      const DialogAmount());
                                             }
                                           },
                                           child: Text(
-                                            '${selectedCurrenciesList[index].currencyISOCode.toUpperCase()} ${currencyAmountFormat.format(baseSelectedAmount * Provider.of<CurrenciesRatesProvider>(context).currenciesRatesList[Provider.of<CurrenciesRatesProvider>(context).currenciesRatesList.indexWhere((item) => item.currencyISOCode == selectedCurrenciesList[index].currencyISOCode)].currencyRate / Provider.of<CurrenciesRatesProvider>(context).currenciesRatesList[Provider.of<CurrenciesRatesProvider>(context).currenciesRatesList.indexWhere((item) => item.currencyISOCode == baseSelectedCurrency.currencyISOCode)].currencyRate)}',
+                                            (!selectedCurrenciesList[index]
+                                                            .wasUpdated &&
+                                                        !selectedCurrenciesList[
+                                                                index]
+                                                            .wasRead) ||
+                                                    selectedCurrenciesList[
+                                                                index]
+                                                            .currencyRate ==
+                                                        0
+                                                ? '${selectedCurrenciesList[index].currencyISOCode.toUpperCase()} 0.00'
+                                                : '${selectedCurrenciesList[index].currencyISOCode.toUpperCase()} ${currencyAmountFormat.format(baseSelectedAmount * selectedCurrenciesList[index].currencyRate / baseSelectedCurrency.currencyRate)}',
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .headline5,

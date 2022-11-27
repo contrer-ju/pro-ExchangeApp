@@ -1,7 +1,6 @@
 import 'package:the_exchange_app/models/currencies_box.dart';
 import 'package:the_exchange_app/provider/countries_currencies_provider.dart';
 import 'package:the_exchange_app/provider/cripto_currencies_provider.dart';
-import 'package:the_exchange_app/provider/currencies_rates_provider.dart';
 import 'package:the_exchange_app/provider/references_currencies_provider.dart';
 import 'package:the_exchange_app/provider/selected_currencies_provider.dart';
 import 'package:the_exchange_app/provider/theme_provider.dart';
@@ -20,10 +19,8 @@ void main() async {
   );
   await Hive.initFlutter();
   await Hive.openBox('darkThemeSelectedBox');
-  Hive.registerAdapter(CurrenciesRatesBoxAdapter());
-  await Hive.openBox<CurrenciesRatesBox>('currenciesRatesBox');
   Hive.registerAdapter(SelectedCurrenciesBoxAdapter());
-  await Hive.openBox<SelectedCurrenciesBox>('selectedCurrenciesBox');
+  await Hive.openBox<SelectedCurrenciesBox>('selectedCurrenciesListBox');
   MobileAds.instance.initialize();
   runApp(const ExchangeApp());
 }
@@ -40,7 +37,6 @@ class ExchangeApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => CriptoCurrenciesProvider()),
         ChangeNotifierProvider(create: (_) => ReferenceCurrenciesProvider()),
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
-        ChangeNotifierProvider(create: (_) => CurrenciesRatesProvider()),
       ],
       builder: (context, child) {
         return MaterialApp(

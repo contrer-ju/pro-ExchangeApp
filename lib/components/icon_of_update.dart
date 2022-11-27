@@ -1,5 +1,5 @@
 import 'package:provider/provider.dart';
-import 'package:the_exchange_app/provider/currencies_rates_provider.dart';
+import 'package:the_exchange_app/provider/selected_currencies_provider.dart';
 import 'package:the_exchange_app/provider/theme_provider.dart';
 import 'package:the_exchange_app/style/theme.dart';
 import 'package:flutter/material.dart';
@@ -18,14 +18,18 @@ class UpdateIcon extends StatelessWidget {
     Color textColor = Theme.of(context).scaffoldBackgroundColor;
 
     return IconButton(
-      icon: const Icon(
-        Icons.restore,
+      icon: Icon(
+        Provider.of<SelectedCurrenciesProvider>(context).isUpdating
+            ? Icons.lock_clock
+            : Icons.restore,
         size: kIconsSizes,
         color: darkWhite,
       ),
       onPressed: () {
-        Provider.of<CurrenciesRatesProvider>(context, listen: false)
-            .getCurrenciesRates(backgroundColor, textColor);
+        Provider.of<SelectedCurrenciesProvider>(context, listen: false)
+            .setTrueIsUpdating();
+        Provider.of<SelectedCurrenciesProvider>(context, listen: false)
+            .updateRatesCurrenciesList(backgroundColor, textColor);
       },
     );
   }
