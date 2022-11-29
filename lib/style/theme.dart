@@ -130,6 +130,11 @@ ThemeData customDarkTheme = ThemeData(
       fontSize: 20,
       fontWeight: FontWeight.w600,
     ),
+    subtitle2: TextStyle(
+      color: darkWhite,
+      fontSize: 14,
+      fontWeight: FontWeight.w400,
+    ),
   ),
 );
 
@@ -174,6 +179,11 @@ ThemeData customLightTheme = ThemeData(
       color: lightYellow,
       fontSize: 20,
       fontWeight: FontWeight.w600,
+    ),
+    subtitle2: TextStyle(
+      color: darkGreen,
+      fontSize: 14,
+      fontWeight: FontWeight.w400,
     ),
   ),
 );

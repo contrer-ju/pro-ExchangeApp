@@ -33,11 +33,13 @@ class CriptoCurrency {
 class ReferenceCurrency {
   final String referenceName;
   final String referenceID;
+  final String country;
   late bool isChecked;
 
   ReferenceCurrency({
     required this.referenceName,
     required this.referenceID,
+    required this.country,
     required this.isChecked,
   });
 }

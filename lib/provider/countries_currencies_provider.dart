@@ -9,6 +9,7 @@ class CountriesCurrenciesProvider extends ChangeNotifier {
   final boxSelectedCurrenciesList =
       Hive.box<SelectedCurrenciesBox>('selectedCurrenciesListBox');
   late List<String> storageImageIDList;
+  String countrySearchKeyword = "";
   List<CountryCurrency> countriesCurrenciesList = kCountriesCurrenciesList;
   List<CountryCurrency> countryCurrenciesSearchList = kCountriesCurrenciesList;
 
@@ -42,11 +43,13 @@ class CountriesCurrenciesProvider extends ChangeNotifier {
                 .toLowerCase()
                 .contains(currencyKeyword.toLowerCase()))
         .toList();
+    countrySearchKeyword = currencyKeyword;
     notifyListeners();
   }
 
   void clearCountryCurrenciesSearchList() {
     countryCurrenciesSearchList = countriesCurrenciesList;
+    countrySearchKeyword = "";
     notifyListeners();
   }
 

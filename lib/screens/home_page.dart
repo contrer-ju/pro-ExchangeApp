@@ -174,9 +174,9 @@ class _HomePageState extends State<HomePage> {
                                                       .currencyRate ==
                                                   0
                                           ? kUpdateRates
-                                          : '1 ${baseSelectedCurrency.currencyISOCode.toUpperCase()} = ${currencyRateFormat.format(selectedCurrenciesList[index].currencyRate / baseSelectedCurrency.currencyRate)} ${selectedCurrenciesList[index].currencyISOCode.toUpperCase()}',
+                                          : '1 ${baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : baseSelectedCurrency.currencyISOCode.toUpperCase()} = ${currencyRateFormat.format(selectedCurrenciesList[index].currencyRate / baseSelectedCurrency.currencyRate)} ${selectedCurrenciesList[index].currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : selectedCurrenciesList[index].currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : selectedCurrenciesList[index].currencyISOCode.toUpperCase()}',
                                       style:
-                                          Theme.of(context).textTheme.headline4,
+                                          Theme.of(context).textTheme.subtitle2,
                                     ),
                                     trailing: Row(
                                       mainAxisSize: MainAxisSize.min,
@@ -234,8 +234,8 @@ class _HomePageState extends State<HomePage> {
                                                                 index]
                                                             .currencyRate ==
                                                         0
-                                                ? '${selectedCurrenciesList[index].currencyISOCode.toUpperCase()} 0.00'
-                                                : '${selectedCurrenciesList[index].currencyISOCode.toUpperCase()} ${currencyAmountFormat.format(baseSelectedAmount * selectedCurrenciesList[index].currencyRate / baseSelectedCurrency.currencyRate)}',
+                                                ? '${selectedCurrenciesList[index].currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : selectedCurrenciesList[index].currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : selectedCurrenciesList[index].currencyISOCode.toUpperCase()} 0.00'
+                                                : '${selectedCurrenciesList[index].currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : selectedCurrenciesList[index].currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : selectedCurrenciesList[index].currencyISOCode.toUpperCase()} ${currencyAmountFormat.format(baseSelectedAmount * selectedCurrenciesList[index].currencyRate / baseSelectedCurrency.currencyRate)}',
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .headline5,

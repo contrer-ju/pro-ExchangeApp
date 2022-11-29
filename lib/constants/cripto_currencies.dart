@@ -46,4 +46,9 @@ List<CriptoCurrency> kCriptoCurrenciesList = [
     currencyISOCode: 'xmr',
     isChecked: false,
   ),
+  CriptoCurrency(
+    currencyName: 'Petro',
+    currencyISOCode: 'ptr',
+    isChecked: false,
+  ),
 ];

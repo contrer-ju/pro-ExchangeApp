@@ -9,6 +9,7 @@ class CriptoCurrenciesProvider extends ChangeNotifier {
   final boxSelectedCurrenciesList =
       Hive.box<SelectedCurrenciesBox>('selectedCurrenciesListBox');
   late List<String> storageImageIDList;
+  String criptoSearchKeyword = "";
   List<CriptoCurrency> criptoCurrenciesList = kCriptoCurrenciesList;
   List<CriptoCurrency> criptoCurrenciesSearchList = kCriptoCurrenciesList;
 
@@ -40,11 +41,13 @@ class CriptoCurrenciesProvider extends ChangeNotifier {
                 .toLowerCase()
                 .contains(criptoKeyword.toLowerCase()))
         .toList();
+    criptoSearchKeyword = criptoKeyword;
     notifyListeners();
   }
 
   void clearCriptoCurrenciesSearchList() {
     criptoCurrenciesSearchList = criptoCurrenciesList;
+    criptoSearchKeyword = "";
     notifyListeners();
   }
 

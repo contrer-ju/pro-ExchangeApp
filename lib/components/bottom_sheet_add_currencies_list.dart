@@ -1,8 +1,10 @@
 import 'package:the_exchange_app/components/list_view_country_currency.dart';
 import 'package:the_exchange_app/components/list_view_cripto_currency.dart';
+import 'package:the_exchange_app/components/list_view_reference_currency.dart';
 import 'package:the_exchange_app/constants/strings.dart';
 import 'package:the_exchange_app/provider/countries_currencies_provider.dart';
 import 'package:the_exchange_app/provider/cripto_currencies_provider.dart';
+import 'package:the_exchange_app/provider/references_currencies_provider.dart';
 import 'package:the_exchange_app/provider/theme_provider.dart';
 import 'package:the_exchange_app/style/theme.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +65,9 @@ class BottomSheetAddCurrenciesList extends StatelessWidget {
                         Provider.of<CriptoCurrenciesProvider>(context,
                                 listen: false)
                             .clearCriptoCurrenciesSearchList();
-                        //Falta la funcion para reference
+                        Provider.of<ReferenceCurrenciesProvider>(context,
+                                listen: false)
+                            .clearReferenceCurrenciesSearchList();
                         Navigator.pop(context);
                       },
                     ),
@@ -96,6 +100,10 @@ class BottomSheetAddCurrenciesList extends StatelessWidget {
                                   Provider.of<CriptoCurrenciesProvider>(context,
                                           listen: false)
                                       .clearCriptoCurrenciesSearchList();
+                                  Provider.of<ReferenceCurrenciesProvider>(
+                                          context,
+                                          listen: false)
+                                      .clearReferenceCurrenciesSearchList();
                                   FocusManager.instance.primaryFocus?.unfocus();
                                 },
                                 tabs: const [
@@ -131,7 +139,12 @@ class BottomSheetAddCurrenciesList extends StatelessWidget {
                                     ),
                                     suffixIcon: IconButton(
                                       icon: Icon(
-                                        Icons.clear,
+                                        Provider.of<CountriesCurrenciesProvider>(
+                                                        context)
+                                                    .countrySearchKeyword ==
+                                                ""
+                                            ? Icons.search
+                                            : Icons.clear,
                                         size: kIconsSizes,
                                         color: Theme.of(context).primaryColor,
                                       ),
@@ -176,7 +189,12 @@ class BottomSheetAddCurrenciesList extends StatelessWidget {
                                     ),
                                     suffixIcon: IconButton(
                                       icon: Icon(
-                                        Icons.clear,
+                                        Provider.of<CriptoCurrenciesProvider>(
+                                                        context)
+                                                    .criptoSearchKeyword ==
+                                                ""
+                                            ? Icons.search
+                                            : Icons.clear,
                                         size: kIconsSizes,
                                         color: Theme.of(context).primaryColor,
                                       ),
@@ -206,7 +224,12 @@ class BottomSheetAddCurrenciesList extends StatelessWidget {
                                 child: TextField(
                                   style: Theme.of(context).textTheme.headline2,
                                   controller: referenceController,
-                                  onChanged: (value) {},
+                                  onChanged: (value) {
+                                    Provider.of<ReferenceCurrenciesProvider>(
+                                            context,
+                                            listen: false)
+                                        .searchKeywordOnReferenceList(value);
+                                  },
                                   decoration: InputDecoration(
                                     hintText: kSearchBoxHint,
                                     hintStyle:
@@ -217,7 +240,12 @@ class BottomSheetAddCurrenciesList extends StatelessWidget {
                                     ),
                                     suffixIcon: IconButton(
                                       icon: Icon(
-                                        Icons.clear,
+                                        Provider.of<ReferenceCurrenciesProvider>(
+                                                        context)
+                                                    .referenceSearchKeyword ==
+                                                ""
+                                            ? Icons.search
+                                            : Icons.clear,
                                         size: kIconsSizes,
                                         color: Theme.of(context).primaryColor,
                                       ),
@@ -225,13 +253,18 @@ class BottomSheetAddCurrenciesList extends StatelessWidget {
                                         referenceController.clear();
                                         FocusManager.instance.primaryFocus
                                             ?.unfocus();
+                                        Provider.of<ReferenceCurrenciesProvider>(
+                                                context,
+                                                listen: false)
+                                            .clearReferenceCurrenciesSearchList();
                                       },
                                     ),
                                   ),
                                 ),
                               ),
                               const Expanded(
-                                  child: Icon(Icons.directions_bike)),
+                                child: ReferenceCurrencyListView(),
+                              ),
                             ],
                           ),
                         ]),

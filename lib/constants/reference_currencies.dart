@@ -2,23 +2,21 @@ import 'package:the_exchange_app/models/currencies.dart';
 
 List<ReferenceCurrency> kReferenceCurrenciesList = [
   ReferenceCurrency(
-    referenceName: 'Airtm',
-    referenceID: 'ada',
+    referenceName: 'Dólar Today',
+    referenceID: 'rv_dto',
     isChecked: false,
+    country: 'Venezuela',
   ),
   ReferenceCurrency(
-    referenceName: 'LocalBitcoins',
-    referenceID: 'avax',
+    referenceName: 'Monitor Dólar',
+    referenceID: 'rv_mdo',
     isChecked: false,
+    country: 'Venezuela',
   ),
   ReferenceCurrency(
-    referenceName: 'USDT BNB Vzla',
-    referenceID: 'bnb',
+    referenceName: 'Dólar Blue',
+    referenceID: 'ra_dbl',
     isChecked: false,
-  ),
-  ReferenceCurrency(
-    referenceName: 'Cambios R&A',
-    referenceID: 'busd',
-    isChecked: false,
+    country: 'Argentina',
   ),
 ];

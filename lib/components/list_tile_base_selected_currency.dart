@@ -38,10 +38,22 @@ class BaseSelectedCurrencyListTile extends StatelessWidget {
         ),
         subtitle: Text(
           Provider.of<SelectedCurrenciesProvider>(context)
-              .baseSelectedCurrency
-              .currencyISOCode
-              .toUpperCase(),
-          style: Theme.of(context).textTheme.headline4,
+                      .baseSelectedCurrency
+                      .currencyISOCode
+                      .substring(0, 3) ==
+                  'rv_'
+              ? 'VES'
+              : Provider.of<SelectedCurrenciesProvider>(context)
+                          .baseSelectedCurrency
+                          .currencyISOCode
+                          .substring(0, 3) ==
+                      'ra_'
+                  ? 'ARS'
+                  : Provider.of<SelectedCurrenciesProvider>(context)
+                      .baseSelectedCurrency
+                      .currencyISOCode
+                      .toUpperCase(),
+          style: Theme.of(context).textTheme.subtitle2,
         ),
         trailing: GestureDetector(
           onTap: () {
@@ -86,8 +98,8 @@ class BaseSelectedCurrencyListTile extends StatelessWidget {
                                 .baseSelectedCurrency
                                 .currencyRate ==
                             0
-                    ? '${Provider.of<SelectedCurrenciesProvider>(context).baseSelectedCurrency.currencyISOCode.toUpperCase()} 0.00'
-                    : '${Provider.of<SelectedCurrenciesProvider>(context).baseSelectedCurrency.currencyISOCode.toUpperCase()} ${currencyAmountFormat.format((Provider.of<SelectedCurrenciesProvider>(context).baseSelectedCurrencyAmount))}',
+                    ? '${Provider.of<SelectedCurrenciesProvider>(context).baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : Provider.of<SelectedCurrenciesProvider>(context).baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : Provider.of<SelectedCurrenciesProvider>(context).baseSelectedCurrency.currencyISOCode.toUpperCase()} 0.00'
+                    : '${Provider.of<SelectedCurrenciesProvider>(context).baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : Provider.of<SelectedCurrenciesProvider>(context).baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : Provider.of<SelectedCurrenciesProvider>(context).baseSelectedCurrency.currencyISOCode.toUpperCase()} ${currencyAmountFormat.format((Provider.of<SelectedCurrenciesProvider>(context).baseSelectedCurrencyAmount))}',
                 style: Theme.of(context).textTheme.headline5,
               ),
               Container(

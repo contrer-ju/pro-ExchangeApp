@@ -39,7 +39,7 @@ class DeleteSelectedCurrencyListTile extends StatelessWidget {
         ),
         subtitle: Text(
           currencyISOCode.toUpperCase(),
-          style: Theme.of(context).textTheme.headline4,
+          style: Theme.of(context).textTheme.subtitle2,
         ),
         trailing: IconButton(
           icon: Icon(

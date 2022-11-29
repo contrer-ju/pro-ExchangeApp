@@ -1,22 +1,20 @@
-import 'package:the_exchange_app/provider/countries_currencies_provider.dart';
+import 'package:the_exchange_app/provider/references_currencies_provider.dart';
 import 'package:the_exchange_app/provider/selected_currencies_provider.dart';
 import 'package:the_exchange_app/style/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class CountryCurrencyListTile extends StatelessWidget {
-  final String countryName;
-  final String countryISOCode;
-  final String currencyName;
-  final String currencyISOCode;
+class ReferenceCurrencyListTile extends StatelessWidget {
+  final String referenceName;
+  final String referenceID;
+  final String country;
   final bool isChecked;
 
-  const CountryCurrencyListTile({
+  const ReferenceCurrencyListTile({
     Key? key,
-    required this.countryName,
-    required this.countryISOCode,
-    required this.currencyName,
-    required this.currencyISOCode,
+    required this.referenceName,
+    required this.referenceID,
+    required this.country,
     required this.isChecked,
   }) : super(key: key);
 
@@ -33,16 +31,14 @@ class CountryCurrencyListTile extends StatelessWidget {
         leading: Image(
           width: kFlagImageWidth,
           height: kFlagImageHeight,
-          image: AssetImage('images/$countryISOCode.png'),
+          image: AssetImage('images/$referenceID.png'),
         ),
         title: Text(
-          countryName,
+          referenceName,
           style: Theme.of(context).textTheme.headline3,
         ),
         subtitle: Text(
-          currencyISOCode.substring(0, 3) == 'ra_'
-              ? '$currencyName (ARS)'
-              : '$currencyName (${currencyISOCode.toUpperCase()})',
+          country,
           style: Theme.of(context).textTheme.subtitle2,
         ),
         trailing: Checkbox(
@@ -50,15 +46,14 @@ class CountryCurrencyListTile extends StatelessWidget {
           checkColor: Theme.of(context).primaryColor,
           value: isChecked,
           onChanged: (bool? value) {
-            Provider.of<CountriesCurrenciesProvider>(context, listen: false)
-                .toggleCheckboxOfCurrency(currencyISOCode);
+            Provider.of<ReferenceCurrenciesProvider>(context, listen: false)
+                .toggleCheckboxOfCurrency(referenceID);
             if (isChecked) {
               Provider.of<SelectedCurrenciesProvider>(context, listen: false)
-                  .deletedCurrencyFromList(currencyISOCode);
+                  .deletedCurrencyFromList(referenceID);
             } else {
               Provider.of<SelectedCurrenciesProvider>(context, listen: false)
-                  .addCurrencyToList(
-                      countryISOCode, currencyName, currencyISOCode);
+                  .addCurrencyToList(referenceID, referenceName, referenceID);
             }
           },
         ),
