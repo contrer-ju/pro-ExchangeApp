@@ -10,6 +10,7 @@ import 'package:the_exchange_app/constants/strings.dart';
 import 'package:the_exchange_app/models/currencies.dart';
 import 'package:the_exchange_app/provider/countries_currencies_provider.dart';
 import 'package:the_exchange_app/provider/cripto_currencies_provider.dart';
+import 'package:the_exchange_app/provider/references_currencies_provider.dart';
 import 'package:the_exchange_app/provider/selected_currencies_provider.dart';
 import 'package:the_exchange_app/provider/theme_provider.dart';
 import 'package:the_exchange_app/style/theme.dart';
@@ -47,6 +48,8 @@ class _HomePageState extends State<HomePage> {
           .loadCountryList();
       Provider.of<CriptoCurrenciesProvider>(context, listen: false)
           .loadCriptoList();
+      Provider.of<ReferenceCurrenciesProvider>(context, listen: false)
+          .loadReferenceList();
     });
   }
 

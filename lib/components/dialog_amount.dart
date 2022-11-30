@@ -27,8 +27,19 @@ class DialogAmount extends StatelessWidget {
         inputFormatters: [
           CurrencyTextInputFormatter(
             decimalDigits: 2,
-            symbol:
-                "${Provider.of<SelectedCurrenciesProvider>(context).baseSelectedCurrency.currencyISOCode.toUpperCase()} ",
+            symbol: Provider.of<SelectedCurrenciesProvider>(context)
+                        .baseSelectedCurrency
+                        .currencyISOCode
+                        .substring(0, 3) ==
+                    'rv_'
+                ? 'VES '
+                : Provider.of<SelectedCurrenciesProvider>(context)
+                            .baseSelectedCurrency
+                            .currencyISOCode
+                            .substring(0, 3) ==
+                        'ra_'
+                    ? 'ARS '
+                    : "${Provider.of<SelectedCurrenciesProvider>(context).baseSelectedCurrency.currencyISOCode.toUpperCase()} ",
           )
         ],
         decoration: InputDecoration(
