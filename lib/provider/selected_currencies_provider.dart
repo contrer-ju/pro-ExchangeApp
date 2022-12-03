@@ -13,11 +13,13 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
   bool isUpdating = false;
   final boxSelectedCurrenciesList =
       Hive.box<SelectedCurrenciesBox>('selectedCurrenciesListBox');
-  double baseSelectedCurrencyAmount = 0;
+  double baseSelectedCurrencyAmount =
+      Hive.box('baseSelectedAmount').get('value') ?? 0;
   List currenciesRatesList = [];
   SelectedCurrencies baseSelectedCurrency = SelectedCurrencies(
     imageID: '',
     currencyName: '',
+    nombreMoneda: '',
     currencyISOCode: '',
     currencyRate: 1,
     wasUpdated: false,
@@ -75,6 +77,7 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
   void addCurrencyToList(
     String selectedImageID,
     String selectedCurrencyName,
+    String selectedNombreMoneda,
     String selectedCurrencyISOCode,
   ) {
     late String imageID;
@@ -132,6 +135,7 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
     SelectedCurrencies currencyToAdd = SelectedCurrencies(
       imageID: imageID,
       currencyName: selectedCurrencyName,
+      nombreMoneda: selectedNombreMoneda,
       currencyISOCode: selectedCurrencyISOCode,
       currencyRate: selectedCurrencyRate,
       wasUpdated: selectedCurrencyRate != 0 ? true : false,
@@ -156,6 +160,7 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
         selectedCurrenciesList.isEmpty) {
       baseSelectedCurrency.imageID = "";
       baseSelectedCurrency.currencyName = "";
+      baseSelectedCurrency.nombreMoneda = "";
       baseSelectedCurrency.currencyISOCode = "";
       baseSelectedCurrency.currencyRate = 1;
       baseSelectedCurrency.wasUpdated = false;
@@ -170,6 +175,8 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
       baseSelectedCurrency.imageID = selectedCurrenciesList[0].imageID;
       baseSelectedCurrency.currencyName =
           selectedCurrenciesList[0].currencyName;
+      baseSelectedCurrency.nombreMoneda =
+          selectedCurrenciesList[0].nombreMoneda;
       baseSelectedCurrency.currencyISOCode =
           selectedCurrenciesList[0].currencyISOCode;
       baseSelectedCurrency.currencyRate =
@@ -197,6 +204,7 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
   void emptyCurrenciesList() {
     baseSelectedCurrency.imageID = "";
     baseSelectedCurrency.currencyName = "";
+    baseSelectedCurrency.nombreMoneda = "";
     baseSelectedCurrency.currencyISOCode = "";
     baseSelectedCurrency.currencyRate = 1;
     baseSelectedCurrency.wasUpdated = false;
@@ -212,6 +220,7 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
     SelectedCurrencies baseSelectedCurrencyToMove = SelectedCurrencies(
       imageID: baseSelectedCurrency.imageID,
       currencyName: baseSelectedCurrency.currencyName,
+      nombreMoneda: baseSelectedCurrency.nombreMoneda,
       currencyISOCode: baseSelectedCurrency.currencyISOCode,
       currencyRate: baseSelectedCurrency.currencyRate,
       wasUpdated: baseSelectedCurrency.wasUpdated,
@@ -230,6 +239,8 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
         selectedCurrenciesList[currencyIndex].imageID;
     baseSelectedCurrency.currencyName =
         selectedCurrenciesList[currencyIndex].currencyName;
+    baseSelectedCurrency.nombreMoneda =
+        selectedCurrenciesList[currencyIndex].nombreMoneda;
     baseSelectedCurrency.currencyISOCode =
         selectedCurrenciesList[currencyIndex].currencyISOCode;
     baseSelectedCurrency.currencyRate =
@@ -264,6 +275,9 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
     searchedToDeleteCurrenciesList = selectedToDeleteCurrenciesList
         .where((item) =>
             item.currencyName
+                .toLowerCase()
+                .contains(currencyKeyword.toLowerCase()) ||
+            item.nombreMoneda
                 .toLowerCase()
                 .contains(currencyKeyword.toLowerCase()) ||
             item.currencyISOCode
@@ -302,6 +316,7 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
         SelectedCurrencies currencyToAdd = SelectedCurrencies(
           imageID: storedCurrency.imageID,
           currencyName: storedCurrency.currencyName,
+          nombreMoneda: storedCurrency.nombreMoneda,
           currencyISOCode: storedCurrency.currencyISOCode,
           currencyRate: selectedCurrencyRate,
           wasUpdated: currenciesRatesList.isNotEmpty ? true : false,
@@ -335,6 +350,7 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
       boxSelectedCurrenciesList.add(SelectedCurrenciesBox(
         imageID: baseSelectedCurrency.imageID,
         currencyName: baseSelectedCurrency.currencyName,
+        nombreMoneda: baseSelectedCurrency.nombreMoneda,
         currencyISOCode: baseSelectedCurrency.currencyISOCode,
         currencyRate: baseSelectedCurrency.currencyRate,
       ));
@@ -346,6 +362,7 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
       boxSelectedCurrenciesList.add(SelectedCurrenciesBox(
         imageID: baseSelectedCurrency.imageID,
         currencyName: baseSelectedCurrency.currencyName,
+        nombreMoneda: baseSelectedCurrency.nombreMoneda,
         currencyISOCode: baseSelectedCurrency.currencyISOCode,
         currencyRate: baseSelectedCurrency.currencyRate,
       ));
@@ -353,11 +370,16 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
         boxSelectedCurrenciesList.add(SelectedCurrenciesBox(
           imageID: selectedCurrenciesList[i].imageID,
           currencyName: selectedCurrenciesList[i].currencyName,
+          nombreMoneda: selectedCurrenciesList[i].nombreMoneda,
           currencyISOCode: selectedCurrenciesList[i].currencyISOCode,
           currencyRate: selectedCurrenciesList[i].currencyRate,
         ));
       }
     }
+  }
+
+  void saveBaseSelectedCurrencyAmount() {
+    Hive.box('baseSelectedAmount').put('value', baseSelectedCurrencyAmount);
   }
 
   void showToastAlert(String message, Color bColor, Color tColor) {
@@ -378,7 +400,8 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> updateRatesCurrenciesList(Color bColor, Color tColor) async {
+  Future<void> updateRatesCurrenciesList(
+      Color bColor, Color tColor, bool isEnglish) async {
     if (baseSelectedCurrency.currencyName != '') {
       bool listWasUpdated = false;
       bool hasConnection = await connectionTest();
@@ -413,9 +436,11 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
       isUpdating = false;
       notifyListeners();
       if (listWasUpdated) {
-        showToastAlert(kMessageUpdateTrue, bColor, tColor);
+        showToastAlert(isEnglish ? kMessageUpdateTrue : kEsMessageUpdateTrue,
+            bColor, tColor);
       } else {
-        showToastAlert(kMessageUpdateFail, bColor, tColor);
+        showToastAlert(isEnglish ? kMessageUpdateFail : kEsMessageUpdateFail,
+            bColor, tColor);
       }
     }
   }

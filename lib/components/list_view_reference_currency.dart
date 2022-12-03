@@ -3,6 +3,7 @@ import 'package:the_exchange_app/constants/strings.dart';
 import 'package:the_exchange_app/provider/references_currencies_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:the_exchange_app/provider/theme_provider.dart';
 
 class ReferenceCurrencyListView extends StatelessWidget {
   const ReferenceCurrencyListView({
@@ -16,7 +17,9 @@ class ReferenceCurrencyListView extends StatelessWidget {
             .isEmpty
         ? Center(
             child: Text(
-            kSearchNoResult,
+            Provider.of<ThemeProvider>(context).englishOption
+                ? kSearchNoResult
+                : kEsSearchNoResult,
             style: Theme.of(context).textTheme.headline5,
           ))
         : ListView.builder(
@@ -29,12 +32,19 @@ class ReferenceCurrencyListView extends StatelessWidget {
                       Provider.of<ReferenceCurrenciesProvider>(context)
                           .referencesCurrenciesSearchList[index]
                           .referenceName,
+                  nombreReferencia:
+                      Provider.of<ReferenceCurrenciesProvider>(context)
+                          .referencesCurrenciesSearchList[index]
+                          .nombreReferencia,
                   referenceID: Provider.of<ReferenceCurrenciesProvider>(context)
                       .referencesCurrenciesSearchList[index]
                       .referenceID,
                   country: Provider.of<ReferenceCurrenciesProvider>(context)
                       .referencesCurrenciesSearchList[index]
                       .country,
+                  pais: Provider.of<ReferenceCurrenciesProvider>(context)
+                      .referencesCurrenciesSearchList[index]
+                      .pais,
                   isChecked: Provider.of<ReferenceCurrenciesProvider>(context)
                       .referencesCurrenciesSearchList[index]
                       .isChecked,

@@ -3,6 +3,7 @@ import 'package:the_exchange_app/constants/strings.dart';
 import 'package:the_exchange_app/provider/selected_currencies_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:the_exchange_app/provider/theme_provider.dart';
 
 class DialogAmount extends StatelessWidget {
   const DialogAmount({
@@ -15,7 +16,9 @@ class DialogAmount extends StatelessWidget {
     return AlertDialog(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       title: Text(
-        kTitleDialog,
+        Provider.of<ThemeProvider>(context).englishOption
+            ? kTitleDialog
+            : kEsTitleDialog,
         style: Theme.of(context).textTheme.headline1,
       ),
       content: TextField(
@@ -90,7 +93,9 @@ class DialogAmount extends StatelessWidget {
               Navigator.of(context).pop();
             },
             child: Text(
-              kSubmitButton,
+              Provider.of<ThemeProvider>(context).englishOption
+                  ? kSubmitButton
+                  : kEsSubmitButton,
               style: Theme.of(context).textTheme.headline2,
             ))
       ],

@@ -3,6 +3,7 @@ import 'package:the_exchange_app/constants/strings.dart';
 import 'package:the_exchange_app/provider/selected_currencies_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:the_exchange_app/provider/theme_provider.dart';
 
 class DeleteSelectedCurrencyListView extends StatelessWidget {
   const DeleteSelectedCurrencyListView({
@@ -19,8 +20,12 @@ class DeleteSelectedCurrencyListView extends StatelessWidget {
             Provider.of<SelectedCurrenciesProvider>(context)
                     .selectedCurrenciesList
                     .isEmpty
-                ? kNothingToUpdate
-                : kSearchNoResult,
+                ? Provider.of<ThemeProvider>(context).englishOption
+                    ? kNothingToUpdate
+                    : kEsNothingToUpdate
+                : Provider.of<ThemeProvider>(context).englishOption
+                    ? kSearchNoResult
+                    : kEsSearchNoResult,
             style: Theme.of(context).textTheme.headline5,
           ))
         : ListView.builder(
@@ -35,6 +40,9 @@ class DeleteSelectedCurrencyListView extends StatelessWidget {
                   currencyName: Provider.of<SelectedCurrenciesProvider>(context)
                       .searchedToDeleteCurrenciesList[index]
                       .currencyName,
+                  nombreMoneda: Provider.of<SelectedCurrenciesProvider>(context)
+                      .searchedToDeleteCurrenciesList[index]
+                      .nombreMoneda,
                   currencyISOCode:
                       Provider.of<SelectedCurrenciesProvider>(context)
                           .searchedToDeleteCurrenciesList[index]

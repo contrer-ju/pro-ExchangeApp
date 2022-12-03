@@ -54,7 +54,9 @@ class BottomSheetDeleteCurrenciesList extends StatelessWidget {
                       children: [
                         ElevatedButton(
                           child: Text(
-                            kBottomSheetDelete,
+                            Provider.of<ThemeProvider>(context).englishOption
+                                ? kBottomSheetDelete
+                                : kEsBottomSheetDelete,
                             style: Theme.of(context).textTheme.headline6,
                           ),
                           onPressed: () {
@@ -76,7 +78,9 @@ class BottomSheetDeleteCurrenciesList extends StatelessWidget {
                         ),
                         ElevatedButton(
                           child: Text(
-                            kBottomSheetButton,
+                            Provider.of<ThemeProvider>(context).englishOption
+                                ? kBottomSheetButton
+                                : kEsBottomSheetButton,
                             style: Theme.of(context).textTheme.headline6,
                           ),
                           onPressed: () {
@@ -100,7 +104,10 @@ class BottomSheetDeleteCurrenciesList extends StatelessWidget {
                                   listen: false)
                               .searchKeywordOnSelectedList(value),
                       decoration: InputDecoration(
-                        hintText: kSearchBoxHint,
+                        hintText:
+                            Provider.of<ThemeProvider>(context).englishOption
+                                ? kSearchBoxHint
+                                : kEsSearchBoxHint,
                         hintStyle: Theme.of(context).textTheme.headline4,
                         border: OutlineInputBorder(
                           borderRadius:

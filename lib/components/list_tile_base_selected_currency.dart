@@ -31,9 +31,13 @@ class BaseSelectedCurrencyListTile extends StatelessWidget {
               'images/${Provider.of<SelectedCurrenciesProvider>(context).baseSelectedCurrency.imageID}.png'),
         ),
         title: Text(
-          Provider.of<SelectedCurrenciesProvider>(context)
-              .baseSelectedCurrency
-              .currencyName,
+          Provider.of<ThemeProvider>(context).englishOption
+              ? Provider.of<SelectedCurrenciesProvider>(context)
+                  .baseSelectedCurrency
+                  .currencyName
+              : Provider.of<SelectedCurrenciesProvider>(context)
+                  .baseSelectedCurrency
+                  .nombreMoneda,
           style: Theme.of(context).textTheme.headline3,
         ),
         subtitle: Text(
@@ -64,15 +68,16 @@ class BaseSelectedCurrencyListTile extends StatelessWidget {
                                 listen: false)
                             .baseSelectedCurrency
                             .wasUpdated) ||
-                    Provider.of<SelectedCurrenciesProvider>(context,
-                                listen: false)
+                    Provider.of<SelectedCurrenciesProvider>(context, listen: false)
                             .baseSelectedCurrency
                             .currencyRate ==
                         0
                 ? Provider.of<SelectedCurrenciesProvider>(context,
                         listen: false)
                     .showToastAlert(
-                        kMessagePleaseUpdate,
+                        Provider.of<ThemeProvider>(context).englishOption
+                            ? kMessagePleaseUpdate
+                            : kEsMessagePleaseUpdate,
                         Provider.of<ThemeProvider>(context, listen: false)
                                 .darkThemeSelected
                             ? darkYellow

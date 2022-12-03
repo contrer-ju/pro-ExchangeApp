@@ -18,7 +18,9 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await Hive.initFlutter();
+  await Hive.openBox('baseSelectedAmount');
   await Hive.openBox('darkThemeSelectedBox');
+  await Hive.openBox('englishOptionBox');
   Hive.registerAdapter(SelectedCurrenciesBoxAdapter());
   await Hive.openBox<SelectedCurrenciesBox>('selectedCurrenciesListBox');
   MobileAds.instance.initialize();

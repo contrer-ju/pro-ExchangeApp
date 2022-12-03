@@ -24,7 +24,9 @@ class DialogExit extends StatelessWidget {
     return AlertDialog(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       title: Text(
-        kDialogQuestion,
+        Provider.of<ThemeProvider>(context).englishOption
+            ? kDialogQuestion
+            : kEsDialogQuestion,
         style: Theme.of(context).textTheme.headline1,
       ),
       content: const AdDialogContainer(),
@@ -32,19 +34,26 @@ class DialogExit extends StatelessWidget {
         TextButton(
           onPressed: () => Navigator.of(context).pop(false),
           child: Text(
-            kDialogStay,
+            Provider.of<ThemeProvider>(context).englishOption
+                ? kDialogStay
+                : kEsDialogStay,
             style: Theme.of(context).textTheme.headline2,
           ),
         ),
         TextButton(
           onPressed: () {
             Provider.of<SelectedCurrenciesProvider>(context, listen: false)
+                .saveBaseSelectedCurrencyAmount();
+            Provider.of<SelectedCurrenciesProvider>(context, listen: false)
                 .saveCurrenciesList();
             Provider.of<ThemeProvider>(context, listen: false).saveTheme();
+            Provider.of<ThemeProvider>(context, listen: false).saveLanguage();
             Navigator.of(context).pop(true);
           },
           child: Text(
-            kDialogExit,
+            Provider.of<ThemeProvider>(context).englishOption
+                ? kDialogExit
+                : kEsDialogExit,
             style: Theme.of(context).textTheme.headline2,
           ),
         ),

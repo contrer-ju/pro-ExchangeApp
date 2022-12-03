@@ -51,8 +51,8 @@ class CriptoCurrencyListTile extends StatelessWidget {
                   .deletedCurrencyFromList(currencyISOCode);
             } else {
               Provider.of<SelectedCurrenciesProvider>(context, listen: false)
-                  .addCurrencyToList(
-                      currencyISOCode, currencyName, currencyISOCode);
+                  .addCurrencyToList(currencyISOCode, currencyName,
+                      currencyName, currencyISOCode);
             }
           },
         ),

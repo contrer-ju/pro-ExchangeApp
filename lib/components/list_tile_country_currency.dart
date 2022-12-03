@@ -1,21 +1,26 @@
 import 'package:the_exchange_app/provider/countries_currencies_provider.dart';
 import 'package:the_exchange_app/provider/selected_currencies_provider.dart';
+import 'package:the_exchange_app/provider/theme_provider.dart';
 import 'package:the_exchange_app/style/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class CountryCurrencyListTile extends StatelessWidget {
   final String countryName;
+  final String nombrePais;
   final String countryISOCode;
   final String currencyName;
+  final String nombreMoneda;
   final String currencyISOCode;
   final bool isChecked;
 
   const CountryCurrencyListTile({
     Key? key,
     required this.countryName,
+    required this.nombrePais,
     required this.countryISOCode,
     required this.currencyName,
+    required this.nombreMoneda,
     required this.currencyISOCode,
     required this.isChecked,
   }) : super(key: key);
@@ -36,13 +41,19 @@ class CountryCurrencyListTile extends StatelessWidget {
           image: AssetImage('images/$countryISOCode.png'),
         ),
         title: Text(
-          countryName,
+          Provider.of<ThemeProvider>(context).englishOption
+              ? countryName
+              : nombrePais,
           style: Theme.of(context).textTheme.headline3,
         ),
         subtitle: Text(
-          currencyISOCode.substring(0, 3) == 'ra_'
-              ? '$currencyName (ARS)'
-              : '$currencyName (${currencyISOCode.toUpperCase()})',
+          Provider.of<ThemeProvider>(context).englishOption
+              ? currencyISOCode.substring(0, 3) == 'ra_'
+                  ? '$currencyName (ARS)'
+                  : '$currencyName (${currencyISOCode.toUpperCase()})'
+              : currencyISOCode.substring(0, 3) == 'ra_'
+                  ? '$nombreMoneda (ARS)'
+                  : '$nombreMoneda (${currencyISOCode.toUpperCase()})',
           style: Theme.of(context).textTheme.subtitle2,
         ),
         trailing: Checkbox(
@@ -57,8 +68,8 @@ class CountryCurrencyListTile extends StatelessWidget {
                   .deletedCurrencyFromList(currencyISOCode);
             } else {
               Provider.of<SelectedCurrenciesProvider>(context, listen: false)
-                  .addCurrencyToList(
-                      countryISOCode, currencyName, currencyISOCode);
+                  .addCurrencyToList(countryISOCode, currencyName, nombreMoneda,
+                      currencyISOCode);
             }
           },
         ),

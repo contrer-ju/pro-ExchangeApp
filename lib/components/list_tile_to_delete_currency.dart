@@ -2,6 +2,7 @@ import 'package:the_exchange_app/provider/countries_currencies_provider.dart';
 import 'package:the_exchange_app/provider/cripto_currencies_provider.dart';
 import 'package:the_exchange_app/provider/references_currencies_provider.dart';
 import 'package:the_exchange_app/provider/selected_currencies_provider.dart';
+import 'package:the_exchange_app/provider/theme_provider.dart';
 import 'package:the_exchange_app/style/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -9,12 +10,14 @@ import 'package:provider/provider.dart';
 class DeleteSelectedCurrencyListTile extends StatelessWidget {
   final String imageID;
   final String currencyName;
+  final String nombreMoneda;
   final String currencyISOCode;
 
   const DeleteSelectedCurrencyListTile({
     Key? key,
     required this.imageID,
     required this.currencyName,
+    required this.nombreMoneda,
     required this.currencyISOCode,
   }) : super(key: key);
 
@@ -34,11 +37,17 @@ class DeleteSelectedCurrencyListTile extends StatelessWidget {
           image: AssetImage('images/$imageID.png'),
         ),
         title: Text(
-          currencyName,
+          Provider.of<ThemeProvider>(context, listen: false).englishOption
+              ? currencyName
+              : nombreMoneda,
           style: Theme.of(context).textTheme.headline3,
         ),
         subtitle: Text(
-          currencyISOCode.toUpperCase(),
+          currencyISOCode.substring(0, 3) == 'rv_'
+              ? 'VES'
+              : currencyISOCode.substring(0, 3) == 'ra_'
+                  ? 'ARS'
+                  : currencyISOCode.toUpperCase(),
           style: Theme.of(context).textTheme.subtitle2,
         ),
         trailing: IconButton(

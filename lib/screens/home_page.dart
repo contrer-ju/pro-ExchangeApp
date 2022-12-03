@@ -91,7 +91,9 @@ class _HomePageState extends State<HomePage> {
                       baseSelectedCurrency.currencyName == ""
                   ? Center(
                       child: Text(
-                      kNothingToUpdate,
+                      Provider.of<ThemeProvider>(context).englishOption
+                          ? kNothingToUpdate
+                          : kEsNothingToUpdate,
                       style: Theme.of(context).textTheme.headline5,
                     ))
                   : Column(
@@ -131,7 +133,12 @@ class _HomePageState extends State<HomePage> {
                                                   context,
                                                   listen: false)
                                               .showToastAlert(
-                                                  kMessagePleaseUpdate,
+                                                  Provider.of<ThemeProvider>(
+                                                              context,
+                                                              listen: false)
+                                                          .englishOption
+                                                      ? kMessagePleaseUpdate
+                                                      : kEsMessagePleaseUpdate,
                                                   Provider.of<ThemeProvider>(
                                                               context,
                                                               listen: false)
@@ -163,8 +170,12 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                     ),
                                     title: Text(
-                                      selectedCurrenciesList[index]
-                                          .currencyName,
+                                      Provider.of<ThemeProvider>(context)
+                                              .englishOption
+                                          ? selectedCurrenciesList[index]
+                                              .currencyName
+                                          : selectedCurrenciesList[index]
+                                              .nombreMoneda,
                                       style:
                                           Theme.of(context).textTheme.headline3,
                                     ),
@@ -176,7 +187,10 @@ class _HomePageState extends State<HomePage> {
                                               selectedCurrenciesList[index]
                                                       .currencyRate ==
                                                   0
-                                          ? kUpdateRates
+                                          ? Provider.of<ThemeProvider>(context)
+                                                  .englishOption
+                                              ? kUpdateRates
+                                              : kEsUpdateRates
                                           : '1 ${baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : baseSelectedCurrency.currencyISOCode.toUpperCase()} = ${currencyRateFormat.format(selectedCurrenciesList[index].currencyRate / baseSelectedCurrency.currencyRate)} ${selectedCurrenciesList[index].currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : selectedCurrenciesList[index].currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : selectedCurrenciesList[index].currencyISOCode.toUpperCase()}',
                                       style:
                                           Theme.of(context).textTheme.subtitle2,
@@ -198,7 +212,12 @@ class _HomePageState extends State<HomePage> {
                                                       context,
                                                       listen: false)
                                                   .showToastAlert(
-                                                      kMessagePleaseUpdate,
+                                                      Provider.of<ThemeProvider>(
+                                                                  context,
+                                                                  listen: false)
+                                                              .englishOption
+                                                          ? kMessagePleaseUpdate
+                                                          : kEsMessagePleaseUpdate,
                                                       Provider.of<ThemeProvider>(
                                                                   context,
                                                                   listen: false)

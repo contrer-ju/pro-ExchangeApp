@@ -52,7 +52,9 @@ class BottomSheetAddCurrenciesList extends StatelessWidget {
                         top: kPaddingTopButton, right: kPaddingRightButton),
                     child: ElevatedButton(
                       child: Text(
-                        kBottomSheetButton,
+                        Provider.of<ThemeProvider>(context).englishOption
+                            ? kBottomSheetButton
+                            : kEsBottomSheetButton,
                         style: Theme.of(context).textTheme.headline6,
                       ),
                       onPressed: () {
@@ -106,10 +108,18 @@ class BottomSheetAddCurrenciesList extends StatelessWidget {
                                       .clearReferenceCurrenciesSearchList();
                                   FocusManager.instance.primaryFocus?.unfocus();
                                 },
-                                tabs: const [
-                                  Tab(text: kCountryTab),
-                                  Tab(text: kCriptosTab),
-                                  Tab(text: kReferencesTab),
+                                tabs: [
+                                  Tab(
+                                      text: Provider.of<ThemeProvider>(context)
+                                              .englishOption
+                                          ? kCountryTab
+                                          : kEsCountryTab),
+                                  const Tab(text: kCriptosTab),
+                                  Tab(
+                                      text: Provider.of<ThemeProvider>(context)
+                                              .englishOption
+                                          ? kReferencesTab
+                                          : kEsReferencesTab),
                                 ],
                               ),
                             ],
@@ -130,7 +140,11 @@ class BottomSheetAddCurrenciesList extends StatelessWidget {
                                               listen: false)
                                           .searchKeywordOnCountriesList(value),
                                   decoration: InputDecoration(
-                                    hintText: kSearchBoxHint,
+                                    hintText:
+                                        Provider.of<ThemeProvider>(context)
+                                                .englishOption
+                                            ? kSearchBoxHint
+                                            : kEsSearchBoxHint,
                                     hintStyle:
                                         Theme.of(context).textTheme.headline4,
                                     border: OutlineInputBorder(
@@ -180,7 +194,11 @@ class BottomSheetAddCurrenciesList extends StatelessWidget {
                                               listen: false)
                                           .searchKeywordOnCriptoList(value),
                                   decoration: InputDecoration(
-                                    hintText: kSearchBoxHint,
+                                    hintText:
+                                        Provider.of<ThemeProvider>(context)
+                                                .englishOption
+                                            ? kSearchBoxHint
+                                            : kEsSearchBoxHint,
                                     hintStyle:
                                         Theme.of(context).textTheme.headline4,
                                     border: OutlineInputBorder(
@@ -231,7 +249,11 @@ class BottomSheetAddCurrenciesList extends StatelessWidget {
                                         .searchKeywordOnReferenceList(value);
                                   },
                                   decoration: InputDecoration(
-                                    hintText: kSearchBoxHint,
+                                    hintText:
+                                        Provider.of<ThemeProvider>(context)
+                                                .englishOption
+                                            ? kSearchBoxHint
+                                            : kEsSearchBoxHint,
                                     hintStyle:
                                         Theme.of(context).textTheme.headline4,
                                     border: OutlineInputBorder(

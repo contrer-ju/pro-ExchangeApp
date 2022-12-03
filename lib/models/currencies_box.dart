@@ -8,13 +8,16 @@ class SelectedCurrenciesBox extends HiveObject {
   @HiveField(1)
   final String currencyName;
   @HiveField(2)
-  final String currencyISOCode;
+  final String nombreMoneda;
   @HiveField(3)
+  final String currencyISOCode;
+  @HiveField(4)
   final double currencyRate;
 
   SelectedCurrenciesBox(
       {required this.imageID,
       required this.currencyName,
+      required this.nombreMoneda,
       required this.currencyISOCode,
       required this.currencyRate});
 }

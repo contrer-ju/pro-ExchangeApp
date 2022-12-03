@@ -16,6 +16,7 @@ class UpdateIcon extends StatelessWidget {
             ? darkYellow
             : darkGreen;
     Color textColor = Theme.of(context).scaffoldBackgroundColor;
+    bool isEnglish = Provider.of<ThemeProvider>(context).englishOption;
 
     return IconButton(
       icon: Icon(
@@ -29,7 +30,7 @@ class UpdateIcon extends StatelessWidget {
         Provider.of<SelectedCurrenciesProvider>(context, listen: false)
             .setTrueIsUpdating();
         Provider.of<SelectedCurrenciesProvider>(context, listen: false)
-            .updateRatesCurrenciesList(backgroundColor, textColor);
+            .updateRatesCurrenciesList(backgroundColor, textColor, isEnglish);
       },
     );
   }

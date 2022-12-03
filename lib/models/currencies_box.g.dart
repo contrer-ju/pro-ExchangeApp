@@ -19,22 +19,25 @@ class SelectedCurrenciesBoxAdapter extends TypeAdapter<SelectedCurrenciesBox> {
     return SelectedCurrenciesBox(
       imageID: fields[0] as String,
       currencyName: fields[1] as String,
-      currencyISOCode: fields[2] as String,
-      currencyRate: fields[3] as double,
+      nombreMoneda: fields[2] as String,
+      currencyISOCode: fields[3] as String,
+      currencyRate: fields[4] as double,
     );
   }
 
   @override
   void write(BinaryWriter writer, SelectedCurrenciesBox obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.imageID)
       ..writeByte(1)
       ..write(obj.currencyName)
       ..writeByte(2)
-      ..write(obj.currencyISOCode)
+      ..write(obj.nombreMoneda)
       ..writeByte(3)
+      ..write(obj.currencyISOCode)
+      ..writeByte(4)
       ..write(obj.currencyRate);
   }
 

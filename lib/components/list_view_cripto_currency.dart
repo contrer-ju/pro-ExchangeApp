@@ -3,6 +3,7 @@ import 'package:the_exchange_app/constants/strings.dart';
 import 'package:the_exchange_app/provider/cripto_currencies_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:the_exchange_app/provider/theme_provider.dart';
 
 class CriptoCurrencyListView extends StatelessWidget {
   const CriptoCurrencyListView({
@@ -16,7 +17,9 @@ class CriptoCurrencyListView extends StatelessWidget {
             .isEmpty
         ? Center(
             child: Text(
-            kSearchNoResult,
+            Provider.of<ThemeProvider>(context).englishOption
+                ? kSearchNoResult
+                : kEsSearchNoResult,
             style: Theme.of(context).textTheme.headline5,
           ))
         : ListView.builder(

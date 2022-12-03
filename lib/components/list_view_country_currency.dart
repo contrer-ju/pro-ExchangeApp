@@ -1,6 +1,7 @@
 import 'package:the_exchange_app/components/list_tile_country_currency.dart';
 import 'package:the_exchange_app/constants/strings.dart';
 import 'package:the_exchange_app/provider/countries_currencies_provider.dart';
+import 'package:the_exchange_app/provider/theme_provider.dart';
 import 'package:the_exchange_app/style/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +18,9 @@ class CountryCurrencyListView extends StatelessWidget {
             .isEmpty
         ? Center(
             child: Text(
-            kSearchNoResult,
+            Provider.of<ThemeProvider>(context).englishOption
+                ? kSearchNoResult
+                : kEsSearchNoResult,
             style: Theme.of(context).textTheme.headline5,
           ))
         : ListView.builder(
@@ -56,6 +59,10 @@ class CountryCurrencyListView extends StatelessWidget {
                           Provider.of<CountriesCurrenciesProvider>(context)
                               .countryCurrenciesSearchList[index]
                               .countryName,
+                      nombrePais:
+                          Provider.of<CountriesCurrenciesProvider>(context)
+                              .countryCurrenciesSearchList[index]
+                              .pais,
                       countryISOCode:
                           Provider.of<CountriesCurrenciesProvider>(context)
                               .countryCurrenciesSearchList[index]
@@ -64,6 +71,10 @@ class CountryCurrencyListView extends StatelessWidget {
                           Provider.of<CountriesCurrenciesProvider>(context)
                               .countryCurrenciesSearchList[index]
                               .currencyName,
+                      nombreMoneda:
+                          Provider.of<CountriesCurrenciesProvider>(context)
+                              .countryCurrenciesSearchList[index]
+                              .moneda,
                       currencyISOCode:
                           Provider.of<CountriesCurrenciesProvider>(context)
                               .countryCurrenciesSearchList[index]

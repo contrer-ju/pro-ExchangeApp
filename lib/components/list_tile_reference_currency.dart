@@ -1,20 +1,25 @@
 import 'package:the_exchange_app/provider/references_currencies_provider.dart';
 import 'package:the_exchange_app/provider/selected_currencies_provider.dart';
+import 'package:the_exchange_app/provider/theme_provider.dart';
 import 'package:the_exchange_app/style/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ReferenceCurrencyListTile extends StatelessWidget {
   final String referenceName;
+  final String nombreReferencia;
   final String referenceID;
   final String country;
+  final String pais;
   final bool isChecked;
 
   const ReferenceCurrencyListTile({
     Key? key,
     required this.referenceName,
+    required this.nombreReferencia,
     required this.referenceID,
     required this.country,
+    required this.pais,
     required this.isChecked,
   }) : super(key: key);
 
@@ -34,11 +39,13 @@ class ReferenceCurrencyListTile extends StatelessWidget {
           image: AssetImage('images/$referenceID.png'),
         ),
         title: Text(
-          referenceName,
+          Provider.of<ThemeProvider>(context).englishOption
+              ? referenceName
+              : nombreReferencia,
           style: Theme.of(context).textTheme.headline3,
         ),
         subtitle: Text(
-          country,
+          Provider.of<ThemeProvider>(context).englishOption ? country : pais,
           style: Theme.of(context).textTheme.subtitle2,
         ),
         trailing: Checkbox(
@@ -53,7 +60,8 @@ class ReferenceCurrencyListTile extends StatelessWidget {
                   .deletedCurrencyFromList(referenceID);
             } else {
               Provider.of<SelectedCurrenciesProvider>(context, listen: false)
-                  .addCurrencyToList(referenceID, referenceName, referenceID);
+                  .addCurrencyToList(referenceID, referenceName,
+                      nombreReferencia, referenceID);
             }
           },
         ),

@@ -1,4 +1,6 @@
+import 'package:provider/provider.dart';
 import 'package:the_exchange_app/constants/strings.dart';
+import 'package:the_exchange_app/provider/theme_provider.dart';
 import 'package:the_exchange_app/style/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -69,7 +71,9 @@ class _AdBannerContainerState extends State<AdBannerContainer> {
         child: _anchoredAdaptiveAd != null && _isLoaded
             ? AdWidget(ad: _anchoredAdaptiveAd!)
             : Text(
-                kLoadingMessage,
+                Provider.of<ThemeProvider>(context).englishOption
+                    ? kLoadingMessage
+                    : kEsLoadingMessage,
                 style: Theme.of(context).textTheme.headline4,
               ),
       ),
