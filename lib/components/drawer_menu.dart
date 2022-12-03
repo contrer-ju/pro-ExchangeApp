@@ -4,8 +4,8 @@ import 'package:the_exchange_app/style/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class Menu extends StatelessWidget {
-  const Menu({
+class DrawerMenu extends StatelessWidget {
+  const DrawerMenu({
     Key? key,
   }) : super(key: key);
 
@@ -75,6 +75,86 @@ class Menu extends StatelessWidget {
             onTap: () {
               Provider.of<ThemeProvider>(context, listen: false)
                   .switchLanguage();
+              Scaffold.of(context).closeDrawer();
+            },
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.thumb_up_outlined,
+              size: kIconsSizes,
+              color: Theme.of(context).primaryColor,
+            ),
+            title: Text(
+              Provider.of<ThemeProvider>(context).englishOption
+                  ? kRateAppOption
+                  : kEsRateAppOption,
+              style: Theme.of(context).textTheme.headline2,
+            ),
+            onTap: () {
+              Scaffold.of(context).closeDrawer();
+            },
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.share,
+              size: kIconsSizes,
+              color: Theme.of(context).primaryColor,
+            ),
+            title: Text(
+              Provider.of<ThemeProvider>(context).englishOption
+                  ? kShareOption
+                  : kEsShareOption,
+              style: Theme.of(context).textTheme.headline2,
+            ),
+            onTap: () {
+              Scaffold.of(context).closeDrawer();
+            },
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.feedback_outlined,
+              size: kIconsSizes,
+              color: Theme.of(context).primaryColor,
+            ),
+            title: Text(
+              Provider.of<ThemeProvider>(context).englishOption
+                  ? kFeedbackOption
+                  : kEsFeedbackOption,
+              style: Theme.of(context).textTheme.headline2,
+            ),
+            onTap: () {
+              Scaffold.of(context).closeDrawer();
+            },
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.privacy_tip_outlined,
+              size: kIconsSizes,
+              color: Theme.of(context).primaryColor,
+            ),
+            title: Text(
+              Provider.of<ThemeProvider>(context).englishOption
+                  ? kPrivacyOption
+                  : kEsPrivacyOption,
+              style: Theme.of(context).textTheme.headline2,
+            ),
+            onTap: () {
+              Scaffold.of(context).closeDrawer();
+            },
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.help_outline,
+              size: kIconsSizes,
+              color: Theme.of(context).primaryColor,
+            ),
+            title: Text(
+              Provider.of<ThemeProvider>(context).englishOption
+                  ? kHelpOption
+                  : kEsHelpOption,
+              style: Theme.of(context).textTheme.headline2,
+            ),
+            onTap: () {
               Scaffold.of(context).closeDrawer();
             },
           ),

@@ -34,6 +34,11 @@ const String kDialogStay = 'Stay';
 const String kLightThemeOption = 'Light Theme';
 const String kDarkThemeOption = 'Dark Theme';
 const String kEnglishOption = 'English';
+const String kRateAppOption = 'Rate the App';
+const String kShareOption = 'Share the App';
+const String kFeedbackOption = 'Send feedback';
+const String kPrivacyOption = 'Privacy and conditions';
+const String kHelpOption = 'Help';
 
 //Toast Component
 const String kMessageUpdateTrue = "Rates update successful";
@@ -77,6 +82,11 @@ const String kEsDialogStay = 'Quedarse';
 const String kEsLightThemeOption = 'Tema Claro';
 const String kEsDarkThemeOption = 'Tema Oscuro';
 const String kSpanishOption = 'Español';
+const String kEsRateAppOption = 'Califica la App';
+const String kEsShareOption = 'Comparte la App';
+const String kEsFeedbackOption = 'Sugerencias';
+const String kEsPrivacyOption = 'Privacidad y condiciones';
+const String kEsHelpOption = 'Ayuda';
 
 //Toast Component
 const String kEsMessageUpdateTrue = "Tasas actualizadas satisfactoriamente";

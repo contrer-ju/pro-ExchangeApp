@@ -4,7 +4,7 @@ import 'package:the_exchange_app/components/bottom_sheet_delete_currencies_list.
 import 'package:the_exchange_app/components/dialog_amount.dart';
 import 'package:the_exchange_app/components/dialog_exit.dart';
 import 'package:the_exchange_app/components/list_tile_base_selected_currency.dart';
-import 'package:the_exchange_app/components/menu.dart';
+import 'package:the_exchange_app/components/drawer_menu.dart';
 import 'package:the_exchange_app/components/tool_bar.dart';
 import 'package:the_exchange_app/constants/strings.dart';
 import 'package:the_exchange_app/models/currencies.dart';
@@ -73,7 +73,7 @@ class _HomePageState extends State<HomePage> {
       child: SafeArea(
         child: Scaffold(
           appBar: const ToolBar(),
-          drawer: const Menu(),
+          drawer: const DrawerMenu(),
           body: loadingSelectedCurrenciesList ||
                   loadingSelectedCountriesList ||
                   loadingSelectedCriptoList
