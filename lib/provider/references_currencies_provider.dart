@@ -7,7 +7,7 @@ import 'package:the_exchange_app/models/currencies_box.dart';
 class ReferenceCurrenciesProvider extends ChangeNotifier {
   bool isWaiting = true;
   final boxSelectedCurrenciesList =
-      Hive.box<SelectedCurrenciesBox>('selectedCurrenciesListBox');
+      Hive.box<SelectedCurrenciesBox>('currenciesListBox');
   late List<String> storageImageIDList;
   String referenceSearchKeyword = "";
   List<ReferenceCurrency> referencesCurrenciesList = kReferenceCurrenciesList;

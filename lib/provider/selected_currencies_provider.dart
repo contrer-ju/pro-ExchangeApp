@@ -12,7 +12,7 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
   bool isWaiting = true;
   bool isUpdating = false;
   final boxSelectedCurrenciesList =
-      Hive.box<SelectedCurrenciesBox>('selectedCurrenciesListBox');
+      Hive.box<SelectedCurrenciesBox>('currenciesListBox');
   double baseSelectedCurrencyAmount =
       Hive.box('baseSelectedAmount').get('value') ?? 0;
   List currenciesRatesList = [];

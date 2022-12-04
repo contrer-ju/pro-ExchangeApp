@@ -22,7 +22,7 @@ void main() async {
   await Hive.openBox('darkThemeSelectedBox');
   await Hive.openBox('englishOptionBox');
   Hive.registerAdapter(SelectedCurrenciesBoxAdapter());
-  await Hive.openBox<SelectedCurrenciesBox>('selectedCurrenciesListBox');
+  await Hive.openBox<SelectedCurrenciesBox>('currenciesListBox');
   MobileAds.instance.initialize();
   runApp(const ExchangeApp());
 }

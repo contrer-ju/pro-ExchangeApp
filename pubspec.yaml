@@ -45,6 +45,7 @@ dependencies:
   cloud_firestore: ^4.1.0
   fluttertoast: ^8.1.1
   dart_ping: ^7.0.2
+  share_plus: ^5.0.0
 
 dev_dependencies:
   flutter_test:

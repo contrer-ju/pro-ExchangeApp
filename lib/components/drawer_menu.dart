@@ -1,3 +1,4 @@
+import 'package:share_plus/share_plus.dart';
 import 'package:the_exchange_app/constants/strings.dart';
 import 'package:the_exchange_app/provider/theme_provider.dart';
 import 'package:the_exchange_app/style/theme.dart';
@@ -108,6 +109,7 @@ class DrawerMenu extends StatelessWidget {
             ),
             onTap: () {
               Scaffold.of(context).closeDrawer();
+              _onShare(context);
             },
           ),
           ListTile(
@@ -161,5 +163,18 @@ class DrawerMenu extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _onShare(BuildContext context) async {
+    final box = context.findRenderObject() as RenderBox?;
+    await Share.share(
+        Provider.of<ThemeProvider>(context, listen: false).englishOption
+            ? kShareMessage
+            : kEsShareMessage,
+        subject:
+            Provider.of<ThemeProvider>(context, listen: false).englishOption
+                ? kShareTitle
+                : kEsShareTitle,
+        sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
   }
 }

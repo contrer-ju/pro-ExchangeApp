@@ -1,7 +1,7 @@
 // Tools Bar Component
 const String kAppTitle = 'Exchange App';
 const String kCountryTab = 'Countries';
-const String kCriptosTab = 'Criptos';
+const String kCryptosTab = 'Cryptos';
 const String kReferencesTab = 'References';
 
 //SearchBox Component
@@ -45,10 +45,16 @@ const String kMessageUpdateTrue = "Rates update successful";
 const String kMessageUpdateFail = "Rates could not be updated, try later";
 const String kMessagePleaseUpdate = "Rates must be updated first";
 
+//Share Plugin
+const String kShareMessage =
+    "Try this, the 'Exchange App', which lets you get the majority of fiat currencies, main cryptos, and references currencies rates. You can download this app from Play Store at the following link: https://play.google.com/store/";
+const String kShareTitle = 'Download and try the Exchange App';
+
 //*****************************************************************************/
 
 // Tools Bar Component
 const String kEsCountryTab = 'Países';
+const String kEsCryptosTab = 'Criptos';
 const String kEsReferencesTab = 'Referencias';
 
 //SearchBox Component
@@ -93,3 +99,8 @@ const String kEsMessageUpdateTrue = "Tasas actualizadas satisfactoriamente";
 const String kEsMessageUpdateFail =
     "No fue posible actualizar las tasas, vuelve a intentarlo más tarde";
 const String kEsMessagePleaseUpdate = "Actualiza las tasas antes de continuar";
+
+//Share Plugin
+const String kEsShareMessage =
+    "Prueba esta aplicación, que te permite obtener la mayoría de las tasas de cambio de monedas fiduciarias, principales criptos y monedas de referencia. Puede descargarla desde Play Store en el siguiente enlace: https://play.google.com/store/";
+const String kEsShareTitle = 'Descarga y prueba la Exchange App';

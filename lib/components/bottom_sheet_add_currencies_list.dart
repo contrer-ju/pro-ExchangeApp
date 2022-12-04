@@ -114,7 +114,11 @@ class BottomSheetAddCurrenciesList extends StatelessWidget {
                                               .englishOption
                                           ? kCountryTab
                                           : kEsCountryTab),
-                                  const Tab(text: kCriptosTab),
+                                  Tab(
+                                      text: Provider.of<ThemeProvider>(context)
+                                              .englishOption
+                                          ? kCryptosTab
+                                          : kEsCryptosTab),
                                   Tab(
                                       text: Provider.of<ThemeProvider>(context)
                                               .englishOption

@@ -7,7 +7,7 @@ import 'package:hive/hive.dart';
 class CountriesCurrenciesProvider extends ChangeNotifier {
   bool isWaiting = true;
   final boxSelectedCurrenciesList =
-      Hive.box<SelectedCurrenciesBox>('selectedCurrenciesListBox');
+      Hive.box<SelectedCurrenciesBox>('currenciesListBox');
   late List<String> storageImageIDList;
   String countrySearchKeyword = "";
   List<CountryCurrency> countriesCurrenciesList = kCountriesCurrenciesList;

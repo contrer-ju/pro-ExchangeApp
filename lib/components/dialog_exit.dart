@@ -1,4 +1,3 @@
-//import 'package:hive/hive.dart';
 import 'package:the_exchange_app/components/ad_dialog_container.dart';
 import 'package:the_exchange_app/constants/strings.dart';
 import 'package:the_exchange_app/provider/selected_currencies_provider.dart';
@@ -16,6 +15,7 @@ class DialogExit extends StatelessWidget {
 
   // void deleteBoxes() async {
   //   await Hive.deleteBoxFromDisk('selectedCurrenciesBox');
+  //   await Hive.deleteBoxFromDisk('selectedCurrenciesListBox');
   //   await Hive.deleteBoxFromDisk('currenciesRatesBox');
   // }
 
