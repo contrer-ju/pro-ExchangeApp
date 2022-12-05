@@ -299,17 +299,18 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
 
   Future<void> loadCurrenciesList() async {
     isWaiting = true;
+    bool currenciesRatesListWasUpdated = false;
     final boxSelectedCurrenciesListLength = boxSelectedCurrenciesList.length;
     bool hasConnection = await connectionTest();
     if (hasConnection) {
-      getCurrenciesRates();
+      currenciesRatesListWasUpdated = await getCurrenciesRates();
     }
 
     if (boxSelectedCurrenciesListLength > 0) {
       for (int i = 0; i < boxSelectedCurrenciesListLength; i++) {
         final storedCurrency = boxSelectedCurrenciesList.getAt(i);
         double selectedCurrencyRate = storedCurrency!.currencyRate;
-        if (currenciesRatesList.isNotEmpty) {
+        if (currenciesRatesListWasUpdated) {
           int selectedCurrencyIndex = currenciesRatesList.indexWhere(
               (item) => item.currencyISOCode == storedCurrency.currencyISOCode);
           selectedCurrencyRate =
@@ -322,8 +323,8 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
           nombreMoneda: storedCurrency.nombreMoneda,
           currencyISOCode: storedCurrency.currencyISOCode,
           currencyRate: selectedCurrencyRate,
-          wasUpdated: currenciesRatesList.isNotEmpty ? true : false,
-          wasRead: currenciesRatesList.isEmpty ? true : false,
+          wasUpdated: currenciesRatesListWasUpdated,
+          wasRead: !currenciesRatesListWasUpdated,
         );
         if (selectedCurrenciesList.isEmpty &&
             baseSelectedCurrency.currencyName == '') {
