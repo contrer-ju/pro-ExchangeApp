@@ -1,6 +1,7 @@
 import 'package:the_exchange_app/models/currencies_box.dart';
 import 'package:the_exchange_app/provider/countries_currencies_provider.dart';
 import 'package:the_exchange_app/provider/cripto_currencies_provider.dart';
+import 'package:the_exchange_app/provider/feedback_provider.dart';
 import 'package:the_exchange_app/provider/references_currencies_provider.dart';
 import 'package:the_exchange_app/provider/selected_currencies_provider.dart';
 import 'package:the_exchange_app/provider/theme_provider.dart';
@@ -39,6 +40,7 @@ class ExchangeApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => CriptoCurrenciesProvider()),
         ChangeNotifierProvider(create: (_) => ReferenceCurrenciesProvider()),
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider(create: (_) => FeedbackProvider()),
       ],
       builder: (context, child) {
         return MaterialApp(

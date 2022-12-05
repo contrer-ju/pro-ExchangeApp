@@ -50,6 +50,30 @@ const String kShareMessage =
     "Try this, the 'Exchange App', which lets you get the majority of fiat currencies, main cryptos, and references currencies rates. You can download this app from Play Store at the following link: https://play.google.com/store/";
 const String kShareTitle = 'Download and try the Exchange App';
 
+//Bottom Sheet Feedback Component
+const String kBottomSheetSend = 'Send';
+const String kBottomSheetCancel = 'Cancel';
+const String kBottomSheetName = 'Name';
+const String kBottomSheetEmail = 'E-mail';
+const String kBottomSheetSubject = 'Subject';
+const String kBottomSheetBody = 'Message';
+const String kBottomSheetHintName = 'Please enter your name';
+const String kBottomSheetHintEmail = 'Please enter your e-mail';
+const String kBottomSheetHintSubjectDropdown = 'Choose one...';
+const String kBottomSheetHintSubjectDisabledTextField = 'Disabled';
+const String kBottomSheetHintSubjectEnableTextField =
+    'Please enter the subject';
+const String kBottomSheetHintBody = 'How can we improve?';
+const String kBottomSheetErrorWronFormat = 'This field accepts only letters';
+const String kBottomSheetErrorFieldEmpty = 'This field is required';
+const String kBottomSheetErrorEmailFormat = 'Please enter a valid email';
+const List<String> kDropdownButtonList = <String>[
+  'I have a suggestion',
+  'I have a question about the App',
+  'I want to report a bug',
+  'Others'
+];
+
 //*****************************************************************************/
 
 // Tools Bar Component
@@ -104,3 +128,28 @@ const String kEsMessagePleaseUpdate = "Actualiza las tasas antes de continuar";
 const String kEsShareMessage =
     "Prueba esta aplicación, que te permite obtener la mayoría de las tasas de cambio de monedas fiduciarias, principales criptos y monedas de referencia. Puede descargarla desde Play Store en el siguiente enlace: https://play.google.com/store/";
 const String kEsShareTitle = 'Descarga y prueba la Exchange App';
+
+//Bottom Sheet Feedback Component
+const String kEsBottomSheetSend = 'Enviar';
+const String kEsBottomSheetCancel = 'Cancelar';
+const String kEsBottomSheetName = 'Nombre';
+const String kEsBottomSheetEmail = 'Correo electrónico';
+const String kEsBottomSheetSubject = 'Asunto';
+const String kEsBottomSheetBody = 'Mensaje';
+const String kEsBottomSheetHintName = 'Favor coloca tu nombre';
+const String kEsBottomSheetHintEmail = 'Favor coloca tu correo electrónico';
+const String kEsBottomSheetHintSubjectDropdown = 'Elige uno...';
+const String kEsBottomSheetHintSubjectDisabledTextField = 'Deshabilitado';
+const String kEsBottomSheetHintSubjectEnableTextField =
+    'Favor coloca el asunto';
+const String kEsBottomSheetHintBody = '¿Como podemos mejorar?';
+const String kEsBottomSheetErrorWronFormat = 'Este campo solo acepta letras';
+const String kEsBottomSheetErrorFieldEmpty = 'Este campo es obligatorio';
+const String kEsBottomSheetErrorEmailFormat =
+    'Favor colocar una dirección de correo válida';
+const List<String> kEsDropdownButtonList = <String>[
+  'Tengo una sugerencia',
+  'Tengo una duda acerca de la App',
+  'Deseo reportar un error',
+  'Otros'
+];

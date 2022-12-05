@@ -20,17 +20,25 @@ class UpdateIcon extends StatelessWidget {
 
     return IconButton(
       icon: Icon(
-        Provider.of<SelectedCurrenciesProvider>(context).isUpdating
-            ? Icons.lock_clock
-            : Icons.restore,
+        Provider.of<SelectedCurrenciesProvider>(context)
+                    .baseSelectedCurrency
+                    .currencyName ==
+                ''
+            ? Icons.update_disabled
+            : Provider.of<SelectedCurrenciesProvider>(context).isUpdating
+                ? Icons.lock_clock
+                : Icons.update,
         size: kIconsSizes,
         color: darkWhite,
       ),
       onPressed: () {
-        Provider.of<SelectedCurrenciesProvider>(context, listen: false)
-            .setTrueIsUpdating();
-        Provider.of<SelectedCurrenciesProvider>(context, listen: false)
-            .updateRatesCurrenciesList(backgroundColor, textColor, isEnglish);
+        if (!Provider.of<SelectedCurrenciesProvider>(context, listen: false)
+            .isUpdating) {
+          Provider.of<SelectedCurrenciesProvider>(context, listen: false)
+              .setTrueIsUpdating();
+          Provider.of<SelectedCurrenciesProvider>(context, listen: false)
+              .updateRatesCurrenciesList(backgroundColor, textColor, isEnglish);
+        }
       },
     );
   }

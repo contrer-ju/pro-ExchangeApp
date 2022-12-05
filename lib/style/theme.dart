@@ -20,11 +20,14 @@ MaterialColor middleGreenMaterial = const MaterialColor(0xFF264d48, colorMap);
 
 const Color darkYellow = Color(0xFFff9700);
 const Color lightYellow = Color(0xFFffba01);
+const Color midleWhite = Color.fromARGB(161, 237, 230, 204);
 const Color darkWhite = Color(0xFFede6cc);
 const Color lightGreen = Color(0xFF5cb08c);
 const Color midleGreen = Color(0xFF264d48);
 const Color darkGreen = Color(0xFF10332d);
 const Color transparentColor = Colors.transparent;
+const Color darkDropdown = Color(0xFF193330);
+const Color lightDropdown = Color(0xFF94907f);
 
 //******************* Sizes ****************************************/
 
@@ -33,6 +36,10 @@ const double kIconsSizes = 30.0;
 //Search Box Component
 const double kPaddingSearchBox = 8.0;
 const double kBorderRadiusSearchBox = 12.0;
+const EdgeInsetsGeometry kSearchBoxDimensions =
+    EdgeInsets.symmetric(vertical: 17, horizontal: 10);
+const EdgeInsetsGeometry kSDescriptionBoxDimensions =
+    EdgeInsets.symmetric(vertical: 35, horizontal: 10);
 
 //Currencies List Tile
 const double kElevationCurrencyCard = 10.0;
@@ -59,6 +66,11 @@ const double kPaddingRightButton = 10.0;
 const double kPaddingTopButton = 5.0;
 const double kSpaceBetweenButtons = 7.0;
 const double kBottomSheetSizedBox = 0.57;
+const double kBottomSheetFeedbackSizedBox = 0.69;
+const double kSpaceBetweenTextFieldMin = 2.0;
+const double kSpaceBetweenTextField = 5.0;
+const double kSpaceBetweenTextFieldMax = 10.0;
+const double kSpaceLeftText = 15.0;
 
 //Main Circular Progress Indicator
 const double kSquareCircularProgressIndicator = 77.0;
@@ -72,6 +84,9 @@ const double kDrawerWidth = 0.6;
 
 //Toast Component
 const double kToastText = 17;
+
+//Dropdown Component
+const double kBorderWidthDropdown = 1.2;
 
 //******************* Text Styles *********************************/
 
@@ -111,7 +126,7 @@ ThemeData customDarkTheme = ThemeData(
       fontWeight: FontWeight.w500,
     ),
     headline4: TextStyle(
-      color: darkWhite,
+      color: midleWhite,
       fontSize: 16,
       fontWeight: FontWeight.w500,
     ),
@@ -161,7 +176,7 @@ ThemeData customLightTheme = ThemeData(
       fontWeight: FontWeight.w500,
     ),
     headline4: TextStyle(
-      color: darkGreen,
+      color: midleGreen,
       fontSize: 16,
       fontWeight: FontWeight.w500,
     ),

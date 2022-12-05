@@ -46,6 +46,7 @@ dependencies:
   fluttertoast: ^8.1.1
   dart_ping: ^7.0.2
   share_plus: ^5.0.0
+  email_validator: ^2.1.17
 
 dev_dependencies:
   flutter_test:

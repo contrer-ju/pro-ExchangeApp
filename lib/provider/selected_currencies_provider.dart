@@ -28,6 +28,7 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
   List<SelectedCurrencies> selectedCurrenciesList = [];
   List<SelectedCurrencies> selectedToDeleteCurrenciesList = [];
   List<SelectedCurrencies> searchedToDeleteCurrenciesList = [];
+  String selectedSearchKeyword = "";
 
   Future<bool> getCurrenciesRates() async {
     List currenciesRatesData = [];
@@ -284,6 +285,7 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
                 .toLowerCase()
                 .contains(currencyKeyword.toLowerCase()))
         .toList();
+    selectedSearchKeyword = currencyKeyword;
     notifyListeners();
   }
 
@@ -291,6 +293,7 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
     List<SelectedCurrencies> selectedToDeleteCurrenciesListCopy =
         List<SelectedCurrencies>.from(selectedToDeleteCurrenciesList);
     searchedToDeleteCurrenciesList = selectedToDeleteCurrenciesListCopy;
+    selectedSearchKeyword = '';
     notifyListeners();
   }
 

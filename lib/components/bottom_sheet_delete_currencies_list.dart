@@ -115,7 +115,11 @@ class BottomSheetDeleteCurrenciesList extends StatelessWidget {
                         ),
                         suffixIcon: IconButton(
                           icon: Icon(
-                            Icons.clear,
+                            Provider.of<SelectedCurrenciesProvider>(context)
+                                        .selectedSearchKeyword ==
+                                    ""
+                                ? Icons.search
+                                : Icons.clear,
                             size: kIconsSizes,
                             color: Theme.of(context).primaryColor,
                           ),

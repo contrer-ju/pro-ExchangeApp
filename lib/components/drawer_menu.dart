@@ -1,4 +1,5 @@
 import 'package:share_plus/share_plus.dart';
+import 'package:the_exchange_app/components/bottom_sheet_send_feedback.dart';
 import 'package:the_exchange_app/constants/strings.dart';
 import 'package:the_exchange_app/provider/theme_provider.dart';
 import 'package:the_exchange_app/style/theme.dart';
@@ -41,8 +42,8 @@ class DrawerMenu extends StatelessWidget {
           ListTile(
             leading: Icon(
               Provider.of<ThemeProvider>(context).darkThemeSelected
-                  ? Icons.nightlight
-                  : Icons.sunny,
+                  ? Icons.dark_mode_outlined
+                  : Icons.light_mode_outlined,
               size: kIconsSizes,
               color: Theme.of(context).primaryColor,
             ),
@@ -63,7 +64,7 @@ class DrawerMenu extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(
-              Icons.language,
+              Icons.translate_outlined,
               size: kIconsSizes,
               color: Theme.of(context).primaryColor,
             ),
@@ -126,6 +127,19 @@ class DrawerMenu extends StatelessWidget {
             ),
             onTap: () {
               Scaffold.of(context).closeDrawer();
+              showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                enableDrag: false,
+                isDismissible: false,
+                backgroundColor: transparentColor,
+                builder: (context) => WillPopScope(
+                  onWillPop: () async {
+                    return false;
+                  },
+                  child: const BottomSheetSendFeedback(),
+                ),
+              );
             },
           ),
           ListTile(
