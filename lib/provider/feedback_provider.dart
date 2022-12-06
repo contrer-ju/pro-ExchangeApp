@@ -94,6 +94,12 @@ class FeedbackProvider extends ChangeNotifier {
       'body': body,
       'date': date,
     }).onError((e, _) => wasPush = false);
+    if (wasPush) {
+      await feedbackCollection.doc('mail').update({
+        'delivery.state': 'RETRY',
+        'message.text': 'El id del mensaje es: $date',
+      });
+    }
     return wasPush;
   }
 
