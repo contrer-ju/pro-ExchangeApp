@@ -74,6 +74,13 @@ class _BottomSheetSendFeedbackState extends State<BottomSheetSendFeedback> {
                         .subjectTextFieldKeyword ==
                     ''));
 
+    Color backgroundColor =
+        Provider.of<ThemeProvider>(context, listen: false).darkThemeSelected
+            ? darkYellow
+            : darkGreen;
+    Color textColor = Theme.of(context).scaffoldBackgroundColor;
+    bool isEnglish = Provider.of<ThemeProvider>(context).englishOption;
+
     return Container(
       height: MediaQuery.of(context).size.height * kBottomSheetHeight,
       decoration: BoxDecoration(
@@ -98,9 +105,7 @@ class _BottomSheetSendFeedbackState extends State<BottomSheetSendFeedback> {
               children: [
                 ElevatedButton(
                   child: Text(
-                    Provider.of<ThemeProvider>(context).englishOption
-                        ? kBottomSheetCancel
-                        : kEsBottomSheetCancel,
+                    isEnglish ? kBottomSheetCancel : kEsBottomSheetCancel,
                     style: Theme.of(context).textTheme.headline6,
                   ),
                   onPressed: () {
@@ -109,25 +114,41 @@ class _BottomSheetSendFeedbackState extends State<BottomSheetSendFeedback> {
                     Navigator.pop(context);
                   },
                 ),
-                ElevatedButton(
-                  onPressed: fieldsOK
-                      ? () {
-                          Navigator.pop(context);
-                          Provider.of<FeedbackProvider>(context, listen: false)
-                              .clearFields();
-                        }
-                      : null,
-                  child: Text(
-                    Provider.of<ThemeProvider>(context).englishOption
-                        ? kBottomSheetSend
-                        : kEsBottomSheetSend,
-                    style: !fieldsOK &&
-                            Provider.of<ThemeProvider>(context)
-                                .darkThemeSelected
-                        ? Theme.of(context).textTheme.headline6!.copyWith(
-                              color: darkDropdown,
-                            )
-                        : Theme.of(context).textTheme.headline6,
+                SizedBox(
+                  width: kElevatedButtonWidth,
+                  height: kElevatedButtonHeight,
+                  child: ElevatedButton(
+                    onPressed: fieldsOK
+                        ? () async {
+                            await Provider.of<FeedbackProvider>(context,
+                                    listen: false)
+                                .saveFeedbackData(
+                                    backgroundColor, textColor, isEnglish)
+                                .then((_) => Navigator.pop(context));
+                          }
+                        : null,
+                    child: Provider.of<FeedbackProvider>(context).isWaiting
+                        ? const SizedBox(
+                            height: kCircularProgressIndicatorSquare,
+                            width: kCircularProgressIndicatorSquare,
+                            child: CircularProgressIndicator(
+                              strokeWidth: kCircularProgressIndicatorStroke,
+                              valueColor: AlwaysStoppedAnimation(darkWhite),
+                            ),
+                          )
+                        : Text(
+                            isEnglish ? kBottomSheetSend : kEsBottomSheetSend,
+                            style: !fieldsOK &&
+                                    Provider.of<ThemeProvider>(context)
+                                        .darkThemeSelected
+                                ? Theme.of(context)
+                                    .textTheme
+                                    .headline6!
+                                    .copyWith(
+                                      color: darkDropdown,
+                                    )
+                                : Theme.of(context).textTheme.headline6,
+                          ),
                   ),
                 ),
               ],
@@ -145,9 +166,7 @@ class _BottomSheetSendFeedbackState extends State<BottomSheetSendFeedback> {
                     padding: const EdgeInsets.only(
                         top: kSpaceBetweenTextField, left: kSpaceLeftText),
                     child: Text(
-                      Provider.of<ThemeProvider>(context).englishOption
-                          ? kBottomSheetName
-                          : kEsBottomSheetName,
+                      isEnglish ? kBottomSheetName : kEsBottomSheetName,
                       style: Theme.of(context).textTheme.headline3,
                     ),
                   ),
@@ -180,10 +199,9 @@ class _BottomSheetSendFeedbackState extends State<BottomSheetSendFeedback> {
                         errorText: setNameFieldErrorText() == ''
                             ? null
                             : setNameFieldErrorText(),
-                        hintText:
-                            Provider.of<ThemeProvider>(context).englishOption
-                                ? kBottomSheetHintName
-                                : kEsBottomSheetHintName,
+                        hintText: isEnglish
+                            ? kBottomSheetHintName
+                            : kEsBottomSheetHintName,
                         hintStyle: Theme.of(context).textTheme.headline4,
                         border: OutlineInputBorder(
                           borderRadius:
@@ -215,9 +233,7 @@ class _BottomSheetSendFeedbackState extends State<BottomSheetSendFeedback> {
                     padding: const EdgeInsets.only(
                         top: kSpaceBetweenTextField, left: kSpaceLeftText),
                     child: Text(
-                      Provider.of<ThemeProvider>(context).englishOption
-                          ? kBottomSheetEmail
-                          : kEsBottomSheetEmail,
+                      isEnglish ? kBottomSheetEmail : kEsBottomSheetEmail,
                       style: Theme.of(context).textTheme.headline3,
                     ),
                   ),
@@ -242,10 +258,9 @@ class _BottomSheetSendFeedbackState extends State<BottomSheetSendFeedback> {
                         errorText: setEmailFieldErrorText() == ''
                             ? null
                             : setEmailFieldErrorText(),
-                        hintText:
-                            Provider.of<ThemeProvider>(context).englishOption
-                                ? kBottomSheetHintEmail
-                                : kEsBottomSheetHintEmail,
+                        hintText: isEnglish
+                            ? kBottomSheetHintEmail
+                            : kEsBottomSheetHintEmail,
                         hintStyle: Theme.of(context).textTheme.headline4,
                         border: OutlineInputBorder(
                           borderRadius:
@@ -277,9 +292,7 @@ class _BottomSheetSendFeedbackState extends State<BottomSheetSendFeedback> {
                     padding: const EdgeInsets.only(
                         top: kSpaceBetweenTextField, left: kSpaceLeftText),
                     child: Text(
-                      Provider.of<ThemeProvider>(context).englishOption
-                          ? kBottomSheetSubject
-                          : kEsBottomSheetSubject,
+                      isEnglish ? kBottomSheetSubject : kEsBottomSheetSubject,
                       style: Theme.of(context).textTheme.headline3,
                     ),
                   ),
@@ -287,7 +300,7 @@ class _BottomSheetSendFeedbackState extends State<BottomSheetSendFeedback> {
                     padding: const EdgeInsets.all(kSpaceBetweenTextFieldMax),
                     child: DropdownButtonFormField<String>(
                       hint: Text(
-                        Provider.of<ThemeProvider>(context).englishOption
+                        isEnglish
                             ? kBottomSheetHintSubjectDropdown
                             : kEsBottomSheetHintSubjectDropdown,
                         style: Theme.of(context).textTheme.headline4,
@@ -379,10 +392,10 @@ class _BottomSheetSendFeedbackState extends State<BottomSheetSendFeedback> {
                                 Provider.of<FeedbackProvider>(context)
                                         .subjectDropDownKeyword !=
                                     kEsDropdownButtonList.last
-                            ? Provider.of<ThemeProvider>(context).englishOption
+                            ? isEnglish
                                 ? kBottomSheetHintSubjectDisabledTextField
                                 : kEsBottomSheetHintSubjectDisabledTextField
-                            : Provider.of<ThemeProvider>(context).englishOption
+                            : isEnglish
                                 ? kBottomSheetHintSubjectEnableTextField
                                 : kEsBottomSheetHintSubjectEnableTextField,
                         hintStyle: Theme.of(context).textTheme.headline4,
@@ -418,9 +431,7 @@ class _BottomSheetSendFeedbackState extends State<BottomSheetSendFeedback> {
                         bottom: kSpaceBetweenTextField,
                         left: kSpaceLeftText),
                     child: Text(
-                      Provider.of<ThemeProvider>(context).englishOption
-                          ? kBottomSheetBody
-                          : kEsBottomSheetBody,
+                      isEnglish ? kBottomSheetBody : kEsBottomSheetBody,
                       style: Theme.of(context).textTheme.headline3,
                     ),
                   ),
@@ -444,14 +455,13 @@ class _BottomSheetSendFeedbackState extends State<BottomSheetSendFeedback> {
                                         .bodyKeyword ==
                                     '' &&
                                 bodyFieldTouched
-                            ? Provider.of<ThemeProvider>(context).englishOption
+                            ? isEnglish
                                 ? kBottomSheetErrorFieldEmpty
                                 : kEsBottomSheetErrorFieldEmpty
                             : null,
-                        hintText:
-                            Provider.of<ThemeProvider>(context).englishOption
-                                ? kBottomSheetHintBody
-                                : kEsBottomSheetHintBody,
+                        hintText: isEnglish
+                            ? kBottomSheetHintBody
+                            : kEsBottomSheetHintBody,
                         hintStyle: Theme.of(context).textTheme.headline4,
                         border: OutlineInputBorder(
                           borderRadius:

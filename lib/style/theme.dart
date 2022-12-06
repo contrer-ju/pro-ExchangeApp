@@ -71,6 +71,10 @@ const double kSpaceBetweenTextFieldMin = 2.0;
 const double kSpaceBetweenTextField = 5.0;
 const double kSpaceBetweenTextFieldMax = 10.0;
 const double kSpaceLeftText = 15.0;
+const double kElevatedButtonWidth = 80.0;
+const double kElevatedButtonHeight = 37.0;
+const double kCircularProgressIndicatorSquare = 16.0;
+const double kCircularProgressIndicatorStroke = 3.0;
 
 //Main Circular Progress Indicator
 const double kSquareCircularProgressIndicator = 77.0;

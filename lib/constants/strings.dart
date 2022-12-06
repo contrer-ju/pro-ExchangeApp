@@ -44,6 +44,11 @@ const String kHelpOption = 'Help';
 const String kMessageUpdateTrue = "Rates update successful";
 const String kMessageUpdateFail = "Rates could not be updated, try later";
 const String kMessagePleaseUpdate = "Rates must be updated first";
+const String kMessagePushTrue = "Your comment was received, thanks";
+const String kMessagePushFail =
+    "Your comment could not be sent, please try again later";
+const String kMessageNotConex =
+    "There is no internet access, please try again later";
 
 //Share Plugin
 const String kShareMessage =
@@ -123,6 +128,11 @@ const String kEsMessageUpdateTrue = "Tasas actualizadas satisfactoriamente";
 const String kEsMessageUpdateFail =
     "No fue posible actualizar las tasas, vuelve a intentarlo más tarde";
 const String kEsMessagePleaseUpdate = "Actualiza las tasas antes de continuar";
+const String kEsMessagePushTrue = "Su comentario fue recibido, gracias";
+const String kEsMessagePushFail =
+    "Su comentario no pudo ser enviado, inténtelo de nuevo más tarde";
+const String kEsMessageNotConex =
+    "No hay acceso a Internet, inténtalo de nuevo más tarde.";
 
 //Share Plugin
 const String kEsShareMessage =
