@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dart_ping/dart_ping.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:the_exchange_app/models/currencies.dart';
 import 'package:the_exchange_app/models/currencies_box.dart';
 import 'package:hive/hive.dart';
 import 'package:the_exchange_app/style/theme.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SelectedCurrenciesProvider extends ChangeNotifier {
   bool isWaiting = true;
@@ -45,7 +47,11 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
         for (int i = 0; i < currenciesRatesData.length; i++) {
           CurrenciesRates currenciesRateValue = CurrenciesRates(
               currencyISOCode: currenciesRatesData[i]['currencyISOCode'],
-              currencyRate: currenciesRatesData[i]['currencyRate'].toDouble());
+              currencyRate: currenciesRatesData[i]['currencyRate'] is int
+                  ? currenciesRatesData[i]['currencyRate'].toDouble()
+                  : currenciesRatesData[i]['currencyRate'] is String
+                      ? double.parse(currenciesRatesData[i]['currencyRate'])
+                      : currenciesRatesData[i]['currencyRate']);
           currenciesRatesList.add(currenciesRateValue);
         }
         notifyListeners();
@@ -447,5 +453,20 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
             bColor, tColor);
       }
     }
+  }
+
+  Future<void> rateApp(Color bColor, Color tColor, bool isEnglish) async {
+    isWaiting = true;
+    notifyListeners();
+    bool hasConnection = await connectionTest();
+    if (hasConnection) {
+      await launchUrl(Platform.isAndroid ? kPlayStoreURL : kAppsStoreURL,
+          mode: LaunchMode.externalApplication);
+    } else {
+      showToastAlert(
+          isEnglish ? kMessageNotConex : kEsMessageNotConex, bColor, tColor);
+    }
+    isWaiting = false;
+    notifyListeners();
   }
 }

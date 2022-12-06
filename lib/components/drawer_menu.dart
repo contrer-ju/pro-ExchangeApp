@@ -1,6 +1,7 @@
 import 'package:share_plus/share_plus.dart';
 import 'package:the_exchange_app/components/bottom_sheet_send_feedback.dart';
 import 'package:the_exchange_app/constants/strings.dart';
+import 'package:the_exchange_app/provider/selected_currencies_provider.dart';
 import 'package:the_exchange_app/provider/theme_provider.dart';
 import 'package:the_exchange_app/style/theme.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,13 @@ class DrawerMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Color backgroundColor =
+        Provider.of<ThemeProvider>(context, listen: false).darkThemeSelected
+            ? darkYellow
+            : darkGreen;
+    Color textColor = Theme.of(context).scaffoldBackgroundColor;
+    bool isEnglish = Provider.of<ThemeProvider>(context).englishOption;
+
     return Drawer(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       width: MediaQuery.of(context).size.width * kDrawerWidth,
@@ -92,8 +100,11 @@ class DrawerMenu extends StatelessWidget {
                   : kEsRateAppOption,
               style: Theme.of(context).textTheme.headline2,
             ),
-            onTap: () {
+            onTap: () async {
               Scaffold.of(context).closeDrawer();
+              await Provider.of<SelectedCurrenciesProvider>(context,
+                      listen: false)
+                  .rateApp(backgroundColor, textColor, isEnglish);
             },
           ),
           ListTile(

@@ -1,3 +1,6 @@
+final Uri kAppsStoreURL = Uri.parse('https://apps.apple.com/app/idAppId');
+final Uri kPlayStoreURL = Uri.parse('market://details?id=com.whatsapp');
+
 // Tools Bar Component
 const String kAppTitle = 'Exchange App';
 const String kCountryTab = 'Countries';
