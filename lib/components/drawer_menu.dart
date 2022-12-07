@@ -1,5 +1,6 @@
 import 'package:share_plus/share_plus.dart';
 import 'package:the_exchange_app/components/bottom_sheet_send_feedback.dart';
+import 'package:the_exchange_app/components/dialog_terms.dart';
 import 'package:the_exchange_app/constants/strings.dart';
 import 'package:the_exchange_app/provider/selected_currencies_provider.dart';
 import 'package:the_exchange_app/provider/theme_provider.dart';
@@ -167,6 +168,7 @@ class DrawerMenu extends StatelessWidget {
             ),
             onTap: () {
               Scaffold.of(context).closeDrawer();
+              showDialog(context: context, builder: (_) => const DialogTerms());
             },
           ),
           ListTile(

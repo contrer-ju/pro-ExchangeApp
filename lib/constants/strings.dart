@@ -82,6 +82,16 @@ const List<String> kDropdownButtonList = <String>[
   'Others'
 ];
 
+//Terms Dialog Component
+const String kAcceptButton = 'Accept';
+const String kTerms1 = 'Using this App, you agree to the Exchange App ';
+const String kTerms2 = 'Terms and Conditions';
+const String kTerms3 = ', ';
+const String kTerms4 = 'Privacy Policy';
+const String kTerms5 = ', and ';
+const String kTerms6 = 'EULA';
+const String kTerms7 = '.';
+
 //*****************************************************************************/
 
 // Tools Bar Component
@@ -166,3 +176,13 @@ const List<String> kEsDropdownButtonList = <String>[
   'Deseo reportar un error',
   'Otros'
 ];
+
+//Terms Dialog Component
+const String kEsAcceptButton = 'Aceptar';
+const String kEsTerms1 = 'Al usar esta aplicación, aceptas los ';
+const String kEsTerms2 = 'Términos y condiciones';
+const String kEsTerms3 = ', la ';
+const String kEsTerms4 = 'Política de privacidad';
+const String kEsTerms5 = ' y el ';
+const String kEsTerms6 = 'CLUF';
+const String kEsTerms7 = ' de la aplicación Exchange.';
