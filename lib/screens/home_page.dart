@@ -1,3 +1,4 @@
+import 'package:share_plus/share_plus.dart';
 import 'package:the_exchange_app/components/ad_banner_container.dart';
 import 'package:the_exchange_app/components/bottom_sheet_add_currencies_list.dart';
 import 'package:the_exchange_app/components/bottom_sheet_delete_currencies_list.dart';
@@ -170,31 +171,55 @@ class _HomePageState extends State<HomePage> {
                                             'images/${selectedCurrenciesList[index].imageID}.png'),
                                       ),
                                     ),
-                                    title: Text(
-                                      Provider.of<ThemeProvider>(context)
-                                              .englishOption
-                                          ? selectedCurrenciesList[index]
-                                              .currencyName
-                                          : selectedCurrenciesList[index]
-                                              .nombreMoneda,
-                                      style:
-                                          Theme.of(context).textTheme.headline3,
-                                    ),
-                                    subtitle: Text(
-                                      (!selectedCurrenciesList[index]
-                                                      .wasUpdated &&
-                                                  !selectedCurrenciesList[index]
-                                                      .wasRead) ||
+                                    title: GestureDetector(
+                                      onDoubleTap: () => _onShareRate(
+                                          context,
+                                          selectedCurrenciesList[index],
+                                          currencyRateFormat.format(
                                               selectedCurrenciesList[index]
-                                                      .currencyRate ==
-                                                  0
-                                          ? Provider.of<ThemeProvider>(context)
-                                                  .englishOption
-                                              ? kUpdateRates
-                                              : kEsUpdateRates
-                                          : '1 ${baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : baseSelectedCurrency.currencyISOCode.toUpperCase()} = ${currencyRateFormat.format(selectedCurrenciesList[index].currencyRate / baseSelectedCurrency.currencyRate)} ${selectedCurrenciesList[index].currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : selectedCurrenciesList[index].currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : selectedCurrenciesList[index].currencyISOCode.toUpperCase()}',
-                                      style:
-                                          Theme.of(context).textTheme.subtitle2,
+                                                      .currencyRate /
+                                                  baseSelectedCurrency
+                                                      .currencyRate)),
+                                      child: Text(
+                                        Provider.of<ThemeProvider>(context)
+                                                .englishOption
+                                            ? selectedCurrenciesList[index]
+                                                .currencyName
+                                            : selectedCurrenciesList[index]
+                                                .nombreMoneda,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline3,
+                                      ),
+                                    ),
+                                    subtitle: GestureDetector(
+                                      onDoubleTap: () => _onShareRate(
+                                          context,
+                                          selectedCurrenciesList[index],
+                                          currencyRateFormat.format(
+                                              selectedCurrenciesList[index]
+                                                      .currencyRate /
+                                                  baseSelectedCurrency
+                                                      .currencyRate)),
+                                      child: Text(
+                                        (!selectedCurrenciesList[index]
+                                                        .wasUpdated &&
+                                                    !selectedCurrenciesList[
+                                                            index]
+                                                        .wasRead) ||
+                                                selectedCurrenciesList[index]
+                                                        .currencyRate ==
+                                                    0
+                                            ? Provider.of<ThemeProvider>(
+                                                        context)
+                                                    .englishOption
+                                                ? kUpdateRates
+                                                : kEsUpdateRates
+                                            : '1 ${baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : baseSelectedCurrency.currencyISOCode.toUpperCase()} = ${currencyRateFormat.format(selectedCurrenciesList[index].currencyRate / baseSelectedCurrency.currencyRate)} ${selectedCurrenciesList[index].currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : selectedCurrenciesList[index].currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : selectedCurrenciesList[index].currencyISOCode.toUpperCase()}',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle2,
+                                      ),
                                     ),
                                     trailing: Row(
                                       mainAxisSize: MainAxisSize.min,
@@ -318,5 +343,66 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  void _onShareRate(BuildContext context, SelectedCurrencies selectedCurrency,
+      String rate) async {
+    bool isEnglish =
+        Provider.of<ThemeProvider>(context, listen: false).englishOption;
+    SelectedCurrencies baseSelectedCurrency =
+        Provider.of<SelectedCurrenciesProvider>(context, listen: false)
+            .baseSelectedCurrency;
+
+    final now = DateTime.now();
+    String dateEn =
+        '${DateFormat('MMMM').format(DateTime(0, now.month))} ${now.day}, ${now.year}';
+    String dateEs = '${now.day} de ${monthTranslate(now.month)} de ${now.year}';
+
+    String messageEs =
+        'Para el $dateEs a las ${timeFormat(now.hour, now.minute)} horas, la tasa de cambio del ${selectedCurrency.nombreMoneda} respecto al ${baseSelectedCurrency.nombreMoneda} es de 1 ${baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : baseSelectedCurrency.currencyISOCode.toUpperCase()} = $rate ${selectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : selectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : selectedCurrency.currencyISOCode.toUpperCase()}. Información compartida por Exchange App, mas información de la App en el siguiente enlace: ';
+    String messageEn =
+        'For $dateEn at ${timeFormat(now.hour, now.minute)} hours, the exchange rate of the ${selectedCurrency.currencyName} against the ${baseSelectedCurrency.currencyName} is 1 ${baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : baseSelectedCurrency.currencyISOCode.toUpperCase()} = $rate ${selectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : selectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : selectedCurrency.currencyISOCode.toUpperCase()}. Information shared by Exchange App, more information about the App in the following link:';
+
+    final box = context.findRenderObject() as RenderBox?;
+    await Share.share(isEnglish ? messageEn : messageEs,
+        subject: isEnglish
+            ? 'Updated exchange rate of the ${selectedCurrency.currencyName} against the ${baseSelectedCurrency.currencyName}.'
+            : 'Tasa de cambio actualizada del ${selectedCurrency.nombreMoneda} respecto al ${baseSelectedCurrency.nombreMoneda}.',
+        sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
+  }
+
+  String monthTranslate(int month) {
+    switch (month) {
+      case 1:
+        return 'Enero';
+      case 2:
+        return 'Febrero';
+      case 3:
+        return 'Marzo';
+      case 4:
+        return 'Abril';
+      case 5:
+        return 'Mayo';
+      case 6:
+        return 'Junio';
+      case 7:
+        return 'Julio';
+      case 8:
+        return 'Agosto';
+      case 9:
+        return 'Septiembre';
+      case 10:
+        return 'Octubre';
+      case 11:
+        return 'Noviembre';
+      default:
+        return 'Diciembre';
+    }
+  }
+
+  String timeFormat(int hour, int minute) {
+    String hourValue = hour < 10 ? '0$hour' : '$hour';
+    String minuteValue = minute < 10 ? '0$minute' : '$minute';
+    return '$hourValue:$minuteValue';
   }
 }
