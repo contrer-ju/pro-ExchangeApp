@@ -18,6 +18,14 @@ List<ReferenceCurrency> kReferenceCurrenciesList = [
     pais: 'Venezuela',
   ),
   ReferenceCurrency(
+    referenceName: 'En Paralelo',
+    nombreReferencia: 'En Paralelo',
+    referenceID: 'rv_epa',
+    isChecked: false,
+    country: 'Venezuela',
+    pais: 'Venezuela',
+  ),
+  ReferenceCurrency(
     referenceName: 'Dollar Today',
     nombreReferencia: 'Dólar Today',
     referenceID: 'rv_dto',
