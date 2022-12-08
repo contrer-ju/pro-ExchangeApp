@@ -64,7 +64,7 @@ class DialogAmount extends StatelessWidget {
           },
         ),
         actions: [
-          TextButton(
+          ElevatedButton(
               onPressed: () {
                 if (newStringValue != '') {
                   List<String> listStringValue = [];
@@ -98,7 +98,7 @@ class DialogAmount extends StatelessWidget {
                 Provider.of<ThemeProvider>(context).englishOption
                     ? kSubmitButton
                     : kEsSubmitButton,
-                style: Theme.of(context).textTheme.headline2,
+                style: Theme.of(context).textTheme.headline6,
               ))
         ],
       ),

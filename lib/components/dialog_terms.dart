@@ -68,12 +68,20 @@ class DialogTerms extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              const Image(
-                width: kLicenseImageWidth,
-                height: kLicenseImageHeight,
-                image: AssetImage('images/license.png'),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Provider.of<SelectedCurrenciesProvider>(context,
+                          listen: false)
+                      .readLicense(backgroundColor, textColor, isEnglish);
+                },
+                child: const Image(
+                  width: kLicenseImageWidth,
+                  height: kLicenseImageHeight,
+                  image: AssetImage('images/license.png'),
+                ),
               ),
-              TextButton(
+              ElevatedButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
@@ -81,7 +89,7 @@ class DialogTerms extends StatelessWidget {
                     Provider.of<ThemeProvider>(context).englishOption
                         ? kAcceptButton
                         : kEsAcceptButton,
-                    style: Theme.of(context).textTheme.headline2,
+                    style: Theme.of(context).textTheme.headline6,
                   )),
             ],
           )

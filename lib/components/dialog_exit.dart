@@ -4,6 +4,7 @@ import 'package:the_exchange_app/services/selected_currencies_provider.dart';
 import 'package:the_exchange_app/services/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:the_exchange_app/style/theme.dart';
 
 class DialogExit extends StatelessWidget {
   const DialogExit({
@@ -33,16 +34,19 @@ class DialogExit extends StatelessWidget {
         ),
         content: const AdDialogContainer(),
         actions: <Widget>[
-          TextButton(
+          ElevatedButton(
             onPressed: () => Navigator.of(context).pop(false),
             child: Text(
               Provider.of<ThemeProvider>(context).englishOption
                   ? kDialogStay
                   : kEsDialogStay,
-              style: Theme.of(context).textTheme.headline2,
+              style: Theme.of(context).textTheme.headline6,
             ),
           ),
-          TextButton(
+          const SizedBox(
+            width: kSecondarySpace,
+          ),
+          ElevatedButton(
             onPressed: () {
               Provider.of<SelectedCurrenciesProvider>(context, listen: false)
                   .saveBaseSelectedCurrencyAmount();
@@ -56,7 +60,7 @@ class DialogExit extends StatelessWidget {
               Provider.of<ThemeProvider>(context).englishOption
                   ? kDialogExit
                   : kEsDialogExit,
-              style: Theme.of(context).textTheme.headline2,
+              style: Theme.of(context).textTheme.headline6,
             ),
           ),
         ],

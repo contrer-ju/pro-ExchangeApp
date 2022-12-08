@@ -101,6 +101,9 @@ const double kPaddingPage = 15;
 const double kMainSpace = 20;
 const double kSecondarySpace = 15;
 
+//Help Page
+const double kPaddingHelpPage = 20;
+
 //******************* Text Styles *********************************/
 
 const TextStyle appBarTitleTextStyle = TextStyle(

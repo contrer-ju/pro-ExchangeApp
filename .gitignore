@@ -47,3 +47,5 @@ app.*.map.json
 /android/app/release
 other_files/exchangeapp-c23e5-e6dc63bb4183.json
 other_files/mail
+other_files/Priv.odt
+other_files/Terms.odt
