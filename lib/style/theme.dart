@@ -92,6 +92,15 @@ const double kToastText = 17;
 //Dropdown Component
 const double kBorderWidthDropdown = 1.2;
 
+//License Image
+const double kLicenseImageWidth = 99;
+const double kLicenseImageHeight = 35;
+
+//Terms Page
+const double kPaddingPage = 15;
+const double kMainSpace = 20;
+const double kSecondarySpace = 15;
+
 //******************* Text Styles *********************************/
 
 const TextStyle appBarTitleTextStyle = TextStyle(

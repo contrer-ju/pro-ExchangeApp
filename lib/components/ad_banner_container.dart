@@ -1,6 +1,6 @@
 import 'package:provider/provider.dart';
 import 'package:the_exchange_app/constants/strings.dart';
-import 'package:the_exchange_app/provider/theme_provider.dart';
+import 'package:the_exchange_app/services/theme_provider.dart';
 import 'package:the_exchange_app/style/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';

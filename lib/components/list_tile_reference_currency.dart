@@ -1,6 +1,6 @@
-import 'package:the_exchange_app/provider/references_currencies_provider.dart';
-import 'package:the_exchange_app/provider/selected_currencies_provider.dart';
-import 'package:the_exchange_app/provider/theme_provider.dart';
+import 'package:the_exchange_app/services/references_currencies_provider.dart';
+import 'package:the_exchange_app/services/selected_currencies_provider.dart';
+import 'package:the_exchange_app/services/theme_provider.dart';
 import 'package:the_exchange_app/style/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

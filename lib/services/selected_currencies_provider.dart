@@ -469,4 +469,18 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
     isWaiting = false;
     notifyListeners();
   }
+
+  Future<void> readLicense(Color bColor, Color tColor, bool isEnglish) async {
+    isWaiting = true;
+    notifyListeners();
+    bool hasConnection = await connectionTest();
+    if (hasConnection) {
+      await launchUrl(isEnglish ? kByNcSaLiceneseURL : kEsByNcSaLiceneseURL);
+    } else {
+      showToastAlert(
+          isEnglish ? kMessageNotConex : kEsMessageNotConex, bColor, tColor);
+    }
+    isWaiting = false;
+    notifyListeners();
+  }
 }

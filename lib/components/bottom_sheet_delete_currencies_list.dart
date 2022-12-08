@@ -1,10 +1,10 @@
 import 'package:the_exchange_app/components/list_view_to_delete_currencies.dart';
 import 'package:the_exchange_app/constants/strings.dart';
-import 'package:the_exchange_app/provider/countries_currencies_provider.dart';
-import 'package:the_exchange_app/provider/cripto_currencies_provider.dart';
-import 'package:the_exchange_app/provider/references_currencies_provider.dart';
-import 'package:the_exchange_app/provider/selected_currencies_provider.dart';
-import 'package:the_exchange_app/provider/theme_provider.dart';
+import 'package:the_exchange_app/services/countries_currencies_provider.dart';
+import 'package:the_exchange_app/services/cripto_currencies_provider.dart';
+import 'package:the_exchange_app/services/references_currencies_provider.dart';
+import 'package:the_exchange_app/services/selected_currencies_provider.dart';
+import 'package:the_exchange_app/services/theme_provider.dart';
 import 'package:the_exchange_app/style/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

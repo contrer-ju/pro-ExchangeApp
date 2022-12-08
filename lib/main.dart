@@ -1,11 +1,13 @@
 import 'package:the_exchange_app/models/currencies_box.dart';
-import 'package:the_exchange_app/provider/countries_currencies_provider.dart';
-import 'package:the_exchange_app/provider/cripto_currencies_provider.dart';
-import 'package:the_exchange_app/provider/feedback_provider.dart';
-import 'package:the_exchange_app/provider/references_currencies_provider.dart';
-import 'package:the_exchange_app/provider/selected_currencies_provider.dart';
-import 'package:the_exchange_app/provider/theme_provider.dart';
+import 'package:the_exchange_app/services/countries_currencies_provider.dart';
+import 'package:the_exchange_app/services/cripto_currencies_provider.dart';
+import 'package:the_exchange_app/services/feedback_provider.dart';
+import 'package:the_exchange_app/services/references_currencies_provider.dart';
+import 'package:the_exchange_app/services/selected_currencies_provider.dart';
+import 'package:the_exchange_app/services/theme_provider.dart';
 import 'package:the_exchange_app/screens/home_page.dart';
+import 'package:the_exchange_app/screens/privacy_page.dart';
+import 'package:the_exchange_app/screens/terms_page.dart';
 import 'package:the_exchange_app/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -46,7 +48,12 @@ class ExchangeApp extends StatelessWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: Provider.of<ThemeProvider>(context).currentTheme(),
-          home: const HomePage(),
+          initialRoute: '/',
+          routes: {
+            '/': (context) => const HomePage(),
+            '/terms': (context) => const TermsPage(),
+            '/priv': (context) => const PrivacyPage(),
+          },
         );
       },
     );

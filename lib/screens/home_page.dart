@@ -8,11 +8,11 @@ import 'package:the_exchange_app/components/drawer_menu.dart';
 import 'package:the_exchange_app/components/tool_bar.dart';
 import 'package:the_exchange_app/constants/strings.dart';
 import 'package:the_exchange_app/models/currencies.dart';
-import 'package:the_exchange_app/provider/countries_currencies_provider.dart';
-import 'package:the_exchange_app/provider/cripto_currencies_provider.dart';
-import 'package:the_exchange_app/provider/references_currencies_provider.dart';
-import 'package:the_exchange_app/provider/selected_currencies_provider.dart';
-import 'package:the_exchange_app/provider/theme_provider.dart';
+import 'package:the_exchange_app/services/countries_currencies_provider.dart';
+import 'package:the_exchange_app/services/cripto_currencies_provider.dart';
+import 'package:the_exchange_app/services/references_currencies_provider.dart';
+import 'package:the_exchange_app/services/selected_currencies_provider.dart';
+import 'package:the_exchange_app/services/theme_provider.dart';
 import 'package:the_exchange_app/style/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -32,6 +32,7 @@ class _HomePageState extends State<HomePage> {
   Future<bool> _onWillPop(BuildContext context) async {
     bool? exitResult = await showDialog(
       context: context,
+      barrierDismissible: false,
       builder: (context) => DialogExit(context: context),
     );
     return exitResult ?? false;
@@ -242,6 +243,7 @@ class _HomePageState extends State<HomePage> {
                                                               .currencyRate);
                                               showDialog(
                                                   context: context,
+                                                  barrierDismissible: false,
                                                   builder: (_) =>
                                                       const DialogAmount());
                                             }

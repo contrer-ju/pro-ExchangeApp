@@ -1,7 +1,7 @@
 import 'package:the_exchange_app/components/dialog_amount.dart';
 import 'package:the_exchange_app/constants/strings.dart';
-import 'package:the_exchange_app/provider/selected_currencies_provider.dart';
-import 'package:the_exchange_app/provider/theme_provider.dart';
+import 'package:the_exchange_app/services/selected_currencies_provider.dart';
+import 'package:the_exchange_app/services/theme_provider.dart';
 import 'package:the_exchange_app/style/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -84,7 +84,9 @@ class BaseSelectedCurrencyListTile extends StatelessWidget {
                             : darkGreen,
                         Theme.of(context).scaffoldBackgroundColor)
                 : showDialog(
-                    context: context, builder: (_) => const DialogAmount());
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (_) => const DialogAmount());
           },
           child: Row(
             mainAxisSize: MainAxisSize.min,
