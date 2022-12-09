@@ -3,7 +3,7 @@ import 'package:the_exchange_app/components/bottom_sheet_send_feedback.dart';
 import 'package:the_exchange_app/components/dialog_terms.dart';
 import 'package:the_exchange_app/constants/strings.dart';
 import 'package:the_exchange_app/services/selected_currencies_provider.dart';
-import 'package:the_exchange_app/services/theme_provider.dart';
+import 'package:the_exchange_app/services/services_provider.dart';
 import 'package:the_exchange_app/style/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,11 +16,11 @@ class DrawerMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color backgroundColor =
-        Provider.of<ThemeProvider>(context, listen: false).darkThemeSelected
+        Provider.of<ServicesProvider>(context, listen: false).darkThemeSelected
             ? darkYellow
             : darkGreen;
     Color textColor = Theme.of(context).scaffoldBackgroundColor;
-    bool isEnglish = Provider.of<ThemeProvider>(context).englishOption;
+    bool isEnglish = Provider.of<ServicesProvider>(context).englishOption;
 
     return Drawer(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -50,24 +50,25 @@ class DrawerMenu extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(
-              Provider.of<ThemeProvider>(context).darkThemeSelected
+              Provider.of<ServicesProvider>(context).darkThemeSelected
                   ? Icons.dark_mode_outlined
                   : Icons.light_mode_outlined,
               size: kIconsSizes,
               color: Theme.of(context).primaryColor,
             ),
             title: Text(
-              Provider.of<ThemeProvider>(context).darkThemeSelected
-                  ? Provider.of<ThemeProvider>(context).englishOption
+              Provider.of<ServicesProvider>(context).darkThemeSelected
+                  ? Provider.of<ServicesProvider>(context).englishOption
                       ? kDarkThemeOption
                       : kEsDarkThemeOption
-                  : Provider.of<ThemeProvider>(context).englishOption
+                  : Provider.of<ServicesProvider>(context).englishOption
                       ? kLightThemeOption
                       : kEsLightThemeOption,
               style: Theme.of(context).textTheme.headline2,
             ),
             onTap: () {
-              Provider.of<ThemeProvider>(context, listen: false).switchTheme();
+              Provider.of<ServicesProvider>(context, listen: false)
+                  .switchTheme();
               Scaffold.of(context).closeDrawer();
             },
           ),
@@ -78,13 +79,13 @@ class DrawerMenu extends StatelessWidget {
               color: Theme.of(context).primaryColor,
             ),
             title: Text(
-              Provider.of<ThemeProvider>(context).englishOption
+              Provider.of<ServicesProvider>(context).englishOption
                   ? kEnglishOption
                   : kSpanishOption,
               style: Theme.of(context).textTheme.headline2,
             ),
             onTap: () {
-              Provider.of<ThemeProvider>(context, listen: false)
+              Provider.of<ServicesProvider>(context, listen: false)
                   .switchLanguage();
               Scaffold.of(context).closeDrawer();
             },
@@ -96,7 +97,7 @@ class DrawerMenu extends StatelessWidget {
               color: Theme.of(context).primaryColor,
             ),
             title: Text(
-              Provider.of<ThemeProvider>(context).englishOption
+              Provider.of<ServicesProvider>(context).englishOption
                   ? kRateAppOption
                   : kEsRateAppOption,
               style: Theme.of(context).textTheme.headline2,
@@ -115,7 +116,7 @@ class DrawerMenu extends StatelessWidget {
               color: Theme.of(context).primaryColor,
             ),
             title: Text(
-              Provider.of<ThemeProvider>(context).englishOption
+              Provider.of<ServicesProvider>(context).englishOption
                   ? kShareOption
                   : kEsShareOption,
               style: Theme.of(context).textTheme.headline2,
@@ -132,7 +133,7 @@ class DrawerMenu extends StatelessWidget {
               color: Theme.of(context).primaryColor,
             ),
             title: Text(
-              Provider.of<ThemeProvider>(context).englishOption
+              Provider.of<ServicesProvider>(context).englishOption
                   ? kFeedbackOption
                   : kEsFeedbackOption,
               style: Theme.of(context).textTheme.headline2,
@@ -161,7 +162,7 @@ class DrawerMenu extends StatelessWidget {
               color: Theme.of(context).primaryColor,
             ),
             title: Text(
-              Provider.of<ThemeProvider>(context).englishOption
+              Provider.of<ServicesProvider>(context).englishOption
                   ? kPrivacyOption
                   : kEsPrivacyOption,
               style: Theme.of(context).textTheme.headline2,
@@ -181,13 +182,27 @@ class DrawerMenu extends StatelessWidget {
               color: Theme.of(context).primaryColor,
             ),
             title: Text(
-              Provider.of<ThemeProvider>(context).englishOption
+              Provider.of<ServicesProvider>(context).englishOption
                   ? kHelpOption
                   : kEsHelpOption,
               style: Theme.of(context).textTheme.headline2,
             ),
             onTap: () {
               Scaffold.of(context).closeDrawer();
+              Provider.of<ServicesProvider>(context, listen: false)
+                  .checkCurrenciesList(
+                      Provider.of<SelectedCurrenciesProvider>(context,
+                                  listen: false)
+                              .baseSelectedCurrency
+                              .currencyName !=
+                          '',
+                      Provider.of<SelectedCurrenciesProvider>(context,
+                              listen: false)
+                          .selectedCurrenciesList
+                          .isNotEmpty);
+              Provider.of<ServicesProvider>(context, listen: false)
+                  .tutorialCoachMark
+                  .show(context: context);
             },
           ),
         ],
@@ -198,11 +213,11 @@ class DrawerMenu extends StatelessWidget {
   void _onShare(BuildContext context) async {
     final box = context.findRenderObject() as RenderBox?;
     await Share.share(
-        Provider.of<ThemeProvider>(context, listen: false).englishOption
+        Provider.of<ServicesProvider>(context, listen: false).englishOption
             ? kShareMessage
             : kEsShareMessage,
         subject:
-            Provider.of<ThemeProvider>(context, listen: false).englishOption
+            Provider.of<ServicesProvider>(context, listen: false).englishOption
                 ? kShareTitle
                 : kEsShareTitle,
         sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);

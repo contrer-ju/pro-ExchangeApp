@@ -1,6 +1,6 @@
 import 'package:the_exchange_app/services/references_currencies_provider.dart';
 import 'package:the_exchange_app/services/selected_currencies_provider.dart';
-import 'package:the_exchange_app/services/theme_provider.dart';
+import 'package:the_exchange_app/services/services_provider.dart';
 import 'package:the_exchange_app/style/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -39,13 +39,13 @@ class ReferenceCurrencyListTile extends StatelessWidget {
           image: AssetImage('images/$referenceID.png'),
         ),
         title: Text(
-          Provider.of<ThemeProvider>(context).englishOption
+          Provider.of<ServicesProvider>(context).englishOption
               ? referenceName
               : nombreReferencia,
           style: Theme.of(context).textTheme.headline3,
         ),
         subtitle: Text(
-          Provider.of<ThemeProvider>(context).englishOption ? country : pais,
+          Provider.of<ServicesProvider>(context).englishOption ? country : pais,
           style: Theme.of(context).textTheme.subtitle2,
         ),
         trailing: Checkbox(

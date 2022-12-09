@@ -5,7 +5,7 @@ import 'package:the_exchange_app/constants/strings.dart';
 import 'package:the_exchange_app/services/countries_currencies_provider.dart';
 import 'package:the_exchange_app/services/cripto_currencies_provider.dart';
 import 'package:the_exchange_app/services/references_currencies_provider.dart';
-import 'package:the_exchange_app/services/theme_provider.dart';
+import 'package:the_exchange_app/services/services_provider.dart';
 import 'package:the_exchange_app/style/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +23,7 @@ class BottomSheetAddCurrenciesList extends StatelessWidget {
   Widget build(BuildContext context) {
     return FloatingActionButton(
       mini: true,
+      key: Provider.of<ServicesProvider>(context).keyAddButton,
       onPressed: () {
         showModalBottomSheet(
           context: context,
@@ -52,7 +53,7 @@ class BottomSheetAddCurrenciesList extends StatelessWidget {
                         top: kPaddingTopButton, right: kPaddingRightButton),
                     child: ElevatedButton(
                       child: Text(
-                        Provider.of<ThemeProvider>(context).englishOption
+                        Provider.of<ServicesProvider>(context).englishOption
                             ? kBottomSheetButton
                             : kEsBottomSheetButton,
                         style: Theme.of(context).textTheme.headline6,
@@ -110,17 +111,17 @@ class BottomSheetAddCurrenciesList extends StatelessWidget {
                                 },
                                 tabs: [
                                   Tab(
-                                      text: Provider.of<ThemeProvider>(context)
+                                      text: Provider.of<ServicesProvider>(context)
                                               .englishOption
                                           ? kCountryTab
                                           : kEsCountryTab),
                                   Tab(
-                                      text: Provider.of<ThemeProvider>(context)
+                                      text: Provider.of<ServicesProvider>(context)
                                               .englishOption
                                           ? kCryptosTab
                                           : kEsCryptosTab),
                                   Tab(
-                                      text: Provider.of<ThemeProvider>(context)
+                                      text: Provider.of<ServicesProvider>(context)
                                               .englishOption
                                           ? kReferencesTab
                                           : kEsReferencesTab),
@@ -145,7 +146,7 @@ class BottomSheetAddCurrenciesList extends StatelessWidget {
                                           .searchKeywordOnCountriesList(value),
                                   decoration: InputDecoration(
                                     hintText:
-                                        Provider.of<ThemeProvider>(context)
+                                        Provider.of<ServicesProvider>(context)
                                                 .englishOption
                                             ? kSearchBoxHint
                                             : kEsSearchBoxHint,
@@ -199,7 +200,7 @@ class BottomSheetAddCurrenciesList extends StatelessWidget {
                                           .searchKeywordOnCriptoList(value),
                                   decoration: InputDecoration(
                                     hintText:
-                                        Provider.of<ThemeProvider>(context)
+                                        Provider.of<ServicesProvider>(context)
                                                 .englishOption
                                             ? kSearchBoxHint
                                             : kEsSearchBoxHint,
@@ -254,7 +255,7 @@ class BottomSheetAddCurrenciesList extends StatelessWidget {
                                   },
                                   decoration: InputDecoration(
                                     hintText:
-                                        Provider.of<ThemeProvider>(context)
+                                        Provider.of<ServicesProvider>(context)
                                                 .englishOption
                                             ? kSearchBoxHint
                                             : kEsSearchBoxHint,
@@ -303,7 +304,7 @@ class BottomSheetAddCurrenciesList extends StatelessWidget {
           ),
         );
       },
-      backgroundColor: Provider.of<ThemeProvider>(context).darkThemeSelected
+      backgroundColor: Provider.of<ServicesProvider>(context).darkThemeSelected
           ? darkYellow
           : darkGreen,
       child: Icon(

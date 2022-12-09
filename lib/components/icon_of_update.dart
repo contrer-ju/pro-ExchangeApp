@@ -1,6 +1,6 @@
 import 'package:provider/provider.dart';
 import 'package:the_exchange_app/services/selected_currencies_provider.dart';
-import 'package:the_exchange_app/services/theme_provider.dart';
+import 'package:the_exchange_app/services/services_provider.dart';
 import 'package:the_exchange_app/style/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -12,13 +12,14 @@ class UpdateIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color backgroundColor =
-        Provider.of<ThemeProvider>(context, listen: false).darkThemeSelected
+        Provider.of<ServicesProvider>(context, listen: false).darkThemeSelected
             ? darkYellow
             : darkGreen;
     Color textColor = Theme.of(context).scaffoldBackgroundColor;
-    bool isEnglish = Provider.of<ThemeProvider>(context).englishOption;
+    bool isEnglish = Provider.of<ServicesProvider>(context).englishOption;
 
     return IconButton(
+      key: Provider.of<ServicesProvider>(context).keyUpdateButton,
       icon: Icon(
         Provider.of<SelectedCurrenciesProvider>(context)
                     .baseSelectedCurrency

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:the_exchange_app/components/sized_box_spaces.dart';
 import 'package:the_exchange_app/constants/strings.dart';
-import 'package:the_exchange_app/services/theme_provider.dart';
+import 'package:the_exchange_app/services/services_provider.dart';
 import 'package:the_exchange_app/style/theme.dart';
 
 class TermsPage extends StatelessWidget {
@@ -10,7 +10,7 @@ class TermsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isEnglish = Provider.of<ThemeProvider>(context).englishOption;
+    bool isEnglish = Provider.of<ServicesProvider>(context).englishOption;
     return SafeArea(
         child: Scaffold(
             appBar: AppBar(

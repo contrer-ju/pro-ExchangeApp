@@ -104,6 +104,14 @@ const double kSecondarySpace = 15;
 //Help Page
 const double kPaddingHelpPage = 20;
 
+//Tutorial Component
+const double kPaddingFocus = 5;
+const double kRectPaddingFocus = 8;
+const double kRectBorderRadius = 5;
+const double kOpacityShadow = 0.9;
+const double kPaddingMessage = 15;
+const double kPaddingButtonsRow = 10;
+
 //******************* Text Styles *********************************/
 
 const TextStyle appBarTitleTextStyle = TextStyle(
@@ -115,6 +123,20 @@ const TextStyle appBarTitleTextStyle = TextStyle(
 
 const TextStyle appBarSubtitleTextStyle = TextStyle(
   fontSize: 17,
+  fontFamily: 'SF-UI-DISPLAY',
+  fontWeight: FontWeight.w500,
+);
+
+const TextStyle targetContentTitle = TextStyle(
+  color: Colors.black,
+  fontSize: 21.0,
+  fontFamily: 'SF-UI-DISPLAY',
+  fontWeight: FontWeight.w600,
+);
+
+const TextStyle targetContentMessage = TextStyle(
+  color: Colors.black,
+  fontSize: 17.0,
   fontFamily: 'SF-UI-DISPLAY',
   fontWeight: FontWeight.w500,
 );

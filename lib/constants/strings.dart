@@ -47,7 +47,7 @@ const String kRateAppOption = 'Rate the App';
 const String kShareOption = 'Share the App';
 const String kFeedbackOption = 'Send feedback';
 const String kPrivacyOption = 'Privacy and conditions';
-const String kHelpOption = 'Help';
+const String kHelpOption = 'How to use the App';
 
 //Toast Component
 const String kMessageUpdateTrue = "Rates update successful";
@@ -184,7 +184,40 @@ const String kPrivPageSubTitle6 = 'MODIFICACIONES';
 const String kPrivPagePart7 =
     'Nos reservamos el derecho de cambiar esta Política de Privacidad en cualquier momento. Si realizamos algún cambio importante, se lo notificaremos colocando un aviso destacado en la App y/o a través de correo electrónico. Cualquier cambio entrará en vigencia inmediatamente después de la publicación de la Política de privacidad revisada y su uso posterior de la App.';
 
-//*****************************************************************************/
+//Tutorial Component
+const String kAddButtonTitle = 'Add a currency to the list.';
+const String kAddButtonMessage =
+    'Tap here to browse and select one or more of the available currencies.';
+const String kDeleteButtonTitle = 'Delete a currency from the list.';
+const String kDeleteButtonMessage =
+    'Tap here to search and remove one or more currencies from the list on the main screen.';
+const String kUpdateButtonTitle = 'Update exchange rates in the currency list.';
+const String kUpdateButtonMessage =
+    'Tap here to update the exchange rates in the list of currencies. If the list is empty, the exchange rates will not be updated.';
+const String kCalculateBaseTitle = 'Enter the base currency amount.';
+const String kCalculateBaseMessage =
+    'Tap here to enter a base currency amount and compare it to the currency list.';
+const String kCalculateListTitle =
+    'Set a currency from the list as the base currency and enter its amount.';
+const String kCalculateListMessage =
+    'Tap here to set a base currency from the list and then enter a base currency amount and compare it to the currency list.';
+const String kPutOnTopOfListTitle =
+    'Set a currency from the list as the base currency.';
+const String kPutOnTopOfListMessage =
+    'Tap here to set a base currency from the list.';
+const String kMoveOnTheListTitle = 'Move a coin within the list.';
+const String kMoveOnTheListMessage =
+    'Hold down here while moving a coin up or down within the list.';
+const String kShareRateTitle = 'Share an exchange rate.';
+const String kShareRateMessage =
+    'Double-tap here to share an exchange rate with your contacts.';
+
+//***********************************************************************************************************************************/
+//***********************************************************************************************************************************/
+//***********************************************************************************************************************************/
+//***********************************************************************************************************************************/
+//***********************************************************************************************************************************/
+//***********************************************************************************************************************************/
 
 // Tools Bar Component
 const String kEsTermsTitle = 'Términos y Condiciones';
@@ -228,7 +261,7 @@ const String kEsRateAppOption = 'Califica la App';
 const String kEsShareOption = 'Comparte la App';
 const String kEsFeedbackOption = 'Sugerencias';
 const String kEsPrivacyOption = 'Privacidad y condiciones';
-const String kEsHelpOption = 'Ayuda';
+const String kEsHelpOption = 'Cómo usar la App';
 
 //Toast Component
 const String kEsMessageUpdateTrue = "Tasas actualizadas satisfactoriamente";
@@ -367,3 +400,32 @@ const String kEsPrivPagePart6 =
 const String kEsPrivPageSubTitle6 = 'MODIFICACIONES';
 const String kEsPrivPagePart7 =
     'Nos reservamos el derecho de cambiar esta Política de Privacidad en cualquier momento. Si realizamos algún cambio importante, se lo notificaremos colocando un aviso destacado en la App y/o a través de correo electrónico. Cualquier cambio entrará en vigencia inmediatamente después de la publicación de la Política de privacidad revisada y su uso posterior de la App.';
+
+//Tutorial Component
+const String kEsAddButtonTitle = 'Agregue una moneda a la lista.';
+const String kEsAddButtonMessage =
+    'Pulse aquí para navegar y seleccionar una o más de las monedas disponibles.';
+const String kEsDeleteButtonTitle = 'Eliminar una moneda de la lista.';
+const String kEsDeleteButtonMessage =
+    'Pulse aquí para buscar y eliminar una o más monedas del listado en la pantalla principal.';
+const String kEsUpdateButtonTitle =
+    'Actualice los tipos de cambio de la lista de monedas.';
+const String kEsUpdateButtonMessage =
+    'Pulse acá para actualizar los tipos de cambio del listado de monedas. Si la lista está vacía, los tipos de cambio no se actualizarán.';
+const String kEsCalculateBaseTitle = 'Ingrese el monto de la moneda base.';
+const String kEsCalculateBaseMessage =
+    'Pulse acá para ingresar un monto de la moneda base y compararlo con el listado de monedas.';
+const String kEsCalculateListTitle =
+    'Establezca una divisa de la lista como divisa base e introduzca su monto.';
+const String kEsCalculateListMessage =
+    'Pulse acá para establecer una moneda de la lista como base, luego ingrese un monto de esta y compárelo con la lista de monedas.';
+const String kEsPutOnTopOfListTitle =
+    'Establezca una divisa de la lista como divisa base.';
+const String kEsPutOnTopOfListMessage =
+    'Pulse acá para establecer una moneda de la lista como base.';
+const String kEsMoveOnTheListTitle = 'Mueve una moneda dentro de la lista.';
+const String kEsMoveOnTheListMessage =
+    'Mantenga presionado aquí mientras mueve una moneda hacia arriba o hacia abajo dentro de la lista.';
+const String kEsShareRateTitle = 'Comparte un tipo de cambio.';
+const String kEsShareRateMessage =
+    'Toca dos veces aquí para compartir un tipo de cambio con tus contactos.';

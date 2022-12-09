@@ -4,7 +4,7 @@ import 'package:the_exchange_app/services/countries_currencies_provider.dart';
 import 'package:the_exchange_app/services/cripto_currencies_provider.dart';
 import 'package:the_exchange_app/services/references_currencies_provider.dart';
 import 'package:the_exchange_app/services/selected_currencies_provider.dart';
-import 'package:the_exchange_app/services/theme_provider.dart';
+import 'package:the_exchange_app/services/services_provider.dart';
 import 'package:the_exchange_app/style/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -20,6 +20,7 @@ class BottomSheetDeleteCurrenciesList extends StatelessWidget {
   Widget build(BuildContext context) {
     return FloatingActionButton(
       mini: true,
+      key: Provider.of<ServicesProvider>(context).keyDeleteButton,
       onPressed: () {
         showModalBottomSheet(
           context: context,
@@ -54,7 +55,7 @@ class BottomSheetDeleteCurrenciesList extends StatelessWidget {
                       children: [
                         ElevatedButton(
                           child: Text(
-                            Provider.of<ThemeProvider>(context).englishOption
+                            Provider.of<ServicesProvider>(context).englishOption
                                 ? kBottomSheetDelete
                                 : kEsBottomSheetDelete,
                             style: Theme.of(context).textTheme.headline6,
@@ -78,7 +79,7 @@ class BottomSheetDeleteCurrenciesList extends StatelessWidget {
                         ),
                         ElevatedButton(
                           child: Text(
-                            Provider.of<ThemeProvider>(context).englishOption
+                            Provider.of<ServicesProvider>(context).englishOption
                                 ? kBottomSheetButton
                                 : kEsBottomSheetButton,
                             style: Theme.of(context).textTheme.headline6,
@@ -105,7 +106,7 @@ class BottomSheetDeleteCurrenciesList extends StatelessWidget {
                               .searchKeywordOnSelectedList(value),
                       decoration: InputDecoration(
                         hintText:
-                            Provider.of<ThemeProvider>(context).englishOption
+                            Provider.of<ServicesProvider>(context).englishOption
                                 ? kSearchBoxHint
                                 : kEsSearchBoxHint,
                         hintStyle: Theme.of(context).textTheme.headline4,
@@ -145,7 +146,7 @@ class BottomSheetDeleteCurrenciesList extends StatelessWidget {
           ),
         );
       },
-      backgroundColor: Provider.of<ThemeProvider>(context).darkThemeSelected
+      backgroundColor: Provider.of<ServicesProvider>(context).darkThemeSelected
           ? darkYellow
           : darkGreen,
       child: Icon(

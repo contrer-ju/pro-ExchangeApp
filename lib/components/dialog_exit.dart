@@ -1,7 +1,7 @@
 import 'package:the_exchange_app/components/ad_dialog_container.dart';
 import 'package:the_exchange_app/constants/strings.dart';
 import 'package:the_exchange_app/services/selected_currencies_provider.dart';
-import 'package:the_exchange_app/services/theme_provider.dart';
+import 'package:the_exchange_app/services/services_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:the_exchange_app/style/theme.dart';
@@ -27,7 +27,7 @@ class DialogExit extends StatelessWidget {
       child: AlertDialog(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         title: Text(
-          Provider.of<ThemeProvider>(context).englishOption
+          Provider.of<ServicesProvider>(context).englishOption
               ? kDialogQuestion
               : kEsDialogQuestion,
           style: Theme.of(context).textTheme.headline1,
@@ -37,7 +37,7 @@ class DialogExit extends StatelessWidget {
           ElevatedButton(
             onPressed: () => Navigator.of(context).pop(false),
             child: Text(
-              Provider.of<ThemeProvider>(context).englishOption
+              Provider.of<ServicesProvider>(context).englishOption
                   ? kDialogStay
                   : kEsDialogStay,
               style: Theme.of(context).textTheme.headline6,
@@ -52,12 +52,12 @@ class DialogExit extends StatelessWidget {
                   .saveBaseSelectedCurrencyAmount();
               Provider.of<SelectedCurrenciesProvider>(context, listen: false)
                   .saveCurrenciesList();
-              Provider.of<ThemeProvider>(context, listen: false).saveTheme();
-              Provider.of<ThemeProvider>(context, listen: false).saveLanguage();
+              Provider.of<ServicesProvider>(context, listen: false).saveTheme();
+              Provider.of<ServicesProvider>(context, listen: false).saveLanguage();
               Navigator.of(context).pop(true);
             },
             child: Text(
-              Provider.of<ThemeProvider>(context).englishOption
+              Provider.of<ServicesProvider>(context).englishOption
                   ? kDialogExit
                   : kEsDialogExit,
               style: Theme.of(context).textTheme.headline6,

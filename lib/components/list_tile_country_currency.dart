@@ -1,6 +1,6 @@
 import 'package:the_exchange_app/services/countries_currencies_provider.dart';
 import 'package:the_exchange_app/services/selected_currencies_provider.dart';
-import 'package:the_exchange_app/services/theme_provider.dart';
+import 'package:the_exchange_app/services/services_provider.dart';
 import 'package:the_exchange_app/style/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -41,13 +41,13 @@ class CountryCurrencyListTile extends StatelessWidget {
           image: AssetImage('images/$countryISOCode.png'),
         ),
         title: Text(
-          Provider.of<ThemeProvider>(context).englishOption
+          Provider.of<ServicesProvider>(context).englishOption
               ? countryName
               : nombrePais,
           style: Theme.of(context).textTheme.headline3,
         ),
         subtitle: Text(
-          Provider.of<ThemeProvider>(context).englishOption
+          Provider.of<ServicesProvider>(context).englishOption
               ? currencyISOCode.substring(0, 3) == 'ra_'
                   ? '$currencyName (ARS)'
                   : '$currencyName (${currencyISOCode.toUpperCase()})'

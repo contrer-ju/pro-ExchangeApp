@@ -1,7 +1,7 @@
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:the_exchange_app/constants/strings.dart';
 import 'package:the_exchange_app/services/selected_currencies_provider.dart';
-import 'package:the_exchange_app/services/theme_provider.dart';
+import 'package:the_exchange_app/services/services_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +18,7 @@ class DialogAmount extends StatelessWidget {
       child: AlertDialog(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         title: Text(
-          Provider.of<ThemeProvider>(context).englishOption
+          Provider.of<ServicesProvider>(context).englishOption
               ? kTitleDialog
               : kEsTitleDialog,
           style: Theme.of(context).textTheme.headline1,
@@ -95,7 +95,7 @@ class DialogAmount extends StatelessWidget {
                 Navigator.of(context).pop();
               },
               child: Text(
-                Provider.of<ThemeProvider>(context).englishOption
+                Provider.of<ServicesProvider>(context).englishOption
                     ? kSubmitButton
                     : kEsSubmitButton,
                 style: Theme.of(context).textTheme.headline6,

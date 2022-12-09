@@ -4,7 +4,7 @@ import 'package:the_exchange_app/services/cripto_currencies_provider.dart';
 import 'package:the_exchange_app/services/feedback_provider.dart';
 import 'package:the_exchange_app/services/references_currencies_provider.dart';
 import 'package:the_exchange_app/services/selected_currencies_provider.dart';
-import 'package:the_exchange_app/services/theme_provider.dart';
+import 'package:the_exchange_app/services/services_provider.dart';
 import 'package:the_exchange_app/screens/home_page.dart';
 import 'package:the_exchange_app/screens/privacy_page.dart';
 import 'package:the_exchange_app/screens/terms_page.dart';
@@ -41,13 +41,13 @@ class ExchangeApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => CountriesCurrenciesProvider()),
         ChangeNotifierProvider(create: (_) => CriptoCurrenciesProvider()),
         ChangeNotifierProvider(create: (_) => ReferenceCurrenciesProvider()),
-        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider(create: (_) => ServicesProvider()),
         ChangeNotifierProvider(create: (_) => FeedbackProvider()),
       ],
       builder: (context, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          theme: Provider.of<ThemeProvider>(context).currentTheme(),
+          theme: Provider.of<ServicesProvider>(context).currentTheme(),
           initialRoute: '/',
           routes: {
             '/': (context) => const HomePage(),

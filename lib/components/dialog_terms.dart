@@ -3,7 +3,7 @@ import 'package:the_exchange_app/constants/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:the_exchange_app/services/selected_currencies_provider.dart';
-import 'package:the_exchange_app/services/theme_provider.dart';
+import 'package:the_exchange_app/services/services_provider.dart';
 import 'package:the_exchange_app/style/theme.dart';
 
 class DialogTerms extends StatelessWidget {
@@ -16,11 +16,11 @@ class DialogTerms extends StatelessWidget {
     TextStyle hyperlink = Theme.of(context).textTheme.headline3!.copyWith(
         decoration: TextDecoration.underline, fontWeight: FontWeight.w300);
     Color backgroundColor =
-        Provider.of<ThemeProvider>(context, listen: false).darkThemeSelected
+        Provider.of<ServicesProvider>(context, listen: false).darkThemeSelected
             ? darkYellow
             : darkGreen;
     Color textColor = Theme.of(context).scaffoldBackgroundColor;
-    bool isEnglish = Provider.of<ThemeProvider>(context).englishOption;
+    bool isEnglish = Provider.of<ServicesProvider>(context).englishOption;
     return WillPopScope(
       onWillPop: () async => false,
       child: AlertDialog(
@@ -86,7 +86,7 @@ class DialogTerms extends StatelessWidget {
                     Navigator.of(context).pop();
                   },
                   child: Text(
-                    Provider.of<ThemeProvider>(context).englishOption
+                    Provider.of<ServicesProvider>(context).englishOption
                         ? kAcceptButton
                         : kEsAcceptButton,
                     style: Theme.of(context).textTheme.headline6,

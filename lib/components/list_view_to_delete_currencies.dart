@@ -1,7 +1,7 @@
 import 'package:the_exchange_app/components/list_tile_to_delete_currency.dart';
 import 'package:the_exchange_app/constants/strings.dart';
 import 'package:the_exchange_app/services/selected_currencies_provider.dart';
-import 'package:the_exchange_app/services/theme_provider.dart';
+import 'package:the_exchange_app/services/services_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,10 +20,10 @@ class DeleteSelectedCurrencyListView extends StatelessWidget {
             Provider.of<SelectedCurrenciesProvider>(context)
                     .selectedCurrenciesList
                     .isEmpty
-                ? Provider.of<ThemeProvider>(context).englishOption
+                ? Provider.of<ServicesProvider>(context).englishOption
                     ? kNothingToUpdate
                     : kEsNothingToUpdate
-                : Provider.of<ThemeProvider>(context).englishOption
+                : Provider.of<ServicesProvider>(context).englishOption
                     ? kSearchNoResult
                     : kEsSearchNoResult,
             style: Theme.of(context).textTheme.headline5,

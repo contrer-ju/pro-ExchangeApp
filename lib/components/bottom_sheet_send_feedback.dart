@@ -1,7 +1,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:the_exchange_app/constants/strings.dart';
 import 'package:the_exchange_app/services/feedback_provider.dart';
-import 'package:the_exchange_app/services/theme_provider.dart';
+import 'package:the_exchange_app/services/services_provider.dart';
 import 'package:the_exchange_app/style/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -47,7 +47,7 @@ class _BottomSheetSendFeedbackState extends State<BottomSheetSendFeedback> {
   @override
   Widget build(BuildContext context) {
     List<String> dropdownList =
-        Provider.of<ThemeProvider>(context).englishOption
+        Provider.of<ServicesProvider>(context).englishOption
             ? kDropdownButtonList
             : kEsDropdownButtonList;
     bool fieldsOK = Provider.of<FeedbackProvider>(context).bodyKeyword != '' &&
@@ -75,11 +75,11 @@ class _BottomSheetSendFeedbackState extends State<BottomSheetSendFeedback> {
                     ''));
 
     Color backgroundColor =
-        Provider.of<ThemeProvider>(context, listen: false).darkThemeSelected
+        Provider.of<ServicesProvider>(context, listen: false).darkThemeSelected
             ? darkYellow
             : darkGreen;
     Color textColor = Theme.of(context).scaffoldBackgroundColor;
-    bool isEnglish = Provider.of<ThemeProvider>(context).englishOption;
+    bool isEnglish = Provider.of<ServicesProvider>(context).englishOption;
 
     return Container(
       height: MediaQuery.of(context).size.height * kBottomSheetHeight,
@@ -139,7 +139,7 @@ class _BottomSheetSendFeedbackState extends State<BottomSheetSendFeedback> {
                         : Text(
                             isEnglish ? kBottomSheetSend : kEsBottomSheetSend,
                             style: !fieldsOK &&
-                                    Provider.of<ThemeProvider>(context)
+                                    Provider.of<ServicesProvider>(context)
                                         .darkThemeSelected
                                 ? Theme.of(context)
                                     .textTheme
@@ -318,7 +318,7 @@ class _BottomSheetSendFeedbackState extends State<BottomSheetSendFeedback> {
                         contentPadding: kSearchBoxDimensions,
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                              color: Provider.of<ThemeProvider>(context)
+                              color: Provider.of<ServicesProvider>(context)
                                       .darkThemeSelected
                                   ? darkDropdown
                                   : lightDropdown,
@@ -328,7 +328,7 @@ class _BottomSheetSendFeedbackState extends State<BottomSheetSendFeedback> {
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                              color: Provider.of<ThemeProvider>(context)
+                              color: Provider.of<ServicesProvider>(context)
                                       .darkThemeSelected
                                   ? darkDropdown
                                   : lightDropdown,
@@ -513,13 +513,13 @@ class _BottomSheetSendFeedbackState extends State<BottomSheetSendFeedback> {
     if (nameFieldTouched &&
         !nameFieldOK &&
         Provider.of<FeedbackProvider>(context).nameKeyword != '') {
-      return Provider.of<ThemeProvider>(context).englishOption
+      return Provider.of<ServicesProvider>(context).englishOption
           ? kBottomSheetErrorWronFormat
           : kEsBottomSheetErrorWronFormat;
     }
     if (nameFieldTouched &&
         Provider.of<FeedbackProvider>(context).nameKeyword == '') {
-      return Provider.of<ThemeProvider>(context).englishOption
+      return Provider.of<ServicesProvider>(context).englishOption
           ? kBottomSheetErrorFieldEmpty
           : kEsBottomSheetErrorFieldEmpty;
     }
@@ -542,13 +542,13 @@ class _BottomSheetSendFeedbackState extends State<BottomSheetSendFeedback> {
     if (emailFieldTouched &&
         !emailFieldOK &&
         Provider.of<FeedbackProvider>(context).emailKeyword != '') {
-      return Provider.of<ThemeProvider>(context).englishOption
+      return Provider.of<ServicesProvider>(context).englishOption
           ? kBottomSheetErrorEmailFormat
           : kEsBottomSheetErrorEmailFormat;
     }
     if (emailFieldTouched &&
         Provider.of<FeedbackProvider>(context).emailKeyword == '') {
-      return Provider.of<ThemeProvider>(context).englishOption
+      return Provider.of<ServicesProvider>(context).englishOption
           ? kBottomSheetErrorFieldEmpty
           : kEsBottomSheetErrorFieldEmpty;
     }
@@ -571,13 +571,13 @@ class _BottomSheetSendFeedbackState extends State<BottomSheetSendFeedback> {
     if (subjectFieldTouched &&
         !subjectFieldOK &&
         Provider.of<FeedbackProvider>(context).subjectTextFieldKeyword != '') {
-      return Provider.of<ThemeProvider>(context).englishOption
+      return Provider.of<ServicesProvider>(context).englishOption
           ? kBottomSheetErrorWronFormat
           : kEsBottomSheetErrorWronFormat;
     }
     if (subjectFieldTouched &&
         Provider.of<FeedbackProvider>(context).subjectTextFieldKeyword == '') {
-      return Provider.of<ThemeProvider>(context).englishOption
+      return Provider.of<ServicesProvider>(context).englishOption
           ? kBottomSheetErrorFieldEmpty
           : kEsBottomSheetErrorFieldEmpty;
     }

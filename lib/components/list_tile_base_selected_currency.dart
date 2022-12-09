@@ -1,7 +1,7 @@
 import 'package:the_exchange_app/components/dialog_amount.dart';
 import 'package:the_exchange_app/constants/strings.dart';
 import 'package:the_exchange_app/services/selected_currencies_provider.dart';
-import 'package:the_exchange_app/services/theme_provider.dart';
+import 'package:the_exchange_app/services/services_provider.dart';
 import 'package:the_exchange_app/style/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -31,7 +31,7 @@ class BaseSelectedCurrencyListTile extends StatelessWidget {
               'images/${Provider.of<SelectedCurrenciesProvider>(context).baseSelectedCurrency.imageID}.png'),
         ),
         title: Text(
-          Provider.of<ThemeProvider>(context).englishOption
+          Provider.of<ServicesProvider>(context).englishOption
               ? Provider.of<SelectedCurrenciesProvider>(context)
                   .baseSelectedCurrency
                   .currencyName
@@ -75,10 +75,10 @@ class BaseSelectedCurrencyListTile extends StatelessWidget {
                 ? Provider.of<SelectedCurrenciesProvider>(context,
                         listen: false)
                     .showToastAlert(
-                        Provider.of<ThemeProvider>(context).englishOption
+                        Provider.of<ServicesProvider>(context).englishOption
                             ? kMessagePleaseUpdate
                             : kEsMessagePleaseUpdate,
-                        Provider.of<ThemeProvider>(context, listen: false)
+                        Provider.of<ServicesProvider>(context, listen: false)
                                 .darkThemeSelected
                             ? darkYellow
                             : darkGreen,
@@ -89,6 +89,7 @@ class BaseSelectedCurrencyListTile extends StatelessWidget {
                     builder: (_) => const DialogAmount());
           },
           child: Row(
+            key: Provider.of<ServicesProvider>(context).keyCalculateBase,
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(

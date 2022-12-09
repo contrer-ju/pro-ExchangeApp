@@ -13,7 +13,7 @@ import 'package:the_exchange_app/services/countries_currencies_provider.dart';
 import 'package:the_exchange_app/services/cripto_currencies_provider.dart';
 import 'package:the_exchange_app/services/references_currencies_provider.dart';
 import 'package:the_exchange_app/services/selected_currencies_provider.dart';
-import 'package:the_exchange_app/services/theme_provider.dart';
+import 'package:the_exchange_app/services/services_provider.dart';
 import 'package:the_exchange_app/style/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -52,6 +52,7 @@ class _HomePageState extends State<HomePage> {
           .loadCriptoList();
       Provider.of<ReferenceCurrenciesProvider>(context, listen: false)
           .loadReferenceList();
+      Provider.of<ServicesProvider>(context, listen: false).initTutorial();
     });
   }
 
@@ -93,7 +94,7 @@ class _HomePageState extends State<HomePage> {
                       baseSelectedCurrency.currencyName == ""
                   ? Center(
                       child: Text(
-                      Provider.of<ThemeProvider>(context).englishOption
+                      Provider.of<ServicesProvider>(context).englishOption
                           ? kNothingToUpdate
                           : kEsNothingToUpdate,
                       style: Theme.of(context).textTheme.headline5,
@@ -135,13 +136,13 @@ class _HomePageState extends State<HomePage> {
                                                   context,
                                                   listen: false)
                                               .showToastAlert(
-                                                  Provider.of<ThemeProvider>(
+                                                  Provider.of<ServicesProvider>(
                                                               context,
                                                               listen: false)
                                                           .englishOption
                                                       ? kMessagePleaseUpdate
                                                       : kEsMessagePleaseUpdate,
-                                                  Provider.of<ThemeProvider>(
+                                                  Provider.of<ServicesProvider>(
                                                               context,
                                                               listen: false)
                                                           .darkThemeSelected
@@ -165,6 +166,11 @@ class _HomePageState extends State<HomePage> {
                                         }
                                       },
                                       child: Image(
+                                        key: index == 0
+                                            ? Provider.of<ServicesProvider>(
+                                                    context)
+                                                .keyPutOnTopOfList
+                                            : null,
                                         width: kFlagImageWidth,
                                         height: kFlagImageHeight,
                                         image: AssetImage(
@@ -181,7 +187,7 @@ class _HomePageState extends State<HomePage> {
                                                   baseSelectedCurrency
                                                       .currencyRate)),
                                       child: Text(
-                                        Provider.of<ThemeProvider>(context)
+                                        Provider.of<ServicesProvider>(context)
                                                 .englishOption
                                             ? selectedCurrenciesList[index]
                                                 .currencyName
@@ -210,7 +216,7 @@ class _HomePageState extends State<HomePage> {
                                                 selectedCurrenciesList[index]
                                                         .currencyRate ==
                                                     0
-                                            ? Provider.of<ThemeProvider>(
+                                            ? Provider.of<ServicesProvider>(
                                                         context)
                                                     .englishOption
                                                 ? kUpdateRates
@@ -219,6 +225,11 @@ class _HomePageState extends State<HomePage> {
                                         style: Theme.of(context)
                                             .textTheme
                                             .subtitle2,
+                                        key: index == 0
+                                            ? Provider.of<ServicesProvider>(
+                                                    context)
+                                                .keyShareRate
+                                            : null,
                                       ),
                                     ),
                                     trailing: Row(
@@ -238,13 +249,13 @@ class _HomePageState extends State<HomePage> {
                                                       context,
                                                       listen: false)
                                                   .showToastAlert(
-                                                      Provider.of<ThemeProvider>(
+                                                      Provider.of<ServicesProvider>(
                                                                   context,
                                                                   listen: false)
                                                               .englishOption
                                                           ? kMessagePleaseUpdate
                                                           : kEsMessagePleaseUpdate,
-                                                      Provider.of<ThemeProvider>(
+                                                      Provider.of<ServicesProvider>(
                                                                   context,
                                                                   listen: false)
                                                               .darkThemeSelected
@@ -288,6 +299,11 @@ class _HomePageState extends State<HomePage> {
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .headline5,
+                                            key: index == 0
+                                                ? Provider.of<ServicesProvider>(
+                                                        context)
+                                                    .keyCalculateList
+                                                : null,
                                           ),
                                         ),
                                         Container(
@@ -302,6 +318,12 @@ class _HomePageState extends State<HomePage> {
                                               size: kIconsSizes,
                                               color: Theme.of(context)
                                                   .primaryColor,
+                                              key: index == 0
+                                                  ? Provider.of<
+                                                              ServicesProvider>(
+                                                          context)
+                                                      .keyMoveOnTheList
+                                                  : null,
                                             ),
                                           ),
                                         ),
@@ -348,7 +370,7 @@ class _HomePageState extends State<HomePage> {
   void _onShareRate(BuildContext context, SelectedCurrencies selectedCurrency,
       String rate) async {
     bool isEnglish =
-        Provider.of<ThemeProvider>(context, listen: false).englishOption;
+        Provider.of<ServicesProvider>(context, listen: false).englishOption;
     SelectedCurrencies baseSelectedCurrency =
         Provider.of<SelectedCurrenciesProvider>(context, listen: false)
             .baseSelectedCurrency;

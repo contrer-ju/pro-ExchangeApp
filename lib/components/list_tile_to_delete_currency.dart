@@ -2,7 +2,7 @@ import 'package:the_exchange_app/services/countries_currencies_provider.dart';
 import 'package:the_exchange_app/services/cripto_currencies_provider.dart';
 import 'package:the_exchange_app/services/references_currencies_provider.dart';
 import 'package:the_exchange_app/services/selected_currencies_provider.dart';
-import 'package:the_exchange_app/services/theme_provider.dart';
+import 'package:the_exchange_app/services/services_provider.dart';
 import 'package:the_exchange_app/style/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -37,7 +37,7 @@ class DeleteSelectedCurrencyListTile extends StatelessWidget {
           image: AssetImage('images/$imageID.png'),
         ),
         title: Text(
-          Provider.of<ThemeProvider>(context, listen: false).englishOption
+          Provider.of<ServicesProvider>(context, listen: false).englishOption
               ? currencyName
               : nombreMoneda,
           style: Theme.of(context).textTheme.headline3,
