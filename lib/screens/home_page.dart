@@ -42,8 +42,11 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Provider.of<SelectedCurrenciesProvider>(context, listen: false)
+          .setOnFirstLoad();
+      Provider.of<CountriesCurrenciesProvider>(context, listen: false)
+          .setOnFirstLoad();
       Provider.of<SelectedCurrenciesProvider>(context, listen: false)
           .loadCurrenciesList();
       Provider.of<CountriesCurrenciesProvider>(context, listen: false)
@@ -53,6 +56,15 @@ class _HomePageState extends State<HomePage> {
       Provider.of<ReferenceCurrenciesProvider>(context, listen: false)
           .loadReferenceList();
       Provider.of<ServicesProvider>(context, listen: false).initTutorial();
+
+      if (Provider.of<SelectedCurrenciesProvider>(context, listen: false)
+          .isFirstLoad) {
+        Provider.of<ServicesProvider>(context, listen: false)
+            .checkCurrenciesList(true, true);
+        Provider.of<ServicesProvider>(context, listen: false)
+            .tutorialCoachMark
+            .show(context: context);
+      }
     });
   }
 

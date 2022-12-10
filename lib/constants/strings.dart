@@ -48,6 +48,7 @@ const String kShareOption = 'Share the App';
 const String kFeedbackOption = 'Send feedback';
 const String kPrivacyOption = 'Privacy and conditions';
 const String kHelpOption = 'How to use the App';
+const String kWelcomeTitle = 'Follow this tutorial to learn how to use the App';
 
 //Toast Component
 const String kMessageUpdateTrue = "Rates update successful";
@@ -262,6 +263,7 @@ const String kEsShareOption = 'Comparte la App';
 const String kEsFeedbackOption = 'Sugerencias';
 const String kEsPrivacyOption = 'Privacidad y condiciones';
 const String kEsHelpOption = 'Cómo usar la App';
+const String kEsWelcomeTitle = 'Sigue este tutorial para aprender a usar la App';
 
 //Toast Component
 const String kEsMessageUpdateTrue = "Tasas actualizadas satisfactoriamente";

@@ -8,6 +8,7 @@ class ServicesProvider extends ChangeNotifier {
   bool darkThemeSelected =
       Hive.box('darkThemeSelectedBox').get('value') ?? false;
   bool englishOption = Hive.box('englishOptionBox').get('value') ?? false;
+  bool isFirstLoad = Hive.box('firstLoadBox').get('value') ?? true;
 
   late TutorialCoachMark tutorialCoachMark;
   GlobalKey keyAddButton = GlobalKey();
@@ -205,17 +206,17 @@ class ServicesProvider extends ChangeNotifier {
 
     targets.add(
       TargetFocus(
-        keyTarget: keyShareRate,
+        keyTarget: keyMoveOnTheList,
         contents: [
           TargetContent(
             align: ContentAlign.bottom,
             builder: (context, controller) {
               return targetContentTemplate(
                 controller,
-                kShareRateTitle,
-                kEsShareRateTitle,
-                kShareRateMessage,
-                kEsShareRateMessage,
+                kMoveOnTheListTitle,
+                kEsMoveOnTheListTitle,
+                kMoveOnTheListMessage,
+                kEsMoveOnTheListMessage,
                 false,
                 false,
               );
@@ -230,17 +231,17 @@ class ServicesProvider extends ChangeNotifier {
 
     targets.add(
       TargetFocus(
-        keyTarget: keyMoveOnTheList,
+        keyTarget: keyShareRate,
         contents: [
           TargetContent(
             align: ContentAlign.bottom,
             builder: (context, controller) {
               return targetContentTemplate(
                 controller,
-                kMoveOnTheListTitle,
-                kEsMoveOnTheListTitle,
-                kMoveOnTheListMessage,
-                kEsMoveOnTheListMessage,
+                kShareRateTitle,
+                kEsShareRateTitle,
+                kShareRateMessage,
+                kEsShareRateMessage,
                 false,
                 true,
               );
@@ -268,6 +269,15 @@ class ServicesProvider extends ChangeNotifier {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
+        isFirst && isFirstLoad
+            ? Padding(
+                padding: const EdgeInsets.only(bottom: 50.0),
+                child: Text(
+                  englishOption ? kWelcomeTitle : kEsWelcomeTitle,
+                  style: targetContentTitle,
+                ),
+              )
+            : const SizedBox.shrink(),
         Text(
           englishOption ? enTitle : esTitle,
           style: targetContentTitle,

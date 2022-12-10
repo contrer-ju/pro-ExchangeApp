@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dart_ping/dart_ping.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:the_exchange_app/constants/countries_currencies.dart';
 import 'package:the_exchange_app/constants/strings.dart';
 import 'package:the_exchange_app/models/currencies.dart';
 import 'package:the_exchange_app/models/currencies_box.dart';
@@ -15,6 +16,7 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
   bool isUpdating = false;
   final boxSelectedCurrenciesList =
       Hive.box<SelectedCurrenciesBox>('currenciesListBox');
+  bool isFirstLoad = Hive.box('firstLoadBox').get('value') ?? true;
   double baseSelectedCurrencyAmount =
       Hive.box('baseSelectedAmount').get('value') ?? 0;
   List currenciesRatesList = [];
@@ -305,42 +307,44 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
 
   Future<void> loadCurrenciesList() async {
     isWaiting = true;
-    bool currenciesRatesListWasUpdated = false;
-    final boxSelectedCurrenciesListLength = boxSelectedCurrenciesList.length;
-    bool hasConnection = await connectionTest();
-    if (hasConnection) {
-      currenciesRatesListWasUpdated = await getCurrenciesRates();
-    }
+    if (!isFirstLoad) {
+      bool currenciesRatesListWasUpdated = false;
+      final boxSelectedCurrenciesListLength = boxSelectedCurrenciesList.length;
+      bool hasConnection = await connectionTest();
+      if (hasConnection) {
+        currenciesRatesListWasUpdated = await getCurrenciesRates();
+      }
 
-    if (boxSelectedCurrenciesListLength > 0) {
-      for (int i = 0; i < boxSelectedCurrenciesListLength; i++) {
-        final storedCurrency = boxSelectedCurrenciesList.getAt(i);
-        double selectedCurrencyRate = storedCurrency!.currencyRate;
-        if (currenciesRatesListWasUpdated) {
-          int selectedCurrencyIndex = currenciesRatesList.indexWhere(
-              (item) => item.currencyISOCode == storedCurrency.currencyISOCode);
-          selectedCurrencyRate =
-              currenciesRatesList[selectedCurrencyIndex].currencyRate;
-        }
+      if (boxSelectedCurrenciesListLength > 0) {
+        for (int i = 0; i < boxSelectedCurrenciesListLength; i++) {
+          final storedCurrency = boxSelectedCurrenciesList.getAt(i);
+          double selectedCurrencyRate = storedCurrency!.currencyRate;
+          if (currenciesRatesListWasUpdated) {
+            int selectedCurrencyIndex = currenciesRatesList.indexWhere((item) =>
+                item.currencyISOCode == storedCurrency.currencyISOCode);
+            selectedCurrencyRate =
+                currenciesRatesList[selectedCurrencyIndex].currencyRate;
+          }
 
-        SelectedCurrencies currencyToAdd = SelectedCurrencies(
-          imageID: storedCurrency.imageID,
-          currencyName: storedCurrency.currencyName,
-          nombreMoneda: storedCurrency.nombreMoneda,
-          currencyISOCode: storedCurrency.currencyISOCode,
-          currencyRate: selectedCurrencyRate,
-          wasUpdated: currenciesRatesListWasUpdated,
-          wasRead: !currenciesRatesListWasUpdated,
-        );
-        if (selectedCurrenciesList.isEmpty &&
-            baseSelectedCurrency.currencyName == '') {
-          baseSelectedCurrency = currencyToAdd;
-          selectedToDeleteCurrenciesList.add(currencyToAdd);
-          searchedToDeleteCurrenciesList.add(currencyToAdd);
-        } else {
-          selectedCurrenciesList.add(currencyToAdd);
-          selectedToDeleteCurrenciesList.add(currencyToAdd);
-          searchedToDeleteCurrenciesList.add(currencyToAdd);
+          SelectedCurrencies currencyToAdd = SelectedCurrencies(
+            imageID: storedCurrency.imageID,
+            currencyName: storedCurrency.currencyName,
+            nombreMoneda: storedCurrency.nombreMoneda,
+            currencyISOCode: storedCurrency.currencyISOCode,
+            currencyRate: selectedCurrencyRate,
+            wasUpdated: currenciesRatesListWasUpdated,
+            wasRead: !currenciesRatesListWasUpdated,
+          );
+          if (selectedCurrenciesList.isEmpty &&
+              baseSelectedCurrency.currencyName == '') {
+            baseSelectedCurrency = currencyToAdd;
+            selectedToDeleteCurrenciesList.add(currencyToAdd);
+            searchedToDeleteCurrenciesList.add(currencyToAdd);
+          } else {
+            selectedCurrenciesList.add(currencyToAdd);
+            selectedToDeleteCurrenciesList.add(currencyToAdd);
+            searchedToDeleteCurrenciesList.add(currencyToAdd);
+          }
         }
       }
     }
@@ -390,6 +394,7 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
 
   void saveBaseSelectedCurrencyAmount() {
     Hive.box('baseSelectedAmount').put('value', baseSelectedCurrencyAmount);
+    Hive.box('firstLoadBox').put('value', false);
   }
 
   void showToastAlert(String message, Color bColor, Color tColor) {
@@ -481,6 +486,155 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
           isEnglish ? kMessageNotConex : kEsMessageNotConex, bColor, tColor);
     }
     isWaiting = false;
+    notifyListeners();
+  }
+
+  void setOnFirstLoad() async {
+    if (isFirstLoad) {
+      baseSelectedCurrency = SelectedCurrencies(
+        imageID: kCountriesCurrenciesList[0].countryISOCode,
+        currencyName: kCountriesCurrenciesList[0].currencyName,
+        nombreMoneda: kCountriesCurrenciesList[0].moneda,
+        currencyISOCode: kCountriesCurrenciesList[0].currencyISOCode,
+        currencyRate: 0,
+        wasUpdated: false,
+        wasRead: false,
+      );
+      selectedCurrenciesList = [
+        SelectedCurrencies(
+          imageID: kCountriesCurrenciesList[1].countryISOCode,
+          currencyName: kCountriesCurrenciesList[1].currencyName,
+          nombreMoneda: kCountriesCurrenciesList[1].moneda,
+          currencyISOCode: kCountriesCurrenciesList[1].currencyISOCode,
+          currencyRate: 0,
+          wasUpdated: false,
+          wasRead: false,
+        ),
+        SelectedCurrencies(
+          imageID: kCountriesCurrenciesList[2].countryISOCode,
+          currencyName: kCountriesCurrenciesList[2].currencyName,
+          nombreMoneda: kCountriesCurrenciesList[2].moneda,
+          currencyISOCode: kCountriesCurrenciesList[2].currencyISOCode,
+          currencyRate: 0,
+          wasUpdated: false,
+          wasRead: false,
+        ),
+        SelectedCurrencies(
+          imageID: kCountriesCurrenciesList[3].countryISOCode,
+          currencyName: kCountriesCurrenciesList[3].currencyName,
+          nombreMoneda: kCountriesCurrenciesList[3].moneda,
+          currencyISOCode: kCountriesCurrenciesList[3].currencyISOCode,
+          currencyRate: 0,
+          wasUpdated: false,
+          wasRead: false,
+        )
+      ];
+      selectedToDeleteCurrenciesList = [
+        SelectedCurrencies(
+          imageID: kCountriesCurrenciesList[0].countryISOCode,
+          currencyName: kCountriesCurrenciesList[0].currencyName,
+          nombreMoneda: kCountriesCurrenciesList[0].moneda,
+          currencyISOCode: kCountriesCurrenciesList[0].currencyISOCode,
+          currencyRate: 0,
+          wasUpdated: false,
+          wasRead: false,
+        ),
+        SelectedCurrencies(
+          imageID: kCountriesCurrenciesList[1].countryISOCode,
+          currencyName: kCountriesCurrenciesList[1].currencyName,
+          nombreMoneda: kCountriesCurrenciesList[1].moneda,
+          currencyISOCode: kCountriesCurrenciesList[1].currencyISOCode,
+          currencyRate: 0,
+          wasUpdated: false,
+          wasRead: false,
+        ),
+        SelectedCurrencies(
+          imageID: kCountriesCurrenciesList[2].countryISOCode,
+          currencyName: kCountriesCurrenciesList[2].currencyName,
+          nombreMoneda: kCountriesCurrenciesList[2].moneda,
+          currencyISOCode: kCountriesCurrenciesList[2].currencyISOCode,
+          currencyRate: 0,
+          wasUpdated: false,
+          wasRead: false,
+        ),
+        SelectedCurrencies(
+          imageID: kCountriesCurrenciesList[3].countryISOCode,
+          currencyName: kCountriesCurrenciesList[3].currencyName,
+          nombreMoneda: kCountriesCurrenciesList[3].moneda,
+          currencyISOCode: kCountriesCurrenciesList[3].currencyISOCode,
+          currencyRate: 0,
+          wasUpdated: false,
+          wasRead: false,
+        )
+      ];
+      searchedToDeleteCurrenciesList = [
+        SelectedCurrencies(
+          imageID: kCountriesCurrenciesList[0].countryISOCode,
+          currencyName: kCountriesCurrenciesList[0].currencyName,
+          nombreMoneda: kCountriesCurrenciesList[0].moneda,
+          currencyISOCode: kCountriesCurrenciesList[0].currencyISOCode,
+          currencyRate: 0,
+          wasUpdated: false,
+          wasRead: false,
+        ),
+        SelectedCurrencies(
+          imageID: kCountriesCurrenciesList[1].countryISOCode,
+          currencyName: kCountriesCurrenciesList[1].currencyName,
+          nombreMoneda: kCountriesCurrenciesList[1].moneda,
+          currencyISOCode: kCountriesCurrenciesList[1].currencyISOCode,
+          currencyRate: 0,
+          wasUpdated: false,
+          wasRead: false,
+        ),
+        SelectedCurrencies(
+          imageID: kCountriesCurrenciesList[2].countryISOCode,
+          currencyName: kCountriesCurrenciesList[2].currencyName,
+          nombreMoneda: kCountriesCurrenciesList[2].moneda,
+          currencyISOCode: kCountriesCurrenciesList[2].currencyISOCode,
+          currencyRate: 0,
+          wasUpdated: false,
+          wasRead: false,
+        ),
+        SelectedCurrencies(
+          imageID: kCountriesCurrenciesList[3].countryISOCode,
+          currencyName: kCountriesCurrenciesList[3].currencyName,
+          nombreMoneda: kCountriesCurrenciesList[3].moneda,
+          currencyISOCode: kCountriesCurrenciesList[3].currencyISOCode,
+          currencyRate: 0,
+          wasUpdated: false,
+          wasRead: false,
+        )
+      ];
+
+      List currenciesOnFistLoad = ["usd", "eur", "cad", "gbp"];
+      bool currenciesRatesListWasUpdated = false;
+      bool hasConnection = await connectionTest();
+
+      if (hasConnection) {
+        currenciesRatesListWasUpdated = await getCurrenciesRates();
+      }
+
+      if (currenciesRatesListWasUpdated) {
+        for (int i = 0; i < 4; i++) {
+          int currencyRateIndex = currenciesRatesList.indexWhere(
+              (item) => item.currencyISOCode == currenciesOnFistLoad[i]);
+          double currencyRate =
+              currenciesRatesList[currencyRateIndex].currencyRate;
+
+          if (i == 0) {
+            baseSelectedCurrency.currencyRate = currencyRate;
+            baseSelectedCurrency.wasUpdated = true;
+          } else {
+            selectedCurrenciesList[i - 1].currencyRate = currencyRate;
+            selectedCurrenciesList[i - 1].wasUpdated = true;
+          }
+          selectedToDeleteCurrenciesList[i].currencyRate = currencyRate;
+          selectedToDeleteCurrenciesList[i].wasUpdated = true;
+          searchedToDeleteCurrenciesList[i].currencyRate = currencyRate;
+          searchedToDeleteCurrenciesList[i].wasUpdated = true;
+        }
+      }
+    }
     notifyListeners();
   }
 }

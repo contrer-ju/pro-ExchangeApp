@@ -8,6 +8,7 @@ class CriptoCurrenciesProvider extends ChangeNotifier {
   bool isWaiting = true;
   final boxSelectedCurrenciesList =
       Hive.box<SelectedCurrenciesBox>('currenciesListBox');
+  bool isFirstLoad = Hive.box('firstLoadBox').get('value') ?? true;
   late List<String> storageImageIDList;
   String criptoSearchKeyword = "";
   List<CriptoCurrency> criptoCurrenciesList = kCriptoCurrenciesList;
@@ -53,14 +54,16 @@ class CriptoCurrenciesProvider extends ChangeNotifier {
 
   void loadCriptoList() {
     isWaiting = true;
-    final boxLength = boxSelectedCurrenciesList.length;
-    if (boxLength > 0) {
-      for (int i = 0; i < boxLength; i++) {
-        final storedCurrency = boxSelectedCurrenciesList.getAt(i);
-        final indexValue = criptoCurrenciesList.indexWhere(
-            (item) => item.currencyISOCode == storedCurrency!.imageID);
-        if (indexValue != -1) {
-          criptoCurrenciesList[indexValue].isChecked = true;
+    if (!isFirstLoad) {
+      final boxLength = boxSelectedCurrenciesList.length;
+      if (boxLength > 0) {
+        for (int i = 0; i < boxLength; i++) {
+          final storedCurrency = boxSelectedCurrenciesList.getAt(i);
+          final indexValue = criptoCurrenciesList.indexWhere(
+              (item) => item.currencyISOCode == storedCurrency!.imageID);
+          if (indexValue != -1) {
+            criptoCurrenciesList[indexValue].isChecked = true;
+          }
         }
       }
     }

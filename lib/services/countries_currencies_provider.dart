@@ -8,6 +8,7 @@ class CountriesCurrenciesProvider extends ChangeNotifier {
   bool isWaiting = true;
   final boxSelectedCurrenciesList =
       Hive.box<SelectedCurrenciesBox>('currenciesListBox');
+  bool isFirstLoad = Hive.box('firstLoadBox').get('value') ?? true;
   late List<String> storageImageIDList;
   String countrySearchKeyword = "";
   List<CountryCurrency> countriesCurrenciesList = kCountriesCurrenciesList;
@@ -55,18 +56,32 @@ class CountriesCurrenciesProvider extends ChangeNotifier {
 
   void loadCountryList() {
     isWaiting = true;
-    final boxLength = boxSelectedCurrenciesList.length;
-    if (boxLength > 0) {
-      for (int i = 0; i < boxLength; i++) {
-        final storedCurrency = boxSelectedCurrenciesList.getAt(i);
-        final indexValue = countriesCurrenciesList.indexWhere(
-            (item) => item.countryISOCode == storedCurrency!.imageID);
-        if (indexValue != -1) {
-          countriesCurrenciesList[indexValue].isChecked = true;
+    if (!isFirstLoad) {
+      final boxLength = boxSelectedCurrenciesList.length;
+      if (boxLength > 0) {
+        for (int i = 0; i < boxLength; i++) {
+          final storedCurrency = boxSelectedCurrenciesList.getAt(i);
+          final indexValue = countriesCurrenciesList.indexWhere(
+              (item) => item.countryISOCode == storedCurrency!.imageID);
+          if (indexValue != -1) {
+            countriesCurrenciesList[indexValue].isChecked = true;
+          }
         }
       }
     }
     isWaiting = false;
+    notifyListeners();
+  }
+
+  void setOnFirstLoad() {
+    List countriesOnLoad = ["us", "eu", "ca", "gb"];
+    for (int i = 0; i < 4; i++) {
+      final indexValue = countriesCurrenciesList
+          .indexWhere((item) => item.countryISOCode == countriesOnLoad[i]);
+      if (indexValue != -1) {
+        countriesCurrenciesList[indexValue].isChecked = true;
+      }
+    }
     notifyListeners();
   }
 }

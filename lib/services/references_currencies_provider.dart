@@ -8,6 +8,7 @@ class ReferenceCurrenciesProvider extends ChangeNotifier {
   bool isWaiting = true;
   final boxSelectedCurrenciesList =
       Hive.box<SelectedCurrenciesBox>('currenciesListBox');
+  bool isFirstLoad = Hive.box('firstLoadBox').get('value') ?? true;
   late List<String> storageImageIDList;
   String referenceSearchKeyword = "";
   List<ReferenceCurrency> referencesCurrenciesList = kReferenceCurrenciesList;
@@ -54,14 +55,16 @@ class ReferenceCurrenciesProvider extends ChangeNotifier {
 
   void loadReferenceList() {
     isWaiting = true;
-    final boxLength = boxSelectedCurrenciesList.length;
-    if (boxLength > 0) {
-      for (int i = 0; i < boxLength; i++) {
-        final storedCurrency = boxSelectedCurrenciesList.getAt(i);
-        final indexValue = referencesCurrenciesList
-            .indexWhere((item) => item.referenceID == storedCurrency!.imageID);
-        if (indexValue != -1) {
-          referencesCurrenciesList[indexValue].isChecked = true;
+    if (!isFirstLoad) {
+      final boxLength = boxSelectedCurrenciesList.length;
+      if (boxLength > 0) {
+        for (int i = 0; i < boxLength; i++) {
+          final storedCurrency = boxSelectedCurrenciesList.getAt(i);
+          final indexValue = referencesCurrenciesList.indexWhere(
+              (item) => item.referenceID == storedCurrency!.imageID);
+          if (indexValue != -1) {
+            referencesCurrenciesList[indexValue].isChecked = true;
+          }
         }
       }
     }

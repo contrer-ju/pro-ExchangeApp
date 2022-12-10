@@ -21,6 +21,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await Hive.initFlutter();
+  await Hive.openBox('firstLoadBox');
   await Hive.openBox('baseSelectedAmount');
   await Hive.openBox('darkThemeSelectedBox');
   await Hive.openBox('englishOptionBox');
