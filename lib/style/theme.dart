@@ -28,10 +28,12 @@ const Color darkGreen = Color(0xFF10332d);
 const Color transparentColor = Colors.transparent;
 const Color darkDropdown = Color(0xFF193330);
 const Color lightDropdown = Color(0xFF94907f);
+const Color lightGrey = Color.fromARGB(148, 158, 158, 158);
 
 //******************* Sizes ****************************************/
 
 const double kIconsSizes = 30.0;
+const double kFaIconsSizes = 23.0;
 
 //Search Box Component
 const double kPaddingSearchBox = 8.0;
@@ -74,6 +76,7 @@ const double kSpaceLeftText = 15.0;
 const double kElevatedButtonWidth = 80.0;
 const double kElevatedButtonHeight = 37.0;
 const double kCircularProgressIndicatorSquare = 16.0;
+const double kCircularProgressIndicatorSquare2 = 19.0;
 const double kCircularProgressIndicatorStroke = 3.0;
 
 //Main Circular Progress Indicator

@@ -1,3 +1,4 @@
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:the_exchange_app/services/selected_currencies_provider.dart';
 import 'package:the_exchange_app/services/services_provider.dart';
@@ -20,18 +21,25 @@ class UpdateIcon extends StatelessWidget {
 
     return IconButton(
       key: Provider.of<ServicesProvider>(context).keyUpdateButton,
-      icon: Icon(
-        Provider.of<SelectedCurrenciesProvider>(context)
-                    .baseSelectedCurrency
-                    .currencyName ==
-                ''
-            ? Icons.update_disabled
-            : Provider.of<SelectedCurrenciesProvider>(context).isUpdating
-                ? Icons.lock_clock
-                : Icons.update,
-        size: kIconsSizes,
-        color: darkWhite,
-      ),
+      icon: Provider.of<SelectedCurrenciesProvider>(context).isUpdating
+          ? const SizedBox(
+              height: kCircularProgressIndicatorSquare2,
+              width: kCircularProgressIndicatorSquare2,
+              child: CircularProgressIndicator(
+                strokeWidth: kCircularProgressIndicatorStroke,
+                valueColor: AlwaysStoppedAnimation(darkWhite),
+              ),
+            )
+          : FaIcon(
+              FontAwesomeIcons.rotate,
+              size: kFaIconsSizes,
+              color: Provider.of<SelectedCurrenciesProvider>(context)
+                          .baseSelectedCurrency
+                          .currencyName ==
+                      ''
+                  ? lightGrey
+                  : darkWhite,
+            ),
       onPressed: () {
         if (!Provider.of<SelectedCurrenciesProvider>(context, listen: false)
             .isUpdating) {
