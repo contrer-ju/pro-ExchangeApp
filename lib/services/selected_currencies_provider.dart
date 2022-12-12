@@ -394,7 +394,6 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
 
   void saveBaseSelectedCurrencyAmount() {
     Hive.box('baseSelectedAmount').put('value', baseSelectedCurrencyAmount);
-    Hive.box('firstLoadBox').put('value', false);
   }
 
   void showToastAlert(String message, Color bColor, Color tColor) {

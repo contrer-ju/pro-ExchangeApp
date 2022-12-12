@@ -34,6 +34,7 @@ class ServicesProvider extends ChangeNotifier {
 
   void saveTheme() {
     Hive.box('darkThemeSelectedBox').put('value', darkThemeSelected);
+    Hive.box('firstLoadBox').put('value', false);
   }
 
   void switchLanguage() {
@@ -57,6 +58,14 @@ class ServicesProvider extends ChangeNotifier {
       hideSkip: true,
       paddingFocus: kPaddingFocus,
       opacityShadow: kOpacityShadow,
+      onSkip: () {
+        isFirstLoad = false;
+        notifyListeners();
+      },
+      onFinish: () {
+        isFirstLoad = false;
+        notifyListeners();
+      },
     );
   }
 
@@ -271,10 +280,48 @@ class ServicesProvider extends ChangeNotifier {
       children: <Widget>[
         isFirst && isFirstLoad
             ? Padding(
-                padding: const EdgeInsets.only(bottom: 50.0),
-                child: Text(
-                  englishOption ? kWelcomeTitle : kEsWelcomeTitle,
-                  style: targetContentTitle,
+                padding: const EdgeInsets.only(bottom: 40.0),
+                child: Column(
+                  children: [
+                    Text(
+                      englishOption ? kWelcomeTitle : kEsWelcomeTitle,
+                      style: targetContentTitle,
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: RadioListTile<bool>(
+                            value: false,
+                            groupValue: englishOption,
+                            title: const Text(
+                              'Español',
+                              style: targetContentTitle,
+                            ),
+                            onChanged: (bool? value) {
+                              englishOption = value!;
+                              notifyListeners();
+                            },
+                            activeColor: Colors.black,
+                          ),
+                        ),
+                        Expanded(
+                          child: RadioListTile<bool>(
+                            value: true,
+                            groupValue: englishOption,
+                            title: const Text(
+                              'English',
+                              style: targetContentTitle,
+                            ),
+                            onChanged: (bool? value) {
+                              englishOption = value!;
+                              notifyListeners();
+                            },
+                            activeColor: Colors.black,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               )
             : const SizedBox.shrink(),
