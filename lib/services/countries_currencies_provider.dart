@@ -15,7 +15,8 @@ class CountriesCurrenciesProvider extends ChangeNotifier {
   List<CountryCurrency> countryCurrenciesSearchList = kCountriesCurrenciesList;
 
   void toggleCheckboxOfCurrency(String toggleCurrencyISOCode) {
-    for (int i = 0; i < countriesCurrenciesList.length; i++) {
+    int countriesCurrenciesListLength = countriesCurrenciesList.length;
+    for (int i = 0; i < countriesCurrenciesListLength; i++) {
       if (countriesCurrenciesList[i].currencyISOCode == toggleCurrencyISOCode) {
         countriesCurrenciesList[i].isChecked =
             !countriesCurrenciesList[i].isChecked;
@@ -37,9 +38,11 @@ class CountriesCurrenciesProvider extends ChangeNotifier {
             item.countryName
                 .toLowerCase()
                 .contains(currencyKeyword.toLowerCase()) ||
+            item.pais.toLowerCase().contains(currencyKeyword.toLowerCase()) ||
             item.currencyName
                 .toLowerCase()
                 .contains(currencyKeyword.toLowerCase()) ||
+            item.moneda.toLowerCase().contains(currencyKeyword.toLowerCase()) ||
             item.currencyISOCode
                 .toLowerCase()
                 .contains(currencyKeyword.toLowerCase()))
@@ -58,13 +61,15 @@ class CountriesCurrenciesProvider extends ChangeNotifier {
     isWaiting = true;
     if (!isFirstLoad) {
       final boxLength = boxSelectedCurrenciesList.length;
+      int countriesCurrenciesListLength = countriesCurrenciesList.length;
       if (boxLength > 0) {
         for (int i = 0; i < boxLength; i++) {
           final storedCurrency = boxSelectedCurrenciesList.getAt(i);
-          final indexValue = countriesCurrenciesList.indexWhere(
-              (item) => item.countryISOCode == storedCurrency!.imageID);
-          if (indexValue != -1) {
-            countriesCurrenciesList[indexValue].isChecked = true;
+          for (int i = 0; i < countriesCurrenciesListLength; i++) {
+            if (countriesCurrenciesList[i].currencyISOCode ==
+                storedCurrency?.currencyISOCode) {
+              countriesCurrenciesList[i].isChecked = true;
+            }
           }
         }
       }
@@ -74,14 +79,17 @@ class CountriesCurrenciesProvider extends ChangeNotifier {
   }
 
   void setOnFirstLoad() {
-    List countriesOnLoad = ["us", "eu", "ca", "gb"];
-    for (int i = 0; i < 4; i++) {
-      final indexValue = countriesCurrenciesList
-          .indexWhere((item) => item.countryISOCode == countriesOnLoad[i]);
-      if (indexValue != -1) {
-        countriesCurrenciesList[indexValue].isChecked = true;
+    if (isFirstLoad) {
+      List<String> countriesOnLoad = ["usd", "eur", "cad", "gbp"];
+      int countriesCurrenciesListLength = countriesCurrenciesList.length;
+      for (String currency in countriesOnLoad) {
+        for (int i = 0; i < countriesCurrenciesListLength; i++) {
+          if (countriesCurrenciesList[i].currencyISOCode == currency) {
+            countriesCurrenciesList[i].isChecked = true;
+          }
+        }
       }
+      notifyListeners();
     }
-    notifyListeners();
   }
 }

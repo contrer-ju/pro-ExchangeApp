@@ -39,6 +39,9 @@ class ReferenceCurrenciesProvider extends ChangeNotifier {
             item.referenceName
                 .toLowerCase()
                 .contains(referenceKeyword.toLowerCase()) ||
+            item.nombreReferencia
+                .toLowerCase()
+                .contains(referenceKeyword.toLowerCase()) ||
             item.referenceID
                 .toLowerCase()
                 .contains(referenceKeyword.toLowerCase()))
