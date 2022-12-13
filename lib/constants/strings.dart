@@ -40,9 +40,12 @@ const String kDialogExit = 'Exit';
 const String kDialogStay = 'Stay';
 
 //Drawer Component
-const String kLightThemeOption = 'Light Theme';
-const String kDarkThemeOption = 'Dark Theme';
-const String kEnglishOption = 'English';
+const String kThemeOption = 'Theme';
+const String kLightThemeOption = 'Light';
+const String kDarkThemeOption = 'Dark';
+const String kLanguageOption = 'Language';
+const String kEnglishLanguage = 'English';
+const String kSpanishLanguage = 'Spanish';
 const String kRateAppOption = 'Rate the App';
 const String kShareOption = 'Share the App';
 const String kFeedbackOption = 'Send feedback';
@@ -256,9 +259,12 @@ const String kEsDialogExit = 'Salir';
 const String kEsDialogStay = 'Quedarse';
 
 //Drawer Component
-const String kEsLightThemeOption = 'Tema Claro';
-const String kEsDarkThemeOption = 'Tema Oscuro';
-const String kSpanishOption = 'Español';
+const String kEsThemeOption = 'Tema';
+const String kEsLightThemeOption = 'Claro';
+const String kEsDarkThemeOption = 'Oscuro';
+const String kEsLanguageOption = 'Idioma';
+const String kEsEnglishLanguage = 'Inglés';
+const String kEsSpanishLanguage = 'Español';
 const String kEsRateAppOption = 'Califica la App';
 const String kEsShareOption = 'Comparte la App';
 const String kEsFeedbackOption = 'Sugerencias';

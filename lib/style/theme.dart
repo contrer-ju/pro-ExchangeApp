@@ -33,7 +33,9 @@ const Color lightGrey = Color.fromARGB(148, 158, 158, 158);
 //******************* Sizes ****************************************/
 
 const double kIconsSizes = 30.0;
-const double kFaIconsSizes = 23.0;
+const double kIconsSizeSmall = 23.0;
+const double kFaIconsSizes = 25.0;
+const double kFaIconsSizeSmall = 17.0;
 
 //Search Box Component
 const double kPaddingSearchBox = 8.0;
@@ -88,6 +90,7 @@ const double kSizedBoxHeight = 15.0;
 
 //Drawer Component
 const double kDrawerWidth = 0.6;
+const double kLeftPaddig = 12.0;
 
 //Toast Component
 const double kToastText = 17;

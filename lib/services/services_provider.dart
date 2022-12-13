@@ -27,8 +27,13 @@ class ServicesProvider extends ChangeNotifier {
     return darkThemeSelected ? customDarkTheme : customLightTheme;
   }
 
-  void switchTheme() {
-    darkThemeSelected = !darkThemeSelected;
+  void setDarkTheme() {
+    darkThemeSelected = true;
+    notifyListeners();
+  }
+
+  void setLightTheme() {
+    darkThemeSelected = false;
     notifyListeners();
   }
 
@@ -37,8 +42,13 @@ class ServicesProvider extends ChangeNotifier {
     Hive.box('firstLoadBox').put('value', false);
   }
 
-  void switchLanguage() {
-    englishOption = !englishOption;
+  void setEnglish() {
+    englishOption = true;
+    notifyListeners();
+  }
+
+  void setSpanish() {
+    englishOption = false;
     notifyListeners();
   }
 

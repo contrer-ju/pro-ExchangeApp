@@ -1,3 +1,5 @@
+import 'package:advance_expansion_tile/advance_expansion_tile.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:the_exchange_app/components/bottom_sheet_send_feedback.dart';
 import 'package:the_exchange_app/components/dialog_terms.dart';
@@ -8,10 +10,21 @@ import 'package:the_exchange_app/style/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class DrawerMenu extends StatelessWidget {
+class DrawerMenu extends StatefulWidget {
   const DrawerMenu({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<DrawerMenu> createState() => _DrawerMenuState();
+}
+
+class _DrawerMenuState extends State<DrawerMenu> {
+  bool themeTileExpanded = false;
+  bool languageTileExpanded = false;
+
+  final GlobalKey<AdvanceExpansionTileState> themeKey = GlobalKey();
+  final GlobalKey<AdvanceExpansionTileState> languageKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -48,31 +61,100 @@ class DrawerMenu extends StatelessWidget {
               ],
             ),
           ),
-          ListTile(
-            leading: Icon(
-              Provider.of<ServicesProvider>(context).darkThemeSelected
-                  ? Icons.dark_mode_outlined
-                  : Icons.light_mode_outlined,
-              size: kIconsSizes,
+          AdvanceExpansionTile(
+            key: themeKey,
+            leading: FaIcon(
+              FontAwesomeIcons.circleHalfStroke,
+              size: kFaIconsSizes,
               color: Theme.of(context).primaryColor,
             ),
             title: Text(
-              Provider.of<ServicesProvider>(context).darkThemeSelected
-                  ? Provider.of<ServicesProvider>(context).englishOption
-                      ? kDarkThemeOption
-                      : kEsDarkThemeOption
-                  : Provider.of<ServicesProvider>(context).englishOption
-                      ? kLightThemeOption
-                      : kEsLightThemeOption,
+              Provider.of<ServicesProvider>(context).englishOption
+                  ? kThemeOption
+                  : kEsThemeOption,
               style: Theme.of(context).textTheme.headline2,
             ),
+            trailing: FaIcon(
+              themeTileExpanded
+                  ? FontAwesomeIcons.chevronUp
+                  : FontAwesomeIcons.chevronDown,
+              size: kFaIconsSizeSmall,
+              color: Theme.of(context).primaryColor,
+            ),
             onTap: () {
-              Provider.of<ServicesProvider>(context, listen: false)
-                  .switchTheme();
-              Scaffold.of(context).closeDrawer();
+              if (themeTileExpanded) {
+                themeKey.currentState?.collapse();
+                setState(() {
+                  themeTileExpanded = false;
+                });
+              } else {
+                languageKey.currentState?.collapse();
+                themeKey.currentState?.expand();
+                setState(() {
+                  languageTileExpanded = false;
+                  themeTileExpanded = true;
+                });
+              }
             },
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(left: kLeftPaddig),
+                child: ListTile(
+                  leading: Icon(
+                    Icons.dark_mode_outlined,
+                    size: kIconsSizeSmall,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  title: Text(
+                    Provider.of<ServicesProvider>(context).englishOption
+                        ? kDarkThemeOption
+                        : kEsDarkThemeOption,
+                    style: Theme.of(context).textTheme.headline3,
+                  ),
+                  trailing:
+                      Provider.of<ServicesProvider>(context).darkThemeSelected
+                          ? Icon(Icons.check,
+                              size: kIconsSizeSmall,
+                              color: Theme.of(context).primaryColor)
+                          : const SizedBox.shrink(),
+                  onTap: () {
+                    Provider.of<ServicesProvider>(context, listen: false)
+                        .setDarkTheme();
+                    Scaffold.of(context).closeDrawer();
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: kLeftPaddig),
+                child: ListTile(
+                  leading: Icon(
+                    Icons.light_mode_outlined,
+                    size: kIconsSizeSmall,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  title: Text(
+                    Provider.of<ServicesProvider>(context).englishOption
+                        ? kLightThemeOption
+                        : kEsLightThemeOption,
+                    style: Theme.of(context).textTheme.headline3,
+                  ),
+                  trailing:
+                      Provider.of<ServicesProvider>(context).darkThemeSelected
+                          ? const SizedBox.shrink()
+                          : Icon(Icons.check,
+                              size: kIconsSizeSmall,
+                              color: Theme.of(context).primaryColor),
+                  onTap: () {
+                    Provider.of<ServicesProvider>(context, listen: false)
+                        .setLightTheme();
+                    Scaffold.of(context).closeDrawer();
+                  },
+                ),
+              ),
+            ],
           ),
-          ListTile(
+          AdvanceExpansionTile(
+            key: languageKey,
             leading: Icon(
               Icons.translate_outlined,
               size: kIconsSizes,
@@ -80,15 +162,90 @@ class DrawerMenu extends StatelessWidget {
             ),
             title: Text(
               Provider.of<ServicesProvider>(context).englishOption
-                  ? kEnglishOption
-                  : kSpanishOption,
+                  ? kLanguageOption
+                  : kEsLanguageOption,
               style: Theme.of(context).textTheme.headline2,
             ),
+            trailing: FaIcon(
+              languageTileExpanded
+                  ? FontAwesomeIcons.chevronUp
+                  : FontAwesomeIcons.chevronDown,
+              size: kFaIconsSizeSmall,
+              color: Theme.of(context).primaryColor,
+            ),
             onTap: () {
-              Provider.of<ServicesProvider>(context, listen: false)
-                  .switchLanguage();
-              Scaffold.of(context).closeDrawer();
+              if (languageTileExpanded) {
+                languageKey.currentState?.collapse();
+                setState(() {
+                  languageTileExpanded = false;
+                });
+              } else {
+                themeKey.currentState?.collapse();
+                languageKey.currentState?.expand();
+                setState(() {
+                  themeTileExpanded = false;
+                  languageTileExpanded = true;
+                });
+              }
             },
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(left: kLeftPaddig),
+                child: ListTile(
+                  leading: FaIcon(
+                    Provider.of<ServicesProvider>(context).englishOption
+                        ? FontAwesomeIcons.s
+                        : FontAwesomeIcons.e,
+                    size: kFaIconsSizeSmall,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  title: Text(
+                    Provider.of<ServicesProvider>(context).englishOption
+                        ? kSpanishLanguage
+                        : kEsSpanishLanguage,
+                    style: Theme.of(context).textTheme.headline3,
+                  ),
+                  trailing: Provider.of<ServicesProvider>(context).englishOption
+                      ? const SizedBox.shrink()
+                      : Icon(Icons.check,
+                          size: kIconsSizeSmall,
+                          color: Theme.of(context).primaryColor),
+                  onTap: () {
+                    Provider.of<ServicesProvider>(context, listen: false)
+                        .setSpanish();
+                    Scaffold.of(context).closeDrawer();
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: kLeftPaddig),
+                child: ListTile(
+                  leading: FaIcon(
+                    Provider.of<ServicesProvider>(context).englishOption
+                        ? FontAwesomeIcons.e
+                        : FontAwesomeIcons.i,
+                    size: kFaIconsSizeSmall,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  title: Text(
+                    Provider.of<ServicesProvider>(context).englishOption
+                        ? kEnglishLanguage
+                        : kEsEnglishLanguage,
+                    style: Theme.of(context).textTheme.headline3,
+                  ),
+                  trailing: Provider.of<ServicesProvider>(context).englishOption
+                      ? Icon(Icons.check,
+                          size: kIconsSizeSmall,
+                          color: Theme.of(context).primaryColor)
+                      : const SizedBox.shrink(),
+                  onTap: () {
+                    Provider.of<ServicesProvider>(context, listen: false)
+                        .setEnglish();
+                    Scaffold.of(context).closeDrawer();
+                  },
+                ),
+              ),
+            ],
           ),
           ListTile(
             leading: Icon(
