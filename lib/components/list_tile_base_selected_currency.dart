@@ -1,4 +1,4 @@
-import 'package:the_exchange_app/components/dialog_amount.dart';
+import 'package:the_exchange_app/components/dialog_amount_base.dart';
 import 'package:the_exchange_app/constants/strings.dart';
 import 'package:the_exchange_app/services/selected_currencies_provider.dart';
 import 'package:the_exchange_app/services/services_provider.dart';
@@ -68,12 +68,12 @@ class BaseSelectedCurrencyListTile extends StatelessWidget {
                                 listen: false)
                             .baseSelectedCurrency
                             .wasUpdated) ||
-                    Provider.of<SelectedCurrenciesProvider>(context, listen: false)
+                    Provider.of<SelectedCurrenciesProvider>(context,
+                                listen: false)
                             .baseSelectedCurrency
                             .currencyRate ==
                         0
-                ? Provider.of<SelectedCurrenciesProvider>(context,
-                        listen: false)
+                ? Provider.of<SelectedCurrenciesProvider>(context, listen: false)
                     .showToastAlert(
                         Provider.of<ServicesProvider>(context).englishOption
                             ? kMessagePleaseUpdate
@@ -86,7 +86,7 @@ class BaseSelectedCurrencyListTile extends StatelessWidget {
                 : showDialog(
                     context: context,
                     barrierDismissible: false,
-                    builder: (_) => const DialogAmount());
+                    builder: (_) => const DialogAmountBase());
           },
           child: Row(
             key: Provider.of<ServicesProvider>(context).keyCalculateBase,

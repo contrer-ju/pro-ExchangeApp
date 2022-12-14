@@ -167,6 +167,7 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
     bool flag = true;
     if (baseSelectedCurrency.currencyISOCode == selectedCurrencyISOCode &&
         selectedCurrenciesList.isEmpty) {
+      baseSelectedCurrencyAmount = 0;
       baseSelectedCurrency.imageID = "";
       baseSelectedCurrency.currencyName = "";
       baseSelectedCurrency.nombreMoneda = "";
@@ -181,6 +182,8 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
     if (baseSelectedCurrency.currencyISOCode == selectedCurrencyISOCode &&
         selectedCurrenciesList.isNotEmpty &&
         flag) {
+      baseSelectedCurrencyAmount =
+          baseSelectedCurrencyAmount * selectedCurrenciesList[0].currencyRate;
       baseSelectedCurrency.imageID = selectedCurrenciesList[0].imageID;
       baseSelectedCurrency.currencyName =
           selectedCurrenciesList[0].currencyName;
@@ -221,6 +224,7 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
     selectedCurrenciesList = [];
     selectedToDeleteCurrenciesList = [];
     searchedToDeleteCurrenciesList = [];
+    baseSelectedCurrencyAmount = 0;
     notifyListeners();
   }
 

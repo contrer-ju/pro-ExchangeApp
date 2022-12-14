@@ -2,7 +2,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:the_exchange_app/components/ad_banner_container.dart';
 import 'package:the_exchange_app/components/bottom_sheet_add_currencies_list.dart';
 import 'package:the_exchange_app/components/bottom_sheet_delete_currencies_list.dart';
-import 'package:the_exchange_app/components/dialog_amount.dart';
+import 'package:the_exchange_app/components/dialog_amount_list.dart';
 import 'package:the_exchange_app/components/dialog_exit.dart';
 import 'package:the_exchange_app/components/list_tile_base_selected_currency.dart';
 import 'package:the_exchange_app/components/drawer_menu.dart';
@@ -193,11 +193,10 @@ class _HomePageState extends State<HomePage> {
                                       onDoubleTap: () => _onShareRate(
                                           context,
                                           selectedCurrenciesList[index],
-                                          currencyRateFormat.format(
-                                              selectedCurrenciesList[index]
-                                                      .currencyRate /
-                                                  baseSelectedCurrency
-                                                      .currencyRate)),
+                                          selectedCurrenciesList[index]
+                                                  .currencyRate /
+                                              baseSelectedCurrency.currencyRate,
+                                          baseSelectedAmount),
                                       child: Text(
                                         Provider.of<ServicesProvider>(context)
                                                 .englishOption
@@ -214,11 +213,10 @@ class _HomePageState extends State<HomePage> {
                                       onDoubleTap: () => _onShareRate(
                                           context,
                                           selectedCurrenciesList[index],
-                                          currencyRateFormat.format(
-                                              selectedCurrenciesList[index]
-                                                      .currencyRate /
-                                                  baseSelectedCurrency
-                                                      .currencyRate)),
+                                          selectedCurrenciesList[index]
+                                                  .currencyRate /
+                                              baseSelectedCurrency.currencyRate,
+                                          baseSelectedAmount),
                                       child: Text(
                                         (!selectedCurrenciesList[index]
                                                         .wasUpdated &&
@@ -276,24 +274,20 @@ class _HomePageState extends State<HomePage> {
                                                       Theme.of(context)
                                                           .scaffoldBackgroundColor);
                                             } else {
-                                              Provider.of<SelectedCurrenciesProvider>(
-                                                      context,
-                                                      listen: false)
-                                                  .setBaseSelectedCurrency(
-                                                      selectedCurrenciesList[
-                                                              index]
-                                                          .imageID,
-                                                      baseSelectedAmount *
+                                              showDialog(
+                                                  context: context,
+                                                  barrierDismissible: false,
+                                                  builder: (_) => DialogAmountList(
+                                                      currencyID:
+                                                          selectedCurrenciesList[
+                                                                  index]
+                                                              .imageID,
+                                                      enteredAmount: baseSelectedAmount *
                                                           selectedCurrenciesList[
                                                                   index]
                                                               .currencyRate /
                                                           baseSelectedCurrency
-                                                              .currencyRate);
-                                              showDialog(
-                                                  context: context,
-                                                  barrierDismissible: false,
-                                                  builder: (_) =>
-                                                      const DialogAmount());
+                                                              .currencyRate));
                                             }
                                           },
                                           child: Text(
@@ -380,7 +374,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _onShareRate(BuildContext context, SelectedCurrencies selectedCurrency,
-      String rate) async {
+      double rate, double baseAmount) async {
     bool isEnglish =
         Provider.of<ServicesProvider>(context, listen: false).englishOption;
     SelectedCurrencies baseSelectedCurrency =
@@ -393,9 +387,21 @@ class _HomePageState extends State<HomePage> {
     String dateEs = '${now.day} de ${monthTranslate(now.month)} de ${now.year}';
 
     String messageEs =
-        'Para el $dateEs a las ${timeFormat(now.hour, now.minute)} horas, la tasa de cambio del ${selectedCurrency.nombreMoneda} respecto al ${baseSelectedCurrency.nombreMoneda} es de 1 ${baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : baseSelectedCurrency.currencyISOCode.toUpperCase()} = $rate ${selectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : selectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : selectedCurrency.currencyISOCode.toUpperCase()}. Información compartida por Exchange App, mas información de la App en el siguiente enlace: ';
+        '''El monto correspondiente a ${currencyRateFormat.format(baseAmount)} ${baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : baseSelectedCurrency.currencyISOCode.toUpperCase()} equivale a ${currencyRateFormat.format(baseAmount * rate)} ${selectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : selectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : selectedCurrency.currencyISOCode.toUpperCase()}.
+
+Tipo de cambio: 1 ${baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : baseSelectedCurrency.currencyISOCode.toUpperCase()} = ${currencyRateFormat.format(rate)} ${selectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : selectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : selectedCurrency.currencyISOCode.toUpperCase()}
+Fecha: $dateEs
+Hora: ${timeFormat(now.hour, now.minute)}
+
+Información compartida por Exchange App, obten la App en el siguiente enlace: ''';
     String messageEn =
-        'For $dateEn at ${timeFormat(now.hour, now.minute)} hours, the exchange rate of the ${selectedCurrency.currencyName} against the ${baseSelectedCurrency.currencyName} is 1 ${baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : baseSelectedCurrency.currencyISOCode.toUpperCase()} = $rate ${selectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : selectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : selectedCurrency.currencyISOCode.toUpperCase()}. Information shared by Exchange App, more information about the App in the following link:';
+        '''The amount corresponding to ${currencyRateFormat.format(baseAmount)} ${baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : baseSelectedCurrency.currencyISOCode.toUpperCase()} is equal to ${currencyRateFormat.format(baseAmount * rate)} ${selectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : selectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : selectedCurrency.currencyISOCode.toUpperCase()}.
+
+Exchange rate: 1 ${baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : baseSelectedCurrency.currencyISOCode.toUpperCase()} = ${currencyRateFormat.format(rate)} ${selectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : selectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : selectedCurrency.currencyISOCode.toUpperCase()}
+Date: $dateEn
+Time: ${timeFormat(now.hour, now.minute)}
+
+Information shared by Exchange App, get the App in the following link: ''';
 
     final box = context.findRenderObject() as RenderBox?;
     await Share.share(isEnglish ? messageEn : messageEs,

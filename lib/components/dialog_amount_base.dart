@@ -4,15 +4,22 @@ import 'package:the_exchange_app/services/selected_currencies_provider.dart';
 import 'package:the_exchange_app/services/services_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:the_exchange_app/style/theme.dart';
 
-class DialogAmount extends StatelessWidget {
-  const DialogAmount({
+class DialogAmountBase extends StatefulWidget {
+  const DialogAmountBase({
     Key? key,
   }) : super(key: key);
 
   @override
+  State<DialogAmountBase> createState() => _DialogAmountBaseState();
+}
+
+class _DialogAmountBaseState extends State<DialogAmountBase> {
+  String newStringValue = '';
+
+  @override
   Widget build(BuildContext context) {
-    String newStringValue = '';
     return WillPopScope(
       onWillPop: () async => false,
       child: AlertDialog(
@@ -60,45 +67,62 @@ class DialogAmount extends StatelessWidget {
             ),
           ),
           onChanged: (stringValue) {
-            newStringValue = stringValue;
+            setState(() {
+              newStringValue = stringValue;
+            });
           },
         ),
         actions: [
           ElevatedButton(
-              onPressed: () {
-                if (newStringValue != '') {
-                  List<String> listStringValue = [];
-                  for (var x in newStringValue.runes) {
-                    var char = String.fromCharCode(x);
-                    if (char == '0' ||
-                        char == '1' ||
-                        char == '2' ||
-                        char == '3' ||
-                        char == '4' ||
-                        char == '5' ||
-                        char == '6' ||
-                        char == '7' ||
-                        char == '8' ||
-                        char == '9' ||
-                        char == '.') {
-                      listStringValue.add(char);
-                    }
-                  }
-                  String filterStringValue = listStringValue.join();
-                  if (filterStringValue != '') {
-                    Provider.of<SelectedCurrenciesProvider>(context,
-                            listen: false)
-                        .setBaseSelectedCurrencyAmount(
-                            double.parse(filterStringValue));
-                  }
-                }
-                Navigator.of(context).pop();
-              },
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text(
+                Provider.of<ServicesProvider>(context).englishOption
+                    ? kBottomSheetCancel
+                    : kEsBottomSheetCancel,
+                style: Theme.of(context).textTheme.headline6,
+              )),
+          const SizedBox(width: 25),
+          ElevatedButton(
+              onPressed: newStringValue == ''
+                  ? null
+                  : () {
+                      List<String> listStringValue = [];
+                      for (var x in newStringValue.runes) {
+                        var char = String.fromCharCode(x);
+                        if (char == '0' ||
+                            char == '1' ||
+                            char == '2' ||
+                            char == '3' ||
+                            char == '4' ||
+                            char == '5' ||
+                            char == '6' ||
+                            char == '7' ||
+                            char == '8' ||
+                            char == '9' ||
+                            char == '.') {
+                          listStringValue.add(char);
+                        }
+                      }
+                      String filterStringValue = listStringValue.join();
+                      if (filterStringValue != '') {
+                        Provider.of<SelectedCurrenciesProvider>(context,
+                                listen: false)
+                            .setBaseSelectedCurrencyAmount(
+                                double.parse(filterStringValue));
+                      }
+                      Navigator.of(context).pop();
+                    },
               child: Text(
                 Provider.of<ServicesProvider>(context).englishOption
                     ? kSubmitButton
                     : kEsSubmitButton,
-                style: Theme.of(context).textTheme.headline6,
+                style:
+                    Provider.of<ServicesProvider>(context).darkThemeSelected &&
+                            newStringValue == ''
+                        ? Theme.of(context).textTheme.headline6!.copyWith(
+                              color: darkDropdown,
+                            )
+                        : Theme.of(context).textTheme.headline6,
               ))
         ],
       ),
