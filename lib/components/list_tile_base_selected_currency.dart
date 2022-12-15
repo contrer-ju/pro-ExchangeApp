@@ -8,14 +8,18 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class BaseSelectedCurrencyListTile extends StatelessWidget {
-  BaseSelectedCurrencyListTile({
+  const BaseSelectedCurrencyListTile({
     Key? key,
   }) : super(key: key);
 
-  final currencyAmountFormat = NumberFormat("#,##0.00", "en_US");
-
   @override
   Widget build(BuildContext context) {
+    final currencyFormat = NumberFormat.currency(
+        symbol: '',
+        locale: Provider.of<ServicesProvider>(context).englishOption
+            ? 'en_US'
+            : 'es');
+
     return Card(
       elevation: kElevationCurrencyCard,
       color: Theme.of(context).scaffoldBackgroundColor,
@@ -107,7 +111,7 @@ class BaseSelectedCurrencyListTile extends StatelessWidget {
                                 .currencyRate ==
                             0
                     ? '${Provider.of<SelectedCurrenciesProvider>(context).baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : Provider.of<SelectedCurrenciesProvider>(context).baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : Provider.of<SelectedCurrenciesProvider>(context).baseSelectedCurrency.currencyISOCode.toUpperCase()} 0.00'
-                    : '${Provider.of<SelectedCurrenciesProvider>(context).baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : Provider.of<SelectedCurrenciesProvider>(context).baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : Provider.of<SelectedCurrenciesProvider>(context).baseSelectedCurrency.currencyISOCode.toUpperCase()} ${currencyAmountFormat.format((Provider.of<SelectedCurrenciesProvider>(context).baseSelectedCurrencyAmount))}',
+                    : '${Provider.of<SelectedCurrenciesProvider>(context).baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : Provider.of<SelectedCurrenciesProvider>(context).baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : Provider.of<SelectedCurrenciesProvider>(context).baseSelectedCurrency.currencyISOCode.toUpperCase()} ${currencyFormat.format((Provider.of<SelectedCurrenciesProvider>(context).baseSelectedCurrencyAmount))}',
                 style: Theme.of(context).textTheme.headline5,
               ),
               Container(

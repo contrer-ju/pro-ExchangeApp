@@ -38,6 +38,9 @@ class _DialogAmountBaseState extends State<DialogAmountBase> {
               decimal: true, signed: false),
           inputFormatters: [
             CurrencyTextInputFormatter(
+              locale: Provider.of<ServicesProvider>(context).englishOption
+                  ? 'en_US'
+                  : 'es',
               decimalDigits: 2,
               symbol: Provider.of<SelectedCurrenciesProvider>(context)
                           .baseSelectedCurrency
@@ -51,7 +54,7 @@ class _DialogAmountBaseState extends State<DialogAmountBase> {
                               .substring(0, 3) ==
                           'ra_'
                       ? 'ARS '
-                      : "${Provider.of<SelectedCurrenciesProvider>(context).baseSelectedCurrency.currencyISOCode.toUpperCase()} ",
+                      : '${Provider.of<SelectedCurrenciesProvider>(context).baseSelectedCurrency.currencyISOCode.toUpperCase()} ',
             )
           ],
           decoration: InputDecoration(
@@ -89,18 +92,40 @@ class _DialogAmountBaseState extends State<DialogAmountBase> {
                       List<String> listStringValue = [];
                       for (var x in newStringValue.runes) {
                         var char = String.fromCharCode(x);
-                        if (char == '0' ||
-                            char == '1' ||
-                            char == '2' ||
-                            char == '3' ||
-                            char == '4' ||
-                            char == '5' ||
-                            char == '6' ||
-                            char == '7' ||
-                            char == '8' ||
-                            char == '9' ||
-                            char == '.') {
-                          listStringValue.add(char);
+                        if (Provider.of<ServicesProvider>(context,
+                                listen: false)
+                            .englishOption) {
+                          if (char == '0' ||
+                              char == '1' ||
+                              char == '2' ||
+                              char == '3' ||
+                              char == '4' ||
+                              char == '5' ||
+                              char == '6' ||
+                              char == '7' ||
+                              char == '8' ||
+                              char == '9' ||
+                              char == '.') {
+                            listStringValue.add(char);
+                          }
+                        } else {
+                          if (char == '0' ||
+                              char == '1' ||
+                              char == '2' ||
+                              char == '3' ||
+                              char == '4' ||
+                              char == '5' ||
+                              char == '6' ||
+                              char == '7' ||
+                              char == '8' ||
+                              char == '9' ||
+                              char == ',') {
+                            if (char == ',') {
+                              listStringValue.add('.');
+                            } else {
+                              listStringValue.add(char);
+                            }
+                          }
                         }
                       }
                       String filterStringValue = listStringValue.join();

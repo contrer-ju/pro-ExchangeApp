@@ -27,9 +27,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final currencyAmountFormat = NumberFormat("#,##0.00", "en_US");
-  final currencyRateFormat = NumberFormat("#,##0.000", "en_US");
-
   Future<bool> _onWillPop(BuildContext context) async {
     bool? exitResult = await showDialog(
       context: context,
@@ -82,6 +79,11 @@ class _HomePageState extends State<HomePage> {
         Provider.of<SelectedCurrenciesProvider>(context).baseSelectedCurrency;
     List<SelectedCurrencies> selectedCurrenciesList =
         Provider.of<SelectedCurrenciesProvider>(context).selectedCurrenciesList;
+    final currencyFormat = NumberFormat.currency(
+        symbol: '',
+        locale: Provider.of<ServicesProvider>(context).englishOption
+            ? 'en_US'
+            : 'es');
 
     return WillPopScope(
       onWillPop: () => _onWillPop(context),
@@ -113,7 +115,7 @@ class _HomePageState extends State<HomePage> {
                     ))
                   : Column(
                       children: [
-                        BaseSelectedCurrencyListTile(),
+                        const BaseSelectedCurrencyListTile(),
                         Expanded(
                             child: Theme(
                           data: ThemeData(canvasColor: transparentColor),
@@ -231,7 +233,7 @@ class _HomePageState extends State<HomePage> {
                                                     .englishOption
                                                 ? kUpdateRates
                                                 : kEsUpdateRates
-                                            : '1 ${baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : baseSelectedCurrency.currencyISOCode.toUpperCase()} = ${currencyRateFormat.format(selectedCurrenciesList[index].currencyRate / baseSelectedCurrency.currencyRate)} ${selectedCurrenciesList[index].currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : selectedCurrenciesList[index].currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : selectedCurrenciesList[index].currencyISOCode.toUpperCase()}',
+                                            : '1 ${baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : baseSelectedCurrency.currencyISOCode.toUpperCase()} = ${currencyFormat.format(selectedCurrenciesList[index].currencyRate / baseSelectedCurrency.currencyRate)} ${selectedCurrenciesList[index].currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : selectedCurrenciesList[index].currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : selectedCurrenciesList[index].currencyISOCode.toUpperCase()}',
                                         style: Theme.of(context)
                                             .textTheme
                                             .subtitle2,
@@ -277,17 +279,17 @@ class _HomePageState extends State<HomePage> {
                                               showDialog(
                                                   context: context,
                                                   barrierDismissible: false,
-                                                  builder: (_) => DialogAmountList(
-                                                      currencyID:
-                                                          selectedCurrenciesList[
-                                                                  index]
-                                                              .imageID,
-                                                      enteredAmount: baseSelectedAmount *
-                                                          selectedCurrenciesList[
-                                                                  index]
-                                                              .currencyRate /
-                                                          baseSelectedCurrency
-                                                              .currencyRate));
+                                                  builder: (_) =>
+                                                      DialogAmountList(
+                                                        currencyID:
+                                                            selectedCurrenciesList[
+                                                                    index]
+                                                                .imageID,
+                                                        currencyISOCode:
+                                                            selectedCurrenciesList[
+                                                                    index]
+                                                                .currencyISOCode,
+                                                      ));
                                             }
                                           },
                                           child: Text(
@@ -301,7 +303,7 @@ class _HomePageState extends State<HomePage> {
                                                             .currencyRate ==
                                                         0
                                                 ? '${selectedCurrenciesList[index].currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : selectedCurrenciesList[index].currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : selectedCurrenciesList[index].currencyISOCode.toUpperCase()} 0.00'
-                                                : '${selectedCurrenciesList[index].currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : selectedCurrenciesList[index].currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : selectedCurrenciesList[index].currencyISOCode.toUpperCase()} ${currencyAmountFormat.format(baseSelectedAmount * selectedCurrenciesList[index].currencyRate / baseSelectedCurrency.currencyRate)}',
+                                                : '${selectedCurrenciesList[index].currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : selectedCurrenciesList[index].currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : selectedCurrenciesList[index].currencyISOCode.toUpperCase()} ${currencyFormat.format(baseSelectedAmount * selectedCurrenciesList[index].currencyRate / baseSelectedCurrency.currencyRate)}',
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .headline5,
@@ -380,6 +382,12 @@ class _HomePageState extends State<HomePage> {
     SelectedCurrencies baseSelectedCurrency =
         Provider.of<SelectedCurrenciesProvider>(context, listen: false)
             .baseSelectedCurrency;
+    final currencyFormat = NumberFormat.currency(
+        symbol: '',
+        locale:
+            Provider.of<ServicesProvider>(context, listen: false).englishOption
+                ? 'en_US'
+                : 'es');
 
     final now = DateTime.now();
     String dateEn =
@@ -387,17 +395,17 @@ class _HomePageState extends State<HomePage> {
     String dateEs = '${now.day} de ${monthTranslate(now.month)} de ${now.year}';
 
     String messageEs =
-        '''El monto correspondiente a ${currencyRateFormat.format(baseAmount)} ${baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : baseSelectedCurrency.currencyISOCode.toUpperCase()} equivale a ${currencyRateFormat.format(baseAmount * rate)} ${selectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : selectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : selectedCurrency.currencyISOCode.toUpperCase()}.
+        '''El monto correspondiente a ${currencyFormat.format(baseAmount)} ${baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : baseSelectedCurrency.currencyISOCode.toUpperCase()} equivale a ${currencyFormat.format(baseAmount * rate)} ${selectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : selectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : selectedCurrency.currencyISOCode.toUpperCase()}.
 
-Tipo de cambio: 1 ${baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : baseSelectedCurrency.currencyISOCode.toUpperCase()} = ${currencyRateFormat.format(rate)} ${selectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : selectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : selectedCurrency.currencyISOCode.toUpperCase()}
+Tipo de cambio: 1 ${baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : baseSelectedCurrency.currencyISOCode.toUpperCase()} = ${currencyFormat.format(rate)} ${selectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : selectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : selectedCurrency.currencyISOCode.toUpperCase()}
 Fecha: $dateEs
 Hora: ${timeFormat(now.hour, now.minute)}
 
 Información compartida por Exchange App, obten la App en el siguiente enlace: ''';
     String messageEn =
-        '''The amount corresponding to ${currencyRateFormat.format(baseAmount)} ${baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : baseSelectedCurrency.currencyISOCode.toUpperCase()} is equal to ${currencyRateFormat.format(baseAmount * rate)} ${selectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : selectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : selectedCurrency.currencyISOCode.toUpperCase()}.
+        '''The amount corresponding to ${currencyFormat.format(baseAmount)} ${baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : baseSelectedCurrency.currencyISOCode.toUpperCase()} is equal to ${currencyFormat.format(baseAmount * rate)} ${selectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : selectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : selectedCurrency.currencyISOCode.toUpperCase()}.
 
-Exchange rate: 1 ${baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : baseSelectedCurrency.currencyISOCode.toUpperCase()} = ${currencyRateFormat.format(rate)} ${selectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : selectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : selectedCurrency.currencyISOCode.toUpperCase()}
+Exchange rate: 1 ${baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : baseSelectedCurrency.currencyISOCode.toUpperCase()} = ${currencyFormat.format(rate)} ${selectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : selectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : selectedCurrency.currencyISOCode.toUpperCase()}
 Date: $dateEn
 Time: ${timeFormat(now.hour, now.minute)}
 

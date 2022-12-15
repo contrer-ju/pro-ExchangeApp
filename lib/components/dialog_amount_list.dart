@@ -8,12 +8,12 @@ import 'package:the_exchange_app/style/theme.dart';
 
 class DialogAmountList extends StatefulWidget {
   final String currencyID;
-  final double enteredAmount;
+  final String currencyISOCode;
 
   const DialogAmountList({
     Key? key,
     required this.currencyID,
-    required this.enteredAmount,
+    required this.currencyISOCode,
   }) : super(key: key);
 
   @override
@@ -43,20 +43,15 @@ class _DialogAmountListState extends State<DialogAmountList> {
               decimal: true, signed: false),
           inputFormatters: [
             CurrencyTextInputFormatter(
+              locale: Provider.of<ServicesProvider>(context).englishOption
+                  ? 'en_US'
+                  : 'es',
               decimalDigits: 2,
-              symbol: Provider.of<SelectedCurrenciesProvider>(context)
-                          .baseSelectedCurrency
-                          .currencyISOCode
-                          .substring(0, 3) ==
-                      'rv_'
+              symbol: widget.currencyISOCode.substring(0, 3) == 'rv_'
                   ? 'VES '
-                  : Provider.of<SelectedCurrenciesProvider>(context)
-                              .baseSelectedCurrency
-                              .currencyISOCode
-                              .substring(0, 3) ==
-                          'ra_'
+                  : widget.currencyISOCode.substring(0, 3) == 'ra_'
                       ? 'ARS '
-                      : "${Provider.of<SelectedCurrenciesProvider>(context).baseSelectedCurrency.currencyISOCode.toUpperCase()} ",
+                      : '${widget.currencyISOCode.toUpperCase()} ',
             )
           ],
           decoration: InputDecoration(
@@ -94,18 +89,40 @@ class _DialogAmountListState extends State<DialogAmountList> {
                       List<String> listStringValue = [];
                       for (var x in newStringValue.runes) {
                         var char = String.fromCharCode(x);
-                        if (char == '0' ||
-                            char == '1' ||
-                            char == '2' ||
-                            char == '3' ||
-                            char == '4' ||
-                            char == '5' ||
-                            char == '6' ||
-                            char == '7' ||
-                            char == '8' ||
-                            char == '9' ||
-                            char == '.') {
-                          listStringValue.add(char);
+                        if (Provider.of<ServicesProvider>(context,
+                                listen: false)
+                            .englishOption) {
+                          if (char == '0' ||
+                              char == '1' ||
+                              char == '2' ||
+                              char == '3' ||
+                              char == '4' ||
+                              char == '5' ||
+                              char == '6' ||
+                              char == '7' ||
+                              char == '8' ||
+                              char == '9' ||
+                              char == '.') {
+                            listStringValue.add(char);
+                          }
+                        } else {
+                          if (char == '0' ||
+                              char == '1' ||
+                              char == '2' ||
+                              char == '3' ||
+                              char == '4' ||
+                              char == '5' ||
+                              char == '6' ||
+                              char == '7' ||
+                              char == '8' ||
+                              char == '9' ||
+                              char == ',') {
+                            if (char == ',') {
+                              listStringValue.add('.');
+                            } else {
+                              listStringValue.add(char);
+                            }
+                          }
                         }
                       }
                       String filterStringValue = listStringValue.join();
