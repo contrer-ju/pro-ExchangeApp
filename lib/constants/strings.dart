@@ -6,7 +6,7 @@ final Uri kEsByNcSaLiceneseURL =
     Uri.parse('https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es_ES');
 
 // Tools Bar Component
-const String kAppTitle = 'Exchange App';
+const String kAppTitle = 'ExchangeRates';
 const String kTermsTitle = 'Terms and Conditions';
 const String kPrivTitle = 'Privacy Policy';
 const String kCountryTab = 'Countries';
@@ -66,8 +66,8 @@ const String kMessageNotConex =
 
 //Share Plugin
 const String kShareMessage =
-    "Try this, the 'Exchange App', which lets you get the majority of fiat currencies, main cryptos, and references currencies rates. You can download this app from Play Store at the following link: https://play.google.com/store/";
-const String kShareTitle = 'Download and try the Exchange App';
+    "Try this, the 'ExchangeRates', which lets you get the majority of fiat currencies, main cryptos, and references currencies rates. You can download this app from Play Store at the following link: https://play.google.com/store/";
+const String kShareTitle = 'Download and try the ExchangeRates';
 
 //Bottom Sheet Feedback Component
 const String kBottomSheetSend = 'Send';
@@ -95,7 +95,7 @@ const List<String> kDropdownButtonList = <String>[
 
 //Terms Dialog Component
 const String kAcceptButton = 'Accept';
-const String kTerms1 = 'By using this app, you agree to the Exchange App ';
+const String kTerms1 = 'By using this app, you agree to the ExchangeRates ';
 const String kTerms2 = 'Terms and Conditions';
 const String kTerms3 = ' and ';
 const String kTerms4 = 'Privacy Policy';
@@ -108,7 +108,7 @@ const String kTerms7 = ' license.';
 const String kTermsPageTitle1 = 'IMPORTANTE:';
 const String kTermsPageTitle2 = 'LEA ESTE ACUERDO CUIDADOSAMENTE.';
 const String kTermsPagePart1 =
-    'Estos términos de servicio ("Acuerdo") se aplican a la aplicación conocida como Exchange App, de ahora en adelante mencionada como la “App”, tanto para Apple iOS y/o el sistema operativo Android de Google, y otras funciones interactivas o basadas en la web, descargas, aplicaciones y widgets disponibles a través de dichos sitios o aplicaciones que se publiquen mediante un enlace, independientemente de si se accede a través de una computadora, dispositivo móvil o de otra manera.';
+    'Estos términos de servicio ("Acuerdo") se aplican a la aplicación conocida como ExchangeRates, de ahora en adelante mencionada como la “App”, tanto para Apple iOS y/o el sistema operativo Android de Google, y otras funciones interactivas o basadas en la web, descargas, aplicaciones y widgets disponibles a través de dichos sitios o aplicaciones que se publiquen mediante un enlace, independientemente de si se accede a través de una computadora, dispositivo móvil o de otra manera.';
 const String kTermsPagePart2 =
     'Este Acuerdo establece los términos y condiciones que rigen el uso de la App, y al acceder o utilizar la App, usted acepta y acepta estar legalmente vinculado por este Acuerdo. Si no está de acuerdo con los Términos a continuación expuestos, no instale, acceda y/o use la App, adicionalmente elimine la App de sus dispositivos.';
 const String kTermsPageSubtitle1 = 'ACTIVIDADES PROHIBIDAS';
@@ -169,7 +169,7 @@ const String kTermsPagePart24 =
 
 //Privacy Page
 const String kPrivPagePart1 =
-    'Esta Política de privacidad explica cómo se recopila, utiliza y pueda ser divulgada la información personal que recibimos cuando utiliza nuestros Servicios. Nuestros "Servicios" se refieren al uso la aplicación conocida como Exchange App, de ahora en adelante mencionada como la “App”, y a las aplicaciones móviles de terceros que se incorporan a nuestra plataforma en forma de publicidad. Debido a que habilitamos a estos terceros en la App, se puede considerar que difundimos datos de los usuarios a estos terceros. Las aplicaciones móviles de terceros pueden usar cookies, identificadores hash o tecnologías similares para brindarle publicidad relevante basada en sus actividades e intereses de navegación.';
+    'Esta Política de privacidad explica cómo se recopila, utiliza y pueda ser divulgada la información personal que recibimos cuando utiliza nuestros Servicios. Nuestros "Servicios" se refieren al uso la aplicación conocida como ExchangeRates, de ahora en adelante mencionada como la “App”, y a las aplicaciones móviles de terceros que se incorporan a nuestra plataforma en forma de publicidad. Debido a que habilitamos a estos terceros en la App, se puede considerar que difundimos datos de los usuarios a estos terceros. Las aplicaciones móviles de terceros pueden usar cookies, identificadores hash o tecnologías similares para brindarle publicidad relevante basada en sus actividades e intereses de navegación.';
 const String kPrivPageSubTitle1 = 'SU INFORMACIÓN';
 const String kPrivPagePart2 =
     'Usted proporciona su información manualmente mientras usa nuestros Servicios, por ejemplo, al enviarnos una sugerencia o reportarnos un error. También recopilamos información personal cuando se comunica con nosotros o solicita información de forma directa mediante correo electrónico o mensaje de texto.';
@@ -287,7 +287,7 @@ const String kEsMessageNotConex =
 //Share Plugin
 const String kEsShareMessage =
     "Prueba esta aplicación, que te permite obtener la mayoría de las tasas de cambio de monedas fiduciarias, principales criptos y monedas de referencia. Puede descargarla desde Play Store en el siguiente enlace: https://play.google.com/store/";
-const String kEsShareTitle = 'Descarga y prueba la Exchange App';
+const String kEsShareTitle = 'Descarga y prueba la ExchangeRates';
 
 //Bottom Sheet Feedback Component
 const String kEsBottomSheetSend = 'Enviar';
@@ -321,7 +321,7 @@ const String kEsTerms2 = 'Términos y condiciones';
 const String kEsTerms3 = ', y la ';
 const String kEsTerms4 = 'Política de privacidad';
 const String kEsTerms5 =
-    ' de Exchange App. El código de esta aplicación posee la licencia ';
+    ' de ExchangeRates. El código de esta aplicación posee la licencia ';
 const String kEsTerms6 = 'CC BY-NC-SA 4.0';
 const String kEsTerms7 = ' de Creative Commons.';
 
@@ -329,7 +329,7 @@ const String kEsTerms7 = ' de Creative Commons.';
 const String kEsTermsPageTitle1 = 'IMPORTANTE:';
 const String kEsTermsPageTitle2 = 'LEA ESTE ACUERDO CUIDADOSAMENTE.';
 const String kEsTermsPagePart1 =
-    'Estos términos de servicio ("Acuerdo") se aplican a la aplicación conocida como Exchange App, de ahora en adelante mencionada como la “App”, tanto para Apple iOS y/o el sistema operativo Android de Google, y otras funciones interactivas o basadas en la web, descargas, aplicaciones y widgets disponibles a través de dichos sitios o aplicaciones que se publiquen mediante un enlace, independientemente de si se accede a través de una computadora, dispositivo móvil o de otra manera.';
+    'Estos términos de servicio ("Acuerdo") se aplican a la aplicación conocida como ExchangeRates, de ahora en adelante mencionada como la “App”, tanto para Apple iOS y/o el sistema operativo Android de Google, y otras funciones interactivas o basadas en la web, descargas, aplicaciones y widgets disponibles a través de dichos sitios o aplicaciones que se publiquen mediante un enlace, independientemente de si se accede a través de una computadora, dispositivo móvil o de otra manera.';
 const String kEsTermsPagePart2 =
     'Este Acuerdo establece los términos y condiciones que rigen el uso de la App, y al acceder o utilizar la App, usted acepta y acepta estar legalmente vinculado por este Acuerdo. Si no está de acuerdo con los Términos a continuación expuestos, no instale, acceda y/o use la App, adicionalmente elimine la App de sus dispositivos.';
 const String kEsTermsPageSubtitle1 = 'ACTIVIDADES PROHIBIDAS';
@@ -391,7 +391,7 @@ const String kEsTermsPagePart24 =
 
 //Privacy Page
 const String kEsPrivPagePart1 =
-    'Esta Política de privacidad explica cómo se recopila, utiliza y pueda ser divulgada la información personal que recibimos cuando utiliza nuestros Servicios. Nuestros "Servicios" se refieren al uso la aplicación conocida como Exchange App, de ahora en adelante mencionada como la “App”, y a las aplicaciones móviles de terceros que se incorporan a nuestra plataforma en forma de publicidad. Debido a que habilitamos a estos terceros en la App, se puede considerar que difundimos datos de los usuarios a estos terceros. Las aplicaciones móviles de terceros pueden usar cookies, identificadores hash o tecnologías similares para brindarle publicidad relevante basada en sus actividades e intereses de navegación.';
+    'Esta Política de privacidad explica cómo se recopila, utiliza y pueda ser divulgada la información personal que recibimos cuando utiliza nuestros Servicios. Nuestros "Servicios" se refieren al uso la aplicación conocida como ExchangeRates, de ahora en adelante mencionada como la “App”, y a las aplicaciones móviles de terceros que se incorporan a nuestra plataforma en forma de publicidad. Debido a que habilitamos a estos terceros en la App, se puede considerar que difundimos datos de los usuarios a estos terceros. Las aplicaciones móviles de terceros pueden usar cookies, identificadores hash o tecnologías similares para brindarle publicidad relevante basada en sus actividades e intereses de navegación.';
 const String kEsPrivPageSubTitle1 = 'SU INFORMACIÓN';
 const String kEsPrivPagePart2 =
     'Usted proporciona su información manualmente mientras usa nuestros Servicios, por ejemplo, al enviarnos una sugerencia o reportarnos un error. También recopilamos información personal cuando se comunica con nosotros o solicita información de forma directa mediante correo electrónico o mensaje de texto.';
