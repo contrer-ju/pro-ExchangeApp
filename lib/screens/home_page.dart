@@ -401,7 +401,7 @@ Tipo de cambio: 1 ${baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'rv_
 Fecha: $dateEs
 Hora: ${timeFormat(now.hour, now.minute)}
 
-Información compartida por Exchange App, obten la App en el siguiente enlace: ''';
+Información compartida por ExchangeRates, obten la App en el siguiente enlace: ''';
     String messageEn =
         '''The amount corresponding to ${currencyFormat.format(baseAmount)} ${baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : baseSelectedCurrency.currencyISOCode.toUpperCase()} is equal to ${currencyFormat.format(baseAmount * rate)} ${selectedCurrency.currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : selectedCurrency.currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : selectedCurrency.currencyISOCode.toUpperCase()}.
 
@@ -409,7 +409,7 @@ Exchange rate: 1 ${baseSelectedCurrency.currencyISOCode.substring(0, 3) == 'rv_'
 Date: $dateEn
 Time: ${timeFormat(now.hour, now.minute)}
 
-Information shared by Exchange App, get the App in the following link: ''';
+Information shared by ExchangeRates, get the App in the following link: ''';
 
     final box = context.findRenderObject() as RenderBox?;
     await Share.share(isEnglish ? messageEn : messageEs,
