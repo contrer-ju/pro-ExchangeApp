@@ -301,7 +301,22 @@ class _HomePageState extends State<HomePage> {
                                                     selectedCurrenciesList[
                                                                 index]
                                                             .currencyRate ==
-                                                        0
+                                                        0 ||
+                                                    baseSelectedCurrency
+                                                            .currencyRate ==
+                                                        0 ||
+                                                    selectedCurrenciesList[
+                                                            index]
+                                                        .currencyRate
+                                                        .isNaN ||
+                                                    baseSelectedCurrency
+                                                        .currencyRate.isNaN ||
+                                                    selectedCurrenciesList[
+                                                            index]
+                                                        .currencyRate
+                                                        .isInfinite ||
+                                                    baseSelectedCurrency
+                                                        .currencyRate.isInfinite
                                                 ? '${selectedCurrenciesList[index].currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : selectedCurrenciesList[index].currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : selectedCurrenciesList[index].currencyISOCode.toUpperCase()} 0.00'
                                                 : '${selectedCurrenciesList[index].currencyISOCode.substring(0, 3) == 'rv_' ? 'VES' : selectedCurrenciesList[index].currencyISOCode.substring(0, 3) == 'ra_' ? 'ARS' : selectedCurrenciesList[index].currencyISOCode.toUpperCase()} ${currencyFormat.format(baseSelectedAmount * selectedCurrenciesList[index].currencyRate / baseSelectedCurrency.currencyRate)}',
                                             style: Theme.of(context)
