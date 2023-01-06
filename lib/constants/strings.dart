@@ -21,7 +21,7 @@ const String kSearchNoResult = 'There are no results matching your search';
 const String kNothingToUpdate = 'Please add some coins to the list';
 
 //Selected Currency Tile Component
-const String kUpdateRates = 'Rate not updated';
+const String kUpdateRates = 'Could not be updated';
 
 //Amount Dialog Component
 const String kTitleDialog = 'Enter the amount:';
@@ -55,9 +55,11 @@ const String kWelcomeTitle =
     'Follow this tutorial to learn how to use the App. Please, first select a language:';
 
 //Toast Component
-const String kMessageUpdateTrue = "Rates update successful";
+const String kMessageUpdateTrue = "The rate update is complete";
 const String kMessageUpdateFail = "Rates could not be updated, try later";
-const String kMessagePleaseUpdate = "Rates must be updated first";
+const String kMessageUpdateRecently =
+    "Rates were recently updated, please try again later";
+const String kMessagePleaseUpdate = "This rate must be updated before continuing";
 const String kMessagePushTrue = "Your comment was received, thanks";
 const String kMessagePushFail =
     "Your comment could not be sent, please try again later";
@@ -240,7 +242,7 @@ const String kEsSearchNoResult =
 const String kEsNothingToUpdate = 'Por favor añade monedas a la lista';
 
 //Selected Currency Tile Component
-const String kEsUpdateRates = 'Tasa no actualizada';
+const String kEsUpdateRates = 'No se pudo actualizar';
 
 //Amount Dialog Component
 const String kEsTitleDialog = 'Introduzca la cantidad:';
@@ -274,10 +276,12 @@ const String kEsWelcomeTitle =
     'Sigue este tutorial para aprender a usar la App. Por favor, primero seleccione un idioma:';
 
 //Toast Component
-const String kEsMessageUpdateTrue = "Tasas actualizadas satisfactoriamente";
+const String kEsMessageUpdateTrue = "Se completo la actualización de tasas";
 const String kEsMessageUpdateFail =
     "No fue posible actualizar las tasas, vuelve a intentarlo más tarde";
-const String kEsMessagePleaseUpdate = "Actualiza las tasas antes de continuar";
+const String kEsMessageUpdateRecently =
+    "Las tarifas se actualizaron recientemente, inténtelo de nuevo más tarde";
+const String kEsMessagePleaseUpdate = "Esta tasa debe ser actualizada antes de continuar";
 const String kEsMessagePushTrue = "Su comentario fue recibido, gracias";
 const String kEsMessagePushFail =
     "Su comentario no pudo ser enviado, inténtelo de nuevo más tarde";

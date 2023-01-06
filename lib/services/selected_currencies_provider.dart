@@ -33,6 +33,7 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
   List<SelectedCurrencies> selectedToDeleteCurrenciesList = [];
   List<SelectedCurrencies> searchedToDeleteCurrenciesList = [];
   String selectedSearchKeyword = "";
+  int lastUpdateTime = 0;
 
   Future<bool> getCurrenciesRates() async {
     List currenciesRatesData = [];
@@ -56,6 +57,7 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
                       : currenciesRatesData[i]['currencyRate']);
           currenciesRatesList.add(currenciesRateValue);
         }
+        lastUpdateTime = DateTime.now().millisecondsSinceEpoch;
         notifyListeners();
         return true;
       }
@@ -423,7 +425,8 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
     if (baseSelectedCurrency.currencyName != '') {
       bool listWasUpdated = false;
       bool hasConnection = await connectionTest();
-      if (hasConnection) {
+      bool mustUpdateRates = canUpdateRates();
+      if (hasConnection && mustUpdateRates) {
         listWasUpdated = await getCurrenciesRates();
       }
 
@@ -457,8 +460,15 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
         showToastAlert(isEnglish ? kMessageUpdateTrue : kEsMessageUpdateTrue,
             bColor, tColor);
       } else {
-        showToastAlert(isEnglish ? kMessageUpdateFail : kEsMessageUpdateFail,
-            bColor, tColor);
+        if (mustUpdateRates) {
+          showToastAlert(isEnglish ? kMessageUpdateFail : kEsMessageUpdateFail,
+              bColor, tColor);
+        } else {
+          showToastAlert(
+              isEnglish ? kMessageUpdateRecently : kEsMessageUpdateRecently,
+              bColor,
+              tColor);
+        }
       }
     }
   }
@@ -639,5 +649,34 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
       }
     }
     notifyListeners();
+  }
+
+  bool canUpdateRates() {
+    if (selectedCurrenciesList.isNotEmpty ||
+        baseSelectedCurrency.currencyName != '') {
+      if (baseSelectedCurrency.currencyRate == 0 ||
+          baseSelectedCurrency.currencyRate.isNaN ||
+          baseSelectedCurrency.currencyRate.isInfinite) {
+        return true;
+      }
+      for (int i = 0; i < selectedCurrenciesList.length; i++) {
+        if (selectedCurrenciesList[i].currencyRate == 0 ||
+            selectedCurrenciesList[i].currencyRate.isNaN ||
+            selectedCurrenciesList[i].currencyRate.isInfinite) {
+          return true;
+        }
+      }
+    }
+
+    if (lastUpdateTime == 0) {
+      return true;
+    } else {
+      int now = DateTime.now().millisecondsSinceEpoch;
+      if (now - lastUpdateTime > 3600000) {
+        return true;
+      }
+    }
+
+    return false;
   }
 }
