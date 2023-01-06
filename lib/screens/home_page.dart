@@ -192,13 +192,51 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                     ),
                                     title: GestureDetector(
-                                      onDoubleTap: () => _onShareRate(
-                                          context,
-                                          selectedCurrenciesList[index],
-                                          selectedCurrenciesList[index]
-                                                  .currencyRate /
-                                              baseSelectedCurrency.currencyRate,
-                                          baseSelectedAmount),
+                                      onDoubleTap: () {
+                                        if (selectedCurrenciesList[index]
+                                                    .currencyRate ==
+                                                0 ||
+                                            selectedCurrenciesList[index]
+                                                .currencyRate
+                                                .isNaN ||
+                                            selectedCurrenciesList[index]
+                                                .currencyRate
+                                                .isInfinite ||
+                                            baseSelectedCurrency.currencyRate ==
+                                                0 ||
+                                            baseSelectedCurrency
+                                                .currencyRate.isNaN ||
+                                            baseSelectedCurrency
+                                                .currencyRate.isInfinite) {
+                                          Provider.of<SelectedCurrenciesProvider>(
+                                                  context,
+                                                  listen: false)
+                                              .showToastAlert(
+                                                  Provider.of<ServicesProvider>(
+                                                              context,
+                                                              listen: false)
+                                                          .englishOption
+                                                      ? kMessagePleaseUpdate
+                                                      : kEsMessagePleaseUpdate,
+                                                  Provider.of<ServicesProvider>(
+                                                              context,
+                                                              listen: false)
+                                                          .darkThemeSelected
+                                                      ? darkYellow
+                                                      : darkGreen,
+                                                  Theme.of(context)
+                                                      .scaffoldBackgroundColor);
+                                        } else {
+                                          _onShareRate(
+                                              context,
+                                              selectedCurrenciesList[index],
+                                              selectedCurrenciesList[index]
+                                                      .currencyRate /
+                                                  baseSelectedCurrency
+                                                      .currencyRate,
+                                              baseSelectedAmount);
+                                        }
+                                      },
                                       child: Text(
                                         Provider.of<ServicesProvider>(context)
                                                 .englishOption
@@ -212,13 +250,51 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                     ),
                                     subtitle: GestureDetector(
-                                      onDoubleTap: () => _onShareRate(
-                                          context,
-                                          selectedCurrenciesList[index],
-                                          selectedCurrenciesList[index]
-                                                  .currencyRate /
-                                              baseSelectedCurrency.currencyRate,
-                                          baseSelectedAmount),
+                                      onDoubleTap: () {
+                                        if (selectedCurrenciesList[index]
+                                                    .currencyRate ==
+                                                0 ||
+                                            selectedCurrenciesList[index]
+                                                .currencyRate
+                                                .isNaN ||
+                                            selectedCurrenciesList[index]
+                                                .currencyRate
+                                                .isInfinite ||
+                                            baseSelectedCurrency.currencyRate ==
+                                                0 ||
+                                            baseSelectedCurrency
+                                                .currencyRate.isNaN ||
+                                            baseSelectedCurrency
+                                                .currencyRate.isInfinite) {
+                                          Provider.of<SelectedCurrenciesProvider>(
+                                                  context,
+                                                  listen: false)
+                                              .showToastAlert(
+                                                  Provider.of<ServicesProvider>(
+                                                              context,
+                                                              listen: false)
+                                                          .englishOption
+                                                      ? kMessagePleaseUpdate
+                                                      : kEsMessagePleaseUpdate,
+                                                  Provider.of<ServicesProvider>(
+                                                              context,
+                                                              listen: false)
+                                                          .darkThemeSelected
+                                                      ? darkYellow
+                                                      : darkGreen,
+                                                  Theme.of(context)
+                                                      .scaffoldBackgroundColor);
+                                        } else {
+                                          _onShareRate(
+                                              context,
+                                              selectedCurrenciesList[index],
+                                              selectedCurrenciesList[index]
+                                                      .currencyRate /
+                                                  baseSelectedCurrency
+                                                      .currencyRate,
+                                              baseSelectedAmount);
+                                        }
+                                      },
                                       child: Text(
                                         (!selectedCurrenciesList[index]
                                                         .wasUpdated &&
