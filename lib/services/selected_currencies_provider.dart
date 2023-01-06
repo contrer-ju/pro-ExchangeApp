@@ -33,7 +33,7 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
   List<SelectedCurrencies> selectedToDeleteCurrenciesList = [];
   List<SelectedCurrencies> searchedToDeleteCurrenciesList = [];
   String selectedSearchKeyword = "";
-  int lastUpdateTime = 0;
+  int lastUpdateTime = Hive.box('lastUpdateBox').get('value') ?? 0;
 
   Future<bool> getCurrenciesRates() async {
     List currenciesRatesData = [];
@@ -58,6 +58,7 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
           currenciesRatesList.add(currenciesRateValue);
         }
         lastUpdateTime = DateTime.now().millisecondsSinceEpoch;
+        Hive.box('lastUpdateBox').put('value', lastUpdateTime);
         notifyListeners();
         return true;
       }
@@ -317,7 +318,8 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
       bool currenciesRatesListWasUpdated = false;
       final boxSelectedCurrenciesListLength = boxSelectedCurrenciesList.length;
       bool hasConnection = await connectionTest();
-      if (hasConnection) {
+      bool mustUpdateRates = canUpdateRates();
+      if (hasConnection && mustUpdateRates) {
         currenciesRatesListWasUpdated = await getCurrenciesRates();
       }
 

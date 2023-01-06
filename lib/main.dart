@@ -25,6 +25,7 @@ void main() async {
   await Hive.openBox('baseSelectedAmount');
   await Hive.openBox('darkThemeSelectedBox');
   await Hive.openBox('englishOptionBox');
+  await Hive.openBox('lastUpdateBox');
   Hive.registerAdapter(SelectedCurrenciesBoxAdapter());
   await Hive.openBox<SelectedCurrenciesBox>('currenciesListBox');
   MobileAds.instance.initialize();
