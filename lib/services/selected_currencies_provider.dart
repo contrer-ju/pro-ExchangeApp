@@ -38,7 +38,7 @@ class SelectedCurrenciesProvider extends ChangeNotifier {
   Future<bool> getCurrenciesRates() async {
     List currenciesRatesData = [];
     CollectionReference ratesCollection =
-        FirebaseFirestore.instance.collection("rates");
+        FirebaseFirestore.instance.collection("currenciesRates");
     QuerySnapshot rates = await ratesCollection.get();
 
     if (rates.docs.isNotEmpty) {
