@@ -23,8 +23,8 @@ class _AdDialogContainerState extends State<AdDialogContainer> {
 
   Future<void> _loadAd() async {
     _squareAd = BannerAd(
-      adUnitId: 'ca-app-pub-3940256099942544/6300978111',
-      // Platform.isAndroid
+      adUnitId: 'ca-app-pub-8848305379460757/3561172182',
+      // adUnitId: Platform.isAndroid
       //     ? 'ca-app-pub-3940256099942544/6300978111'
       //     : 'ca-app-pub-3940256099942544/2934735716',
       size: const AdSize(

@@ -34,8 +34,8 @@ class _AdBannerContainerState extends State<AdBannerContainer> {
     }
 
     _anchoredAdaptiveAd = BannerAd(
-      adUnitId: 'ca-app-pub-3940256099942544/6300978111',
-      // Platform.isAndroid
+      adUnitId: 'ca-app-pub-8848305379460757/9481160460',
+      // adUnitId: Platform.isAndroid
       //     ? 'ca-app-pub-3940256099942544/6300978111'
       //     : 'ca-app-pub-3940256099942544/2934735716',
       size: size,
