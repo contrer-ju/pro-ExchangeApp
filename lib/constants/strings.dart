@@ -217,7 +217,7 @@ const String kMoveOnTheListMessage =
     'Hold down here while moving a coin up or down within the list.';
 const String kShareRateTitle = 'Share an exchange rate.';
 const String kShareRateMessage =
-    'Double-tap here to share an exchange rate with your contacts.';
+    'Press and hold here to share an exchange rate with your contacts.';
 
 //***********************************************************************************************************************************/
 //***********************************************************************************************************************************/
@@ -442,4 +442,4 @@ const String kEsMoveOnTheListMessage =
     'Mantenga presionado aquí mientras mueve una moneda hacia arriba o hacia abajo dentro de la lista.';
 const String kEsShareRateTitle = 'Comparte un tipo de cambio.';
 const String kEsShareRateMessage =
-    'Toca dos veces aquí para compartir un tipo de cambio con tus contactos.';
+    'Mantenga presionado aquí para compartir un tipo de cambio con tus contactos.';

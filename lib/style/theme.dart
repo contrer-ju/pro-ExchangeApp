@@ -47,8 +47,8 @@ const EdgeInsetsGeometry kSDescriptionBoxDimensions =
 
 //Currencies List Tile
 const double kElevationCurrencyCard = 10.0;
-const double kFlagImageWidth = 53.0;
-const double kFlagImageHeight = 40.0;
+const double kFlagImageWidth = 42.0;
+const double kFlagImageHeight = 32.0;
 const double kRightSpaceOnCurrencyCardIcon = 19.0;
 const double kMainCardBorderRadius = 10.0;
 const double kMainCardBorderWidth = 2.0;
@@ -135,9 +135,9 @@ const TextStyle appBarSubtitleTextStyle = TextStyle(
 
 const TextStyle targetContentTitle = TextStyle(
   color: Colors.black,
-  fontSize: 21.0,
+  fontSize: 20.0,
   fontFamily: 'SF-UI-DISPLAY',
-  fontWeight: FontWeight.w600,
+  fontWeight: FontWeight.w500,
 );
 
 const TextStyle targetContentMessage = TextStyle(

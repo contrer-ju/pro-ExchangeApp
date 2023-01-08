@@ -192,7 +192,7 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                     ),
                                     title: GestureDetector(
-                                      onDoubleTap: () {
+                                      onLongPress: () {
                                         if (selectedCurrenciesList[index]
                                                     .currencyRate ==
                                                 0 ||
@@ -250,7 +250,7 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                     ),
                                     subtitle: GestureDetector(
-                                      onDoubleTap: () {
+                                      onLongPress: () {
                                         if (selectedCurrenciesList[index]
                                                     .currencyRate ==
                                                 0 ||
