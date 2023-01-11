@@ -186,7 +186,7 @@ const String kPrivPagePart5 =
     'We do not sell, rent, lease or share the information collected with third parties.';
 const String kPrivPageSubTitle5 = 'SAFETY';
 const String kPrivPagePart6 =
-    'We use reasonable technical, organizational, and administrative measures to protect your Personal Information under our control. Unfortunately, no data transmission over the Internet or through data storage systems can be considered 100% secure. If there is any reason why you believe that your relationship and/or communication with us is no longer secure, please notify us immediately by contacting us at contrerju@gmail.com.';
+    'We use reasonable technical, organizational, and administrative measures to protect your Personal Information under our control. Unfortunately, no data transmission over the Internet or through data storage systems can be considered 100% secure. If there is any reason why you believe that your relationship and/or communication with us is no longer secure, please notify us immediately by contacting us at devs.avatars@gmail.com.';
 const String kPrivPageSubTitle6 = 'MODIFICATIONS';
 const String kPrivPagePart7 =
     'We reserve the right to change this Privacy Policy at any time. If we make any material changes, we will notify you by placing a prominent notice in the App and/or via email. Any changes will be effective immediately upon posting of the revised Privacy Policy and your subsequent use of the App.';
@@ -410,7 +410,7 @@ const String kEsPrivPagePart5 =
     'Nosotros no vendemos, rentamos, arrendamos o compartimos la información recolectada a terceros.';
 const String kEsPrivPageSubTitle5 = 'SEGURIDAD';
 const String kEsPrivPagePart6 =
-    'Utilizamos medidas técnicas , organizacionales y administrativas razonables para proteger su Información Personal que se encuentra bajo nuestro control. Desafortunadamente, ninguna transmisión de datos a través de internet o a través del sistema de almacenamiento de datos puede ser considerada como 100% segura. Si existe alguna razón por la que crea que su relación y/o comunicación con nosotros ya no es segura, por favor notifíquenos inmediatamente, comunicándose con nosotros a través del correo electrónico contrerju@gmail.com.';
+    'Utilizamos medidas técnicas , organizacionales y administrativas razonables para proteger su Información Personal que se encuentra bajo nuestro control. Desafortunadamente, ninguna transmisión de datos a través de internet o a través del sistema de almacenamiento de datos puede ser considerada como 100% segura. Si existe alguna razón por la que crea que su relación y/o comunicación con nosotros ya no es segura, por favor notifíquenos inmediatamente, comunicándose con nosotros a través del correo electrónico devs.avatars@gmail.com.';
 const String kEsPrivPageSubTitle6 = 'MODIFICACIONES';
 const String kEsPrivPagePart7 =
     'Nos reservamos el derecho de cambiar esta Política de Privacidad en cualquier momento. Si realizamos algún cambio importante, se lo notificaremos colocando un aviso destacado en la App y/o a través de correo electrónico. Cualquier cambio entrará en vigencia inmediatamente después de la publicación de la Política de privacidad revisada y su uso posterior de la App.';

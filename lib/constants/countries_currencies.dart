@@ -9,7 +9,7 @@ List<CountryCurrency> kCountriesCurrenciesList = [
     region: "Main",
     isChecked: false,
     firstItem: false,
-    moneda: 'Dólar estadounidense',
+    moneda: 'Dólar',
     pais: 'Estados Unidos',
     zona: 'Main',
   ),
